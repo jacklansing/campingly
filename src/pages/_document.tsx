@@ -15,7 +15,7 @@ export default class extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" style={{ minHeight: '100vh' }}>
         <Head />
         <body>
           <InitializeColorMode />

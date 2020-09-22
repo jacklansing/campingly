@@ -83,7 +83,11 @@ const NavBar: React.FC = ({}) => {
     );
   }
 
-  return <Box as="nav">{navBar}</Box>;
+  return (
+    <Box as="nav" sx={{ display: ['none', 'none', 'block'] }}>
+      {navBar}
+    </Box>
+  );
 };
 
 export default NavBar;

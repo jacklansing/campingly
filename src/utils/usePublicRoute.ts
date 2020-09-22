@@ -7,7 +7,7 @@ export const usePublicRoute = () => {
   const [{ data, fetching }] = useMeQuery();
   useEffect(() => {
     if (!fetching && data?.me) {
-      router.replace('/private-page');
+      router.replace('/campsites');
     }
   }, [fetching, data, router]);
 };
