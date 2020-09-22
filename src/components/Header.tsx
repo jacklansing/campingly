@@ -15,7 +15,7 @@ const Header: React.FC = () => {
       bg="translucent"
     >
       <Heading as="h5" sx={{ variant: 'headings.h2' }}>
-        Next-Theme-UI Boiler
+        Campingly
       </Heading>
       <NavBar />
     </Flex>

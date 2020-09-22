@@ -21,9 +21,9 @@ export default {
   letterSpacings: ['0.00938em', '0.02857em'],
   colors: {
     text: '#000',
-    primary: '#005E73',
-    dark: '#004150',
-    light: '#337e8f',
+    primary: '#005945',
+    dark: '#002f1e',
+    light: '#3d8670',
     accent: '#00fff0',
     background: '#fafaf6',
     white: '#FFF',
