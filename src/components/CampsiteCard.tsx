@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Image, Heading } from 'theme-ui';
 import router from 'next/router';
+import DateRange from './DateRange';
 
 interface Props {}
 
@@ -47,14 +48,22 @@ const CampsiteCard: React.FC<Props> = ({}) => {
       <Heading as="h3" variant="headings.h3" sx={{ textAlign: 'center' }}>
         Holmes Lake
       </Heading>
-      <Heading
+      <DateRange
+        as="h4"
+        variant="headings.h5"
+        startDate="9/24"
+        endDate="9/25"
+        mt={2}
+        mx="auto"
+      />
+      {/* <Heading
         as="h4"
         variant="headings.h5"
         mt={1}
         sx={{ textAlign: 'center', fontWeight: 'body' }}
       >
         9/24 - 9/25
-      </Heading>
+      </Heading> */}
     </Box>
   );
 };
