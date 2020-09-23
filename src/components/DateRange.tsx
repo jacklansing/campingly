@@ -8,7 +8,12 @@ const DateBox = ({ children }) => (
     as="span"
     px={3}
     py={'.444rem'}
-    sx={{ backgroundColor: 'primary', borderRadius: 1, color: 'white' }}
+    sx={{
+      backgroundColor: 'primary',
+      borderRadius: 1,
+      color: 'white',
+      boxShadow: 1,
+    }}
   >
     {children}
   </Box>

@@ -18,7 +18,7 @@ const CampsitePage: React.FC<Props> = ({}) => {
         src="/assets/campsite-ground.svg"
         sx={{ maxWidth: [null, null, '33%'] }}
       />
-      <Heading as="h1" variant="headings.h2" sx={{ textAlign: 'center' }}>
+      <Heading as="h1" variant="headings.h2">
         Holmes Lake
       </Heading>
       <DateRange
@@ -28,6 +28,9 @@ const CampsitePage: React.FC<Props> = ({}) => {
         endDate="9/25"
         mt={3}
       />
+      <Heading as="h3" variant="headings.h3" mt={5}>
+        Camping Gear
+      </Heading>
     </Layout>
   );
 };
