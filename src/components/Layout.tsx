@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children, ...props }) => {
         as="main"
         sx={{
           display: 'flex',
-          width: ['96%', '90%', '80%'],
+          width: ['98%', '96%', '80%'],
           flexFlow: 'column wrap',
           alignItems: 'center',
           justifyContent: 'flex-start',

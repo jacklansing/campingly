@@ -56,14 +56,6 @@ const CampsiteCard: React.FC<Props> = ({}) => {
         mt={2}
         mx="auto"
       />
-      {/* <Heading
-        as="h4"
-        variant="headings.h5"
-        mt={1}
-        sx={{ textAlign: 'center', fontWeight: 'body' }}
-      >
-        9/24 - 9/25
-      </Heading> */}
     </Box>
   );
 };

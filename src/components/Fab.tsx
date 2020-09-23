@@ -16,14 +16,14 @@ const Expanded: React.FC<ExpandedProps> = ({ show }) => {
         bottom: '120px',
         right: 4,
         transition: 'all .1s ease',
-        transform: show ? 'scale(0)' : 'scale(1)',
-        opacity: show ? 0 : 1,
+        transform: show ? 'scale(1)' : 'scale(0)',
+        opacity: show ? 1 : 0,
         transformOrigin: 'bottom right',
         listStyle: 'none',
         padding: 0,
         margin: 0,
         backgroundColor: 'pink',
-        zIndex: show ? 1 : 0,
+        zIndex: show ? 0 : 1,
         height: 'fit-content',
       }}
     >
@@ -52,6 +52,7 @@ const Fab: React.FC<Props> = ({}) => {
     <>
       <Expanded show={expand} />
       <Button
+        aria-label="show campsite options"
         onClick={() => setExpand(!expand)}
         sx={{
           height: ['60px', '75px'],
@@ -70,9 +71,9 @@ const Fab: React.FC<Props> = ({}) => {
         }}
       >
         {expand ? (
-          <BackpackIcon sx={{ maxHeight: '100%' }} />
-        ) : (
           <ExitIcon sx={{ maxHeight: '40%', maxWidth: '50%' }} />
+        ) : (
+          <BackpackIcon sx={{ maxHeight: '100%' }} />
         )}
       </Button>
     </>

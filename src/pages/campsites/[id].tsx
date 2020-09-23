@@ -7,6 +7,7 @@ import { usePrivateRoute } from '../../utils/usePrivateRoute';
 import { Heading, Image, jsx } from 'theme-ui';
 import DateRange from '../../components/DateRange';
 import Fab from '../../components/Fab';
+import GearCategory from '../../components/GearCategory';
 
 interface Props {}
 
@@ -32,6 +33,8 @@ const CampsitePage: React.FC<Props> = ({}) => {
       <Heading as="h3" variant="headings.h3" mt={5}>
         Camping Gear
       </Heading>
+      <GearCategory />
+      <GearCategory />
       <Fab />
     </Layout>
   );
