@@ -333,6 +333,17 @@ export type RegisterMutation = (
   ) }
 );
 
+export type GetAllCampsitesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllCampsitesQuery = (
+  { __typename?: 'Query' }
+  & { allCampsites: Array<(
+    { __typename?: 'Campsite' }
+    & Pick<Campsite, 'id' | 'name' | 'startingDate' | 'endingDate'>
+  )> }
+);
+
 export type GetCategoriesQueryVariables = Exact<{
   campsiteId: Scalars['Int'];
 }>;
@@ -465,6 +476,20 @@ export const RegisterDocument = gql`
 
 export function useRegisterMutation() {
   return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument);
+};
+export const GetAllCampsitesDocument = gql`
+    query GetAllCampsites {
+  allCampsites {
+    id
+    name
+    startingDate
+    endingDate
+  }
+}
+    `;
+
+export function useGetAllCampsitesQuery(options: Omit<Urql.UseQueryArgs<GetAllCampsitesQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetAllCampsitesQuery>({ query: GetAllCampsitesDocument, ...options });
 };
 export const GetCategoriesDocument = gql`
     query GetCategories($campsiteId: Int!) {

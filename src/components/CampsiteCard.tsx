@@ -2,10 +2,15 @@ import React from 'react';
 import { Box, Image, Heading } from 'theme-ui';
 import router from 'next/router';
 import DateRange from './DateRange';
+import { formatDate } from '../utils/formatDate';
 
-interface Props {}
+interface Props {
+  name: string;
+  startDate: string;
+  endDate: string;
+}
 
-const CampsiteCard: React.FC<Props> = ({}) => {
+const CampsiteCard: React.FC<Props> = ({ name, startDate, endDate }) => {
   return (
     <Box
       sx={{
@@ -46,13 +51,13 @@ const CampsiteCard: React.FC<Props> = ({}) => {
         alt="campsite"
       />
       <Heading as="h3" variant="headings.h3" sx={{ textAlign: 'center' }}>
-        Holmes Lake
+        {name}
       </Heading>
       <DateRange
         as="h4"
         variant="headings.h5"
-        startDate="9/24"
-        endDate="9/25"
+        startDate={formatDate(startDate)}
+        endDate={formatDate(endDate)}
         mt={2}
         mx="auto"
       />
