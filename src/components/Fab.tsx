@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import { Button, jsx } from 'theme-ui';
 import BackpackIcon from '../assets/icons/backpack-icon.svg';
 import ExitIcon from '../assets/icons/exit-icon.svg';
+import { useRouter } from 'next/router';
 
 interface ExpandedProps {
   show: boolean;
 }
 
 const Expanded: React.FC<ExpandedProps> = ({ show }) => {
+  const router = useRouter();
   return (
     <ul
       sx={{
@@ -28,8 +30,19 @@ const Expanded: React.FC<ExpandedProps> = ({ show }) => {
       }}
     >
       <li>
-        <Button sx={{ borderRadius: 1, height: ['50px'], width: ['100%'] }}>
-          New Location
+        <Button
+          sx={{ borderRadius: 1, height: ['50px'], width: ['100%'] }}
+          onClick={() =>
+            router.push(
+              `/campsites/${router.query.id}/?newCategory=true`,
+              `/campsites/${router.query.id}`,
+              {
+                shallow: true,
+              },
+            )
+          }
+        >
+          New Category
         </Button>
       </li>
       <li>

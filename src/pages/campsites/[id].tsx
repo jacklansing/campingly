@@ -5,14 +5,17 @@ import Layout from '../../components/Layout';
 import { createUrqlClient } from '../../utils/createUrqlClient';
 import { usePrivateRoute } from '../../utils/usePrivateRoute';
 import { Heading, Image, jsx } from 'theme-ui';
+import { useRouter } from 'next/router';
 import DateRange from '../../components/DateRange';
 import Fab from '../../components/Fab';
 import GearCategory from '../../components/GearCategory';
+import NewCategoryModal from '../../components/NewCategoryModal';
 
 interface Props {}
 
 const CampsitePage: React.FC<Props> = ({}) => {
   usePrivateRoute();
+  const router = useRouter();
   return (
     <Layout pageTitle="Campsite">
       <Image
@@ -33,9 +36,10 @@ const CampsitePage: React.FC<Props> = ({}) => {
       <Heading as="h3" variant="headings.h3" mt={5}>
         Camping Gear
       </Heading>
-      <GearCategory />
-      <GearCategory />
+      <GearCategory category="Food" />
+      <GearCategory category="Food" />
       <Fab />
+      <NewCategoryModal open={!!router.query.newCategory} />
     </Layout>
   );
 };

@@ -1,0 +1,13 @@
+mutation CreateGearCategory($campsiteId: Int!, $category: String!) {
+  createGearCategory(campsiteId: $campsiteId, category: $category) {
+    gearCategory {
+      id
+      category
+      campsiteId
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

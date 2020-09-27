@@ -17,6 +17,8 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<User>;
+  allCampsites: Array<Campsite>;
+  myCampsites: Array<Campsite>;
 };
 
 export type User = {
@@ -29,6 +31,63 @@ export type User = {
 };
 
 
+export type Campsite = {
+  __typename?: 'Campsite';
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  counselorId: Scalars['Int'];
+  counselor: User;
+  campers: Array<Camper>;
+  gearCategories: Array<GearCategory>;
+  startingDate: Scalars['DateTime'];
+  endingDate: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type Camper = {
+  __typename?: 'Camper';
+  userId: Scalars['Int'];
+  role: Scalars['String'];
+  campsiteId: Scalars['Int'];
+  campsite: Campsite;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type GearCategory = {
+  __typename?: 'GearCategory';
+  id: Scalars['Int'];
+  category: Scalars['String'];
+  campsiteId: Scalars['Int'];
+  campsite: Campsite;
+  gears: Array<Gear>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type Gear = {
+  __typename?: 'Gear';
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  quantity: Scalars['Int'];
+  gearCategoryId: Scalars['Int'];
+  gearCategory: GearCategory;
+  gearVolunteers: Array<GearVolunteer>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type GearVolunteer = {
+  __typename?: 'GearVolunteer';
+  gearId: Scalars['Int'];
+  userId: Scalars['Int'];
+  volunteerAmount: Scalars['Int'];
+  gear: Gear;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   register: UserResponse;
@@ -36,6 +95,10 @@ export type Mutation = {
   logout: UserResponse;
   changePassword: UserResponse;
   forgotPassword: Scalars['Boolean'];
+  createCampsite: CampsiteResponse;
+  createGearCategory: GearCategoryResponse;
+  addGear: Gear;
+  volunteerGear: GearVolunteerResponse;
 };
 
 
@@ -60,6 +123,27 @@ export type MutationForgotPasswordArgs = {
   email: Scalars['String'];
 };
 
+
+export type MutationCreateCampsiteArgs = {
+  input: CampsiteInput;
+};
+
+
+export type MutationCreateGearCategoryArgs = {
+  campsiteId: Scalars['Int'];
+  category: Scalars['String'];
+};
+
+
+export type MutationAddGearArgs = {
+  input: GearInput;
+};
+
+
+export type MutationVolunteerGearArgs = {
+  input: VolunteerGearInput;
+};
+
 export type UserResponse = {
   __typename?: 'UserResponse';
   errors?: Maybe<Array<FieldError>>;
@@ -76,6 +160,42 @@ export type UsernamePasswordInput = {
   username: Scalars['String'];
   password: Scalars['String'];
   email: Scalars['String'];
+};
+
+export type CampsiteResponse = {
+  __typename?: 'CampsiteResponse';
+  campsite?: Maybe<Campsite>;
+  errors?: Maybe<Array<FieldError>>;
+};
+
+export type CampsiteInput = {
+  name: Scalars['String'];
+  startingDate: Scalars['DateTime'];
+  endingDate: Scalars['DateTime'];
+};
+
+export type GearCategoryResponse = {
+  __typename?: 'GearCategoryResponse';
+  gearCategory?: Maybe<GearCategory>;
+  errors?: Maybe<Array<FieldError>>;
+};
+
+export type GearInput = {
+  name: Scalars['String'];
+  quantity: Scalars['Int'];
+  gearCategoryId: Scalars['Int'];
+};
+
+export type GearVolunteerResponse = {
+  __typename?: 'GearVolunteerResponse';
+  gearVolunteer?: Maybe<GearVolunteer>;
+  fieldError?: Maybe<Array<FieldError>>;
+};
+
+export type VolunteerGearInput = {
+  gearId: Scalars['Float'];
+  userId: Scalars['Float'];
+  volunteerAmount: Scalars['Float'];
 };
 
 export type UserResponseFieldsFragment = (
@@ -100,6 +220,26 @@ export type ChangePasswordMutation = (
   & { changePassword: (
     { __typename?: 'UserResponse' }
     & UserResponseFieldsFragment
+  ) }
+);
+
+export type CreateGearCategoryMutationVariables = Exact<{
+  campsiteId: Scalars['Int'];
+  category: Scalars['String'];
+}>;
+
+
+export type CreateGearCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & { createGearCategory: (
+    { __typename?: 'GearCategoryResponse' }
+    & { gearCategory?: Maybe<(
+      { __typename?: 'GearCategory' }
+      & Pick<GearCategory, 'id' | 'category' | 'campsiteId'>
+    )>, errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
   ) }
 );
 
@@ -184,6 +324,25 @@ export const ChangePasswordDocument = gql`
 
 export function useChangePasswordMutation() {
   return Urql.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument);
+};
+export const CreateGearCategoryDocument = gql`
+    mutation CreateGearCategory($campsiteId: Int!, $category: String!) {
+  createGearCategory(campsiteId: $campsiteId, category: $category) {
+    gearCategory {
+      id
+      category
+      campsiteId
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+
+export function useCreateGearCategoryMutation() {
+  return Urql.useMutation<CreateGearCategoryMutation, CreateGearCategoryMutationVariables>(CreateGearCategoryDocument);
 };
 export const ForgotPasswordDocument = gql`
     mutation ForgotPassword($email: String!) {
