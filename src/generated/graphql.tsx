@@ -19,6 +19,12 @@ export type Query = {
   me?: Maybe<User>;
   allCampsites: Array<Campsite>;
   myCampsites: Array<Campsite>;
+  getCategories: GetCategoriesResponse;
+};
+
+
+export type QueryGetCategoriesArgs = {
+  campsiteId: Scalars['Int'];
 };
 
 export type User = {
@@ -88,6 +94,17 @@ export type GearVolunteer = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type GetCategoriesResponse = {
+  __typename?: 'GetCategoriesResponse';
+  gearCategories?: Maybe<Array<GearCategory>>;
+  errors?: Maybe<Array<ErrorMessage>>;
+};
+
+export type ErrorMessage = {
+  __typename?: 'ErrorMessage';
+  message: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   register: UserResponse;
@@ -97,7 +114,7 @@ export type Mutation = {
   forgotPassword: Scalars['Boolean'];
   createCampsite: CampsiteResponse;
   createGearCategory: GearCategoryResponse;
-  addGear: Gear;
+  addGear: GearResponse;
   volunteerGear: GearVolunteerResponse;
 };
 
@@ -180,6 +197,12 @@ export type GearCategoryResponse = {
   errors?: Maybe<Array<FieldError>>;
 };
 
+export type GearResponse = {
+  __typename?: 'GearResponse';
+  gear?: Maybe<Gear>;
+  errors?: Maybe<Array<ErrorMessage>>;
+};
+
 export type GearInput = {
   name: Scalars['String'];
   quantity: Scalars['Int'];
@@ -207,6 +230,25 @@ export type UserResponseFieldsFragment = (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username'>
   )> }
+);
+
+export type AddGearMutationVariables = Exact<{
+  input: GearInput;
+}>;
+
+
+export type AddGearMutation = (
+  { __typename?: 'Mutation' }
+  & { addGear: (
+    { __typename?: 'GearResponse' }
+    & { gear?: Maybe<(
+      { __typename?: 'Gear' }
+      & Pick<Gear, 'id' | 'name' | 'quantity' | 'gearCategoryId'>
+    )>, errors?: Maybe<Array<(
+      { __typename?: 'ErrorMessage' }
+      & Pick<ErrorMessage, 'message'>
+    )>> }
+  ) }
 );
 
 export type ChangePasswordMutationVariables = Exact<{
@@ -291,6 +333,25 @@ export type RegisterMutation = (
   ) }
 );
 
+export type GetCategoriesQueryVariables = Exact<{
+  campsiteId: Scalars['Int'];
+}>;
+
+
+export type GetCategoriesQuery = (
+  { __typename?: 'Query' }
+  & { getCategories: (
+    { __typename?: 'GetCategoriesResponse' }
+    & { gearCategories?: Maybe<Array<(
+      { __typename?: 'GearCategory' }
+      & Pick<GearCategory, 'id' | 'category'>
+    )>>, errors?: Maybe<Array<(
+      { __typename?: 'ErrorMessage' }
+      & Pick<ErrorMessage, 'message'>
+    )>> }
+  ) }
+);
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -314,6 +375,25 @@ export const UserResponseFieldsFragmentDoc = gql`
   }
 }
     `;
+export const AddGearDocument = gql`
+    mutation AddGear($input: GearInput!) {
+  addGear(input: $input) {
+    gear {
+      id
+      name
+      quantity
+      gearCategoryId
+    }
+    errors {
+      message
+    }
+  }
+}
+    `;
+
+export function useAddGearMutation() {
+  return Urql.useMutation<AddGearMutation, AddGearMutationVariables>(AddGearDocument);
+};
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($newPassword: String!, $token: String!) {
   changePassword(newPassword: $newPassword, token: $token) {
@@ -385,6 +465,23 @@ export const RegisterDocument = gql`
 
 export function useRegisterMutation() {
   return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument);
+};
+export const GetCategoriesDocument = gql`
+    query GetCategories($campsiteId: Int!) {
+  getCategories(campsiteId: $campsiteId) {
+    gearCategories {
+      id
+      category
+    }
+    errors {
+      message
+    }
+  }
+}
+    `;
+
+export function useGetCategoriesQuery(options: Omit<Urql.UseQueryArgs<GetCategoriesQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetCategoriesQuery>({ query: GetCategoriesDocument, ...options });
 };
 export const MeDocument = gql`
     query Me {

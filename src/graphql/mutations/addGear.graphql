@@ -1,0 +1,13 @@
+mutation AddGear($input: GearInput!) {
+  addGear(input: $input) {
+    gear {
+      id
+      name
+      quantity
+      gearCategoryId
+    }
+    errors {
+      message
+    }
+  }
+}

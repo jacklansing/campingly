@@ -9,7 +9,8 @@ import { useRouter } from 'next/router';
 import DateRange from '../../components/DateRange';
 import Fab from '../../components/Fab';
 import GearCategory from '../../components/GearCategory';
-import NewCategoryModal from '../../components/NewCategoryModal';
+import NewCategoryModal from '../../components/modals/NewCategoryModal';
+import AddGearModal from '../../components/modals/AddGearModal';
 
 interface Props {}
 
@@ -40,6 +41,7 @@ const CampsitePage: React.FC<Props> = ({}) => {
       <GearCategory category="Food" />
       <Fab />
       <NewCategoryModal open={!!router.query.newCategory} />
+      <AddGearModal open={!!router.query.addGear} />
     </Layout>
   );
 };

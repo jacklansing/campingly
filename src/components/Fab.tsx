@@ -49,6 +49,15 @@ const Expanded: React.FC<ExpandedProps> = ({ show }) => {
         <Button
           mt={2}
           sx={{ borderRadius: 1, height: ['50px'], width: ['100%'] }}
+          onClick={() =>
+            router.push(
+              `/campsites/${router.query.id}/?addGear=true`,
+              `/campsites/${router.query.id}`,
+              {
+                shallow: true,
+              },
+            )
+          }
         >
           New Gear
         </Button>

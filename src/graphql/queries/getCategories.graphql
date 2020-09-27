@@ -1,0 +1,11 @@
+query GetCategories($campsiteId: Int!) {
+  getCategories(campsiteId: $campsiteId) {
+    gearCategories {
+      id
+      category
+    }
+    errors {
+      message
+    }
+  }
+}
