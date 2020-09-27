@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Heading, Link, Text } from 'theme-ui';
 import FormBox from '../components/FormBox';
 import Layout from '../components/Layout';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/forms/LoginForm';
 import { createUrqlClient } from '../utils/createUrqlClient';
 import { usePublicRoute } from '../utils/usePublicRoute';
 

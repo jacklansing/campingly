@@ -1,5 +1,5 @@
 import React from 'react';
-import NewCategoryForm from './NewCategoryForm';
+import NewCategoryForm from './forms/NewCategoryForm';
 import ResponsiveModal from './utils/ResponsiveModal';
 
 interface Props {

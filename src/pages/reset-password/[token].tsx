@@ -4,7 +4,7 @@ import React from 'react';
 import { Box } from 'theme-ui';
 import FormBox from '../../components/FormBox';
 import Layout from '../../components/Layout';
-import ResetPasswordForm from '../../components/ResetPasswordForm';
+import ResetPasswordForm from '../../components/forms/ResetPasswordForm';
 import { createUrqlClient } from '../../utils/createUrqlClient';
 import { usePublicRoute } from '../../utils/usePublicRoute';
 

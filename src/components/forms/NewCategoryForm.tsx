@@ -1,12 +1,14 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { Button } from 'theme-ui';
-import { useCreateGearCategoryMutation } from '../generated/graphql';
-import { toErrorMap } from '../utils/toErrorMap';
-import { TextInputField } from './utils/formUtils';
+import { useCreateGearCategoryMutation } from '../../generated/graphql';
+import { toErrorMap } from '../../utils/toErrorMap';
+import { TextInputField } from '../utils/formUtils';
+import { useRouter } from 'next/router';
 
 const NewCategoryForm: React.FC = () => {
   const [_, createGearCategory] = useCreateGearCategoryMutation();
+  const router = useRouter();
   return (
     <Formik
       //   validationSchema={}
@@ -22,6 +24,11 @@ const NewCategoryForm: React.FC = () => {
           );
         } else if (response.data.createGearCategory.gearCategory.id) {
           // Success, change route to close modal.
+          router.push(
+            `/campsites/${router.query.id}`,
+            `/campsites/${router.query.id}`,
+            { shallow: true },
+          );
         }
       }}
     >

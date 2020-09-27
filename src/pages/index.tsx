@@ -1,6 +1,6 @@
 import Layout from '../components/Layout';
 import { Box, Heading, Text, Button, Link } from 'theme-ui';
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from '../components/forms/RegisterForm';
 import React from 'react';
 import FormBox from '../components/FormBox';
 import { withUrqlClient } from 'next-urql';
