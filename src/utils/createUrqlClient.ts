@@ -13,6 +13,7 @@ import {
   GearCategory,
   GetAllCampsitesDocument,
   GetCampsiteDocument,
+  GetCategoriesDocument,
   MeDocument,
 } from '../generated/graphql';
 import { isServer } from './isServer';
@@ -119,6 +120,20 @@ export const createUrqlClient: NextUrqlClientConfig = (
                     __typename: 'GearCategory',
                     ...result.createGearCategory.gearCategory,
                     gears: [],
+                  });
+                  return data;
+                },
+              );
+              cache.updateQuery(
+                {
+                  query: GetCategoriesDocument,
+                  variables: { campsiteId: +Router.router.query.id },
+                },
+                (data: MuData) => {
+                  if (!data) return null;
+                  data.getCategories.gearCategories.push({
+                    __typename: 'GearCategory',
+                    ...result.createGearCategory.gearCategory,
                   });
                   return data;
                 },

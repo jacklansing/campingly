@@ -29,8 +29,8 @@ const AddGearForm: React.FC = () => {
         const response = await addGear({
           input: {
             name: values.name,
-            quantity: parseInt(values.quantity),
-            gearCategoryId: values.gearCategoryId,
+            quantity: +values.quantity,
+            gearCategoryId: +values.gearCategoryId,
           },
         });
         if (response.error) {
