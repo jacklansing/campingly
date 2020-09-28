@@ -9,13 +9,14 @@ import { useRouter } from 'next/router';
 const NewCategoryForm: React.FC = () => {
   const [_, createGearCategory] = useCreateGearCategoryMutation();
   const router = useRouter();
+  const campsiteId = +router.query.id;
   return (
     <Formik
       //   validationSchema={}
       initialValues={{ category: '' }}
       onSubmit={async (values, actions) => {
         const response = await createGearCategory({
-          campsiteId: 1,
+          campsiteId: campsiteId,
           category: values.category,
         });
         if (response.data.createGearCategory.errors) {

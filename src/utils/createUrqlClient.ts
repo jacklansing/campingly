@@ -7,8 +7,17 @@ import {
   fetchExchange,
   Operation,
 } from 'urql';
-import { MeDocument } from '../generated/graphql';
+import { devtoolsExchange } from '@urql/devtools';
+import {
+  AddGearMutationVariables,
+  GearCategory,
+  GetAllCampsitesDocument,
+  GetCampsiteDocument,
+  MeDocument,
+} from '../generated/graphql';
 import { isServer } from './isServer';
+
+import Router from 'next/router';
 
 // Prevents from needing to ts-ignore all the time
 // when working with updateQuery
@@ -27,6 +36,7 @@ export const createUrqlClient: NextUrqlClientConfig = (
 
   return {
     url: process.env.NEXT_PUBLIC_API_URL as string,
+    requestPolicy: 'cache-first',
     fetchOptions: {
       credentials: 'include',
       headers: cookie
@@ -36,11 +46,12 @@ export const createUrqlClient: NextUrqlClientConfig = (
         : undefined,
     },
     exchanges: [
+      devtoolsExchange,
       dedupExchange,
       cacheExchange({
         keys: {
           GetCategoriesResponse: (data) => data.id as string,
-          GearVolunteer: (data) => data.id as string,
+          GearVolunteer: (data) => `${data.userId}/${data.gearId}`,
         },
         updates: {
           Mutation: {
@@ -65,6 +76,53 @@ export const createUrqlClient: NextUrqlClientConfig = (
                   me: { ...result.register.user },
                 };
               });
+            },
+            addGear: (
+              result: MuData,
+              args: AddGearMutationVariables,
+              cache,
+              info,
+            ) => {
+              cache.updateQuery(
+                {
+                  query: GetCampsiteDocument,
+                  variables: { campsiteId: +Router.router.query.id },
+                },
+                (data: MuData) => {
+                  if (!data) return null;
+                  const gearCat = data.getCampsite.gearCategories.find(
+                    (gc: GearCategory) => gc.id === args.input.gearCategoryId,
+                  );
+                  gearCat.gears.push({
+                    __typename: 'Gear',
+                    ...result.addGear.gear,
+                    gearVolunteers: [],
+                  });
+                  return data;
+                },
+              );
+            },
+            createGearCategory: (
+              result: MuData,
+              args: AddGearMutationVariables,
+              cache,
+              info,
+            ) => {
+              cache.updateQuery(
+                {
+                  query: GetCampsiteDocument,
+                  variables: { campsiteId: +Router.router.query.id },
+                },
+                (data: MuData) => {
+                  if (!data) return null;
+                  data.getCampsite.gearCategories.push({
+                    __typename: 'GearCategory',
+                    ...result.createGearCategory.gearCategory,
+                    gears: [],
+                  });
+                  return data;
+                },
+              );
             },
           },
         },

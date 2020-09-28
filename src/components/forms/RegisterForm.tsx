@@ -1,10 +1,10 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { Button } from 'theme-ui';
-import { useRegisterMutation } from '../generated/graphql';
-import { toErrorMap } from '../utils/toErrorMap';
-import { RegisterSchema } from '../utils/validators/UserSchemas';
-import { TextInputField } from './utils/formUtils';
+import { useRegisterMutation } from '../../generated/graphql';
+import { toErrorMap } from '../../utils/toErrorMap';
+import { RegisterSchema } from '../../utils/validators/UserSchemas';
+import { TextInputField } from '../utils/formUtils';
 
 const RegisterForm: React.FC = () => {
   const [_, register] = useRegisterMutation();

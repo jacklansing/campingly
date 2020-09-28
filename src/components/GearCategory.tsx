@@ -119,18 +119,24 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
             <VolunteerIcon sx={{ ...iconSize, marginLeft: 4 }} />
           </Box>
         </div>
-        {gear.map((g) => (
-          <GearItem
-            key={g.id}
-            needed={g.quantity}
-            volunteered={g.gearVolunteers.reduce(
-              (a, b) => a + b.volunteerAmount,
-              0,
-            )}
-          >
-            {g.name}
-          </GearItem>
-        ))}
+        {gear.length ? (
+          gear.map((g) => (
+            <GearItem
+              key={g.id}
+              needed={g.quantity}
+              volunteered={g.gearVolunteers.reduce(
+                (a, b) => a + b.volunteerAmount,
+                0,
+              )}
+            >
+              {g.name}
+            </GearItem>
+          ))
+        ) : (
+          <Text mt={4} mb={4} sx={{ textAlign: 'center' }}>
+            No gear for this category, yet!
+          </Text>
+        )}
       </div>
     </Box>
   );

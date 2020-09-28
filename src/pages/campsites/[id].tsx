@@ -25,7 +25,7 @@ const CampsitePage: React.FC<Props> = ({}) => {
     variables: { campsiteId: campsiteId },
   });
 
-  if (fetching) {
+  if (fetching || !data) {
     return <Spinner />;
   }
   return (

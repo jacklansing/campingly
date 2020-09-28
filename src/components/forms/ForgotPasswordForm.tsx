@@ -1,9 +1,9 @@
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { Button, Text } from 'theme-ui';
-import { useForgotPasswordMutation } from '../generated/graphql';
-import { ForgotPasswordSchema } from '../utils/validators/UserSchemas';
-import { TextInputField } from './utils/formUtils';
+import { useForgotPasswordMutation } from '../../generated/graphql';
+import { ForgotPasswordSchema } from '../../utils/validators/UserSchemas';
+import { TextInputField } from '../utils/formUtils';
 
 const RegisterForm: React.FC = () => {
   const [_, forgotPassword] = useForgotPasswordMutation();
@@ -13,9 +13,7 @@ const RegisterForm: React.FC = () => {
       validationSchema={ForgotPasswordSchema}
       initialValues={{ email: '' }}
       onSubmit={async (values, _) => {
-        console.log(values);
         const response = await forgotPassword({ email: values.email });
-        console.log(response);
         if (response.data.forgotPassword) {
           setSuccess(true);
         }

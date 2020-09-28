@@ -2,9 +2,9 @@ import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { Button } from 'theme-ui';
-import { useLoginMutation } from '../generated/graphql';
-import { toErrorMap } from '../utils/toErrorMap';
-import { TextInputField } from './utils/formUtils';
+import { useLoginMutation } from '../../generated/graphql';
+import { toErrorMap } from '../../utils/toErrorMap';
+import { TextInputField } from '../utils/formUtils';
 
 const RegisterForm: React.FC = () => {
   const [_, login] = useLoginMutation();

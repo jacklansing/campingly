@@ -10,21 +10,27 @@ import { useRouter } from 'next/router';
 
 const AddGearForm: React.FC = () => {
   const router = useRouter();
+  const campsiteId = +router.query.id;
   const [{ data, fetching }] = useGetCategoriesQuery({
-    variables: { campsiteId: 1 },
+    variables: { campsiteId: campsiteId },
   });
-  console.log(data, fetching);
   const [_, addGear] = useAddGearMutation();
   return (
     <Formik
+      //TODO: Validation Schema
       //   validationSchema={}
-      initialValues={{ name: '', quantity: '', gearCategoryId: undefined }}
+      enableReinitialize
+      initialValues={{
+        name: '',
+        quantity: '',
+        gearCategoryId: data?.getCategories?.gearCategories[0].id,
+      }}
       onSubmit={async (values, actions) => {
         const response = await addGear({
           input: {
             name: values.name,
             quantity: parseInt(values.quantity),
-            gearCategoryId: parseInt(values.gearCategoryId),
+            gearCategoryId: values.gearCategoryId,
           },
         });
         if (response.error) {
@@ -66,7 +72,7 @@ const AddGearForm: React.FC = () => {
           <Button
             variant="contained"
             type="submit"
-            disabled={props.isSubmitting}
+            disabled={props.isSubmitting || (!data && fetching)}
             mt={4}
             px={5}
             sx={{
