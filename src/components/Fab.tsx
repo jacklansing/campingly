@@ -34,7 +34,7 @@ const Expanded: React.FC<ExpandedProps> = ({ show }) => {
           sx={{ borderRadius: 1, height: ['50px'], width: ['100%'] }}
           onClick={() =>
             router.push(
-              `/campsites/${router.query.id}/?newCategory=true`,
+              `/campsites/[id]/?newCategory=true`,
               `/campsites/${router.query.id}`,
               {
                 shallow: true,
@@ -51,7 +51,7 @@ const Expanded: React.FC<ExpandedProps> = ({ show }) => {
           sx={{ borderRadius: 1, height: ['50px'], width: ['100%'] }}
           onClick={() =>
             router.push(
-              `/campsites/${router.query.id}/?addGear=true`,
+              `/campsites/[id]/?addGear=true`,
               `/campsites/${router.query.id}`,
               {
                 shallow: true,

@@ -1,0 +1,26 @@
+query GetCampsite($campsiteId: Int!) {
+  getCampsite(campsiteId: $campsiteId) {
+    id
+    name
+    startingDate
+    endingDate
+    counselor {
+      id
+      username
+    }
+    gearCategories {
+      id
+      category
+      gears {
+        id
+        name
+        quantity
+        gearVolunteers {
+          userId
+          gearId
+          volunteerAmount
+        }
+      }
+    }
+  }
+}

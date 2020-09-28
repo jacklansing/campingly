@@ -13,6 +13,7 @@ const AddGearForm: React.FC = () => {
   const [{ data, fetching }] = useGetCategoriesQuery({
     variables: { campsiteId: 1 },
   });
+  console.log(data, fetching);
   const [_, addGear] = useAddGearMutation();
   return (
     <Formik

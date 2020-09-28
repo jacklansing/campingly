@@ -19,7 +19,13 @@ export type Query = {
   me?: Maybe<User>;
   allCampsites: Array<Campsite>;
   myCampsites: Array<Campsite>;
+  getCampsite: Campsite;
   getCategories: GetCategoriesResponse;
+};
+
+
+export type QueryGetCampsiteArgs = {
+  campsiteId: Scalars['Int'];
 };
 
 
@@ -344,6 +350,34 @@ export type GetAllCampsitesQuery = (
   )> }
 );
 
+export type GetCampsiteQueryVariables = Exact<{
+  campsiteId: Scalars['Int'];
+}>;
+
+
+export type GetCampsiteQuery = (
+  { __typename?: 'Query' }
+  & { getCampsite: (
+    { __typename?: 'Campsite' }
+    & Pick<Campsite, 'id' | 'name' | 'startingDate' | 'endingDate'>
+    & { counselor: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    ), gearCategories: Array<(
+      { __typename?: 'GearCategory' }
+      & Pick<GearCategory, 'id' | 'category'>
+      & { gears: Array<(
+        { __typename?: 'Gear' }
+        & Pick<Gear, 'id' | 'name' | 'quantity'>
+        & { gearVolunteers: Array<(
+          { __typename?: 'GearVolunteer' }
+          & Pick<GearVolunteer, 'userId' | 'gearId' | 'volunteerAmount'>
+        )> }
+      )> }
+    )> }
+  ) }
+);
+
 export type GetCategoriesQueryVariables = Exact<{
   campsiteId: Scalars['Int'];
 }>;
@@ -490,6 +524,38 @@ export const GetAllCampsitesDocument = gql`
 
 export function useGetAllCampsitesQuery(options: Omit<Urql.UseQueryArgs<GetAllCampsitesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<GetAllCampsitesQuery>({ query: GetAllCampsitesDocument, ...options });
+};
+export const GetCampsiteDocument = gql`
+    query GetCampsite($campsiteId: Int!) {
+  getCampsite(campsiteId: $campsiteId) {
+    id
+    name
+    startingDate
+    endingDate
+    counselor {
+      id
+      username
+    }
+    gearCategories {
+      id
+      category
+      gears {
+        id
+        name
+        quantity
+        gearVolunteers {
+          userId
+          gearId
+          volunteerAmount
+        }
+      }
+    }
+  }
+}
+    `;
+
+export function useGetCampsiteQuery(options: Omit<Urql.UseQueryArgs<GetCampsiteQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetCampsiteQuery>({ query: GetCampsiteDocument, ...options });
 };
 export const GetCategoriesDocument = gql`
     query GetCategories($campsiteId: Int!) {

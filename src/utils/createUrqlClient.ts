@@ -38,6 +38,9 @@ export const createUrqlClient: NextUrqlClientConfig = (
     exchanges: [
       dedupExchange,
       cacheExchange({
+        keys: {
+          GetCategoriesResponse: (data) => data.id as string,
+        },
         updates: {
           Mutation: {
             logout: (result, args, cache, info) => {
