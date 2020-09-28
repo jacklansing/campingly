@@ -11,7 +11,7 @@ import Fab from '../../components/Fab';
 import GearCategory from '../../components/GearCategory';
 import NewCategoryModal from '../../components/modals/NewCategoryModal';
 import AddGearModal from '../../components/modals/AddGearModal';
-import { useGetCampsiteQuery } from '../../generated/graphql';
+import { Gear, useGetCampsiteQuery } from '../../generated/graphql';
 import { formatDate } from '../../utils/formatDate';
 
 interface Props {}
@@ -49,7 +49,11 @@ const CampsitePage: React.FC<Props> = ({}) => {
         Camping Gear
       </Heading>
       {data.getCampsite.gearCategories.map((gc) => (
-        <GearCategory key={gc.id} category={gc.category} gear={gc.gears} />
+        <GearCategory
+          key={gc.id}
+          category={gc.category}
+          gear={gc.gears as Gear[]}
+        />
       ))}
       <Fab />
       <NewCategoryModal open={!!router.query.newCategory} />
