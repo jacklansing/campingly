@@ -6,6 +6,7 @@ import CancelIcon from '../assets/icons/cancel-icon.svg';
 import NeededIcon from '../assets/icons/needed-icon.svg';
 import PackedIcon from '../assets/icons/packed-icon.svg';
 import VolunteerIcon from '../assets/icons/volunteer-icon.svg';
+import { Gear } from '../generated/graphql';
 
 const iconSize = {
   height: ['35px'],
@@ -18,7 +19,16 @@ const iconButtonSize = {
   minWidth: ['25px', '35px'],
 };
 
-const GearItem: React.FC = ({ children }) => (
+interface GearItemProps {
+  needed: number;
+  volunteered: number;
+}
+
+const GearItem: React.FC<GearItemProps> = ({
+  needed,
+  volunteered,
+  children,
+}) => (
   <>
     <div
       role="row"
@@ -30,8 +40,8 @@ const GearItem: React.FC = ({ children }) => (
       }}
     >
       <span role="cell">{children}</span>
-      <span role="cell">24</span>
-      <span role="cell">12</span>
+      <span role="cell">{needed}</span>
+      <span role="cell">{volunteered}</span>
       <Box
         role="cell"
         sx={{
@@ -59,9 +69,10 @@ const GearItem: React.FC = ({ children }) => (
 
 interface GearCategoryProps {
   category: string;
+  gear: Gear[];
 }
 
-const GearCategory: React.FC<GearCategoryProps> = ({ category }) => {
+const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
   return (
     <Box
       mt={4}
@@ -76,7 +87,7 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category }) => {
       }}
     >
       <Heading px={2} py={2} as="h4" variant="headings.h3">
-        Food
+        {category}
       </Heading>
 
       <div
@@ -108,10 +119,18 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category }) => {
             <VolunteerIcon sx={{ ...iconSize, marginLeft: 4 }} />
           </Box>
         </div>
-        <GearItem>Burgers</GearItem>
-        <GearItem>Buns</GearItem>
-        <GearItem>Eggs</GearItem>
-        <GearItem>Bush's Baked Beans</GearItem>
+        {gear.map((g) => (
+          <GearItem
+            key={g.id}
+            needed={g.quantity}
+            volunteered={g.gearVolunteers.reduce(
+              (a, b) => a + b.volunteerAmount,
+              0,
+            )}
+          >
+            {g.name}
+          </GearItem>
+        ))}
       </div>
     </Box>
   );

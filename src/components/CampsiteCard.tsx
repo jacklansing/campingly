@@ -5,12 +5,13 @@ import DateRange from './DateRange';
 import { formatDate } from '../utils/formatDate';
 
 interface Props {
+  id: number;
   name: string;
   startDate: string;
   endDate: string;
 }
 
-const CampsiteCard: React.FC<Props> = ({ name, startDate, endDate }) => {
+const CampsiteCard: React.FC<Props> = ({ id, name, startDate, endDate }) => {
   return (
     <Box
       sx={{
@@ -36,12 +37,10 @@ const CampsiteCard: React.FC<Props> = ({ name, startDate, endDate }) => {
       tabIndex={0}
       role="button"
       aria-label="Go to campsite details"
-      onClick={() =>
-        router.push('/campsites/f028754c-fd04-11ea-adc1-0242ac120002')
-      }
+      onClick={() => router.push(`/campsites/[id]`, `/campsites/${id}`)}
       onKeyDown={(e) =>
         e.key === 'Enter'
-          ? router.push('/campsites/f028754c-fd04-11ea-adc1-0242ac120002')
+          ? router.push(`/campsites/[id]`, `/campsites/${id}`)
           : null
       }
     >
