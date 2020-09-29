@@ -51,7 +51,6 @@ const NavBar: React.FC = ({}) => {
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
 
   let navBar = null;
-
   if (meQueryFetching) {
     // Data is loading
   } else if (!data?.me) {

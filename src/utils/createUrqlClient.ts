@@ -11,7 +11,6 @@ import { devtoolsExchange } from '@urql/devtools';
 import {
   AddGearMutationVariables,
   GearCategory,
-  GetAllCampsitesDocument,
   GetCampsiteDocument,
   GetCategoriesDocument,
   MeDocument,

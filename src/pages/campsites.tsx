@@ -1,6 +1,7 @@
 import { withUrqlClient } from 'next-urql';
+import { useRouter } from 'next/router';
 import React from 'react';
-import { Box } from 'theme-ui';
+import { Box, Button } from 'theme-ui';
 import CampsiteCard from '../components/CampsiteCard';
 import Layout from '../components/Layout';
 import { useGetAllCampsitesQuery } from '../generated/graphql';
@@ -9,6 +10,7 @@ import { usePrivateRoute } from '../utils/usePrivateRoute';
 
 const Campsites: React.FC = () => {
   usePrivateRoute();
+  const router = useRouter();
   const [{ data, fetching }] = useGetAllCampsitesQuery();
   return (
     <Layout pageTitle="Campsites">
@@ -31,6 +33,9 @@ const Campsites: React.FC = () => {
             />
           ))}
       </Box>
+      <Button mt={4} onClick={() => router.push('/campsites/new-campsite')}>
+        New Campsite
+      </Button>
     </Layout>
   );
 };

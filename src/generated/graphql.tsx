@@ -271,6 +271,25 @@ export type ChangePasswordMutation = (
   ) }
 );
 
+export type CreateCampsiteMutationVariables = Exact<{
+  input: CampsiteInput;
+}>;
+
+
+export type CreateCampsiteMutation = (
+  { __typename?: 'Mutation' }
+  & { createCampsite: (
+    { __typename?: 'CampsiteResponse' }
+    & { campsite?: Maybe<(
+      { __typename?: 'Campsite' }
+      & Pick<Campsite, 'id' | 'name' | 'startingDate' | 'endingDate'>
+    )>, errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
+  ) }
+);
+
 export type CreateGearCategoryMutationVariables = Exact<{
   campsiteId: Scalars['Int'];
   category: Scalars['String'];
@@ -449,6 +468,26 @@ export const ChangePasswordDocument = gql`
 
 export function useChangePasswordMutation() {
   return Urql.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument);
+};
+export const CreateCampsiteDocument = gql`
+    mutation CreateCampsite($input: CampsiteInput!) {
+  createCampsite(input: $input) {
+    campsite {
+      id
+      name
+      startingDate
+      endingDate
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+
+export function useCreateCampsiteMutation() {
+  return Urql.useMutation<CreateCampsiteMutation, CreateCampsiteMutationVariables>(CreateCampsiteDocument);
 };
 export const CreateGearCategoryDocument = gql`
     mutation CreateGearCategory($campsiteId: Int!, $category: String!) {
