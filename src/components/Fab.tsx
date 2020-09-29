@@ -7,9 +7,10 @@ import { useRouter } from 'next/router';
 
 interface ExpandedProps {
   show: boolean;
+  hasCategories: boolean;
 }
 
-const Expanded: React.FC<ExpandedProps> = ({ show }) => {
+const Expanded: React.FC<ExpandedProps> = ({ show, hasCategories }) => {
   const router = useRouter();
   return (
     <ul
@@ -50,13 +51,21 @@ const Expanded: React.FC<ExpandedProps> = ({ show }) => {
           mt={2}
           sx={{ borderRadius: 1, height: ['50px'], width: ['100%'] }}
           onClick={() =>
-            router.push(
-              `/campsites/[id]/?addGear=true`,
-              `/campsites/${router.query.id}`,
-              {
-                shallow: true,
-              },
-            )
+            hasCategories
+              ? router.push(
+                  `/campsites/[id]/?addGear=true`,
+                  `/campsites/${router.query.id}`,
+                  {
+                    shallow: true,
+                  },
+                )
+              : router.push(
+                  `/campsites/[id]/?categoryRequired=true`,
+                  `/campsites/${router.query.id}`,
+                  {
+                    shallow: true,
+                  },
+                )
           }
         >
           New Gear
@@ -66,13 +75,15 @@ const Expanded: React.FC<ExpandedProps> = ({ show }) => {
   );
 };
 
-interface Props {}
+interface Props {
+  hasCategories: boolean;
+}
 
-const Fab: React.FC<Props> = ({}) => {
+const Fab: React.FC<Props> = ({ hasCategories }) => {
   const [expand, setExpand] = useState(false);
   return (
     <>
-      <Expanded show={expand} />
+      <Expanded show={expand} hasCategories={hasCategories} />
       <Button
         aria-label="show campsite options"
         onClick={() => setExpand(!expand)}

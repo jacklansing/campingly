@@ -172,6 +172,30 @@ export default {
         boxShadow: 3,
       },
     },
+    outlined: {
+      display: 'inline-block',
+      letterSpacing: 0,
+      minWidth: '100px',
+      padding: 2,
+      textAlign: 'center',
+      textDecoration: 'none',
+      fontFamily: 'body',
+      border: '.4px solid #005945',
+      borderRadius: 0,
+      color: 'primary',
+      boxShadow: 2,
+      backgroundColor: 'background',
+      transition: 'all .222s cubic-bezier(0.4, 0, 1, 1)',
+      '&:hover': {
+        backgroundColor: 'rgba(0, 89, 69, 0.2)',
+        boxShadow: 3,
+        transform: 'translateY(-1px)',
+      },
+      '&:focus': {
+        backgroundColor: 'rgba(0, 89, 69, 0.2)',
+        boxShadow: 3,
+      },
+    },
   },
   // Root for body defaults, others for MDX
   styles: {
