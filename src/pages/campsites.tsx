@@ -23,6 +23,7 @@ const Campsites: React.FC = () => {
         }}
       >
         {!fetching &&
+          data &&
           data.allCampsites.map((campsite) => (
             <CampsiteCard
               key={campsite.id}
