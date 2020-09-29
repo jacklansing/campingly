@@ -11,6 +11,7 @@ import { devtoolsExchange } from '@urql/devtools';
 import {
   AddGearMutationVariables,
   GearCategory,
+  GetAllCampsitesDocument,
   GetCampsiteDocument,
   GetCategoriesDocument,
   MeDocument,
@@ -59,6 +60,8 @@ export const createUrqlClient: NextUrqlClientConfig = (
               cache.updateQuery({ query: MeDocument }, (data) => {
                 return { __typename: 'User', me: null };
               });
+              // Removes cached Campsite, Campsite Info, etc. on Logout
+              cache.invalidate('Query');
             },
             login: (result: MuData, args, cache, info) => {
               cache.updateQuery({ query: MeDocument }, (data) => {
@@ -133,6 +136,18 @@ export const createUrqlClient: NextUrqlClientConfig = (
                   data.getCategories.gearCategories.push({
                     __typename: 'GearCategory',
                     ...result.createGearCategory.gearCategory,
+                  });
+                  return data;
+                },
+              );
+            },
+            createCampsite: (result: MuData, args, cache, info) => {
+              cache.updateQuery(
+                { query: GetAllCampsitesDocument },
+                (data: MuData) => {
+                  data.allCampsites.push({
+                    __typename: 'Campsite',
+                    ...result.createCampsite.campsite,
                   });
                   return data;
                 },

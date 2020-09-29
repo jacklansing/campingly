@@ -47,7 +47,7 @@ const ResponsiveModal: React.FC<Props> = ({ open, children }) => {
             justifyContent: 'center',
           }}
           onClick={() => {
-            router.push(`/campsites/[id]`, `/campsites/${router.query.id}`, {
+            router.push(router.pathname, router.asPath, {
               shallow: true,
             });
           }}
