@@ -43,6 +43,7 @@ export const createUrqlClient: NextUrqlClientConfig = (
       headers: cookie
         ? {
             cookie,
+            csid: ctx.query.id || Router.router.query.id,
           }
         : undefined,
     },

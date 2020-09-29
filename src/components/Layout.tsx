@@ -28,6 +28,7 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children, ...props }) => {
           justifyContent: 'flex-start',
         }}
         mx="auto"
+        mb={5}
         {...props}
       >
         {children}
