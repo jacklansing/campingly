@@ -50,4 +50,4 @@ const Campsites: React.FC = () => {
   );
 };
 
-export default withUrqlClient(createUrqlClient)(Campsites);
+export default withUrqlClient(createUrqlClient, { ssr: true })(Campsites);

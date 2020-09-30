@@ -31,8 +31,12 @@ export const createUrqlClient: NextUrqlClientConfig = (
   ctx: any,
 ) => {
   let cookie = '';
+  let csid = '';
   if (isServer()) {
     cookie = ctx?.req?.headers?.cookie;
+    csid = ctx?.query?.id;
+  } else {
+    csid = window.location.pathname.split('/').reverse()[0];
   }
 
   return {
@@ -43,9 +47,9 @@ export const createUrqlClient: NextUrqlClientConfig = (
       headers: cookie
         ? {
             cookie,
-            csid: ctx.query.id || Router.router.query.id,
+            csid,
           }
-        : undefined,
+        : { csid },
     },
     exchanges: [
       devtoolsExchange,
@@ -150,6 +154,29 @@ export const createUrqlClient: NextUrqlClientConfig = (
                     __typename: 'Campsite',
                     ...result.createCampsite.campsite,
                   });
+                  return data;
+                },
+              );
+            },
+            deleteGear: (result: MuData, args, cache, info) => {
+              cache.updateQuery(
+                {
+                  query: GetCampsiteDocument,
+                  variables: { campsiteId: +Router.router.query.id },
+                },
+                (data: MuData) => {
+                  const categoryIndex = data.getCampsite.gearCategories.findIndex(
+                    (gc) => gc.id === args.gearCategoryId,
+                  );
+                  const deletedIndex = data.getCampsite.gearCategories[
+                    categoryIndex
+                  ].gears.findIndex((gear) => gear.id === args.gearId);
+
+                  data.getCampsite.gearCategories[categoryIndex].gears.splice(
+                    deletedIndex,
+                    1,
+                  );
+
                   return data;
                 },
               );

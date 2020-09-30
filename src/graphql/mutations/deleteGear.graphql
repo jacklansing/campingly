@@ -1,0 +1,3 @@
+mutation DeleteGear($gearId: Int!, $gearCategoryId: Int!) {
+  deleteGear(gearId: $gearId, gearCategoryId: $gearCategoryId)
+}

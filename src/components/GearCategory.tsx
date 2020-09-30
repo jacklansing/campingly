@@ -7,6 +7,7 @@ import NeededIcon from '../assets/icons/needed-icon.svg';
 import PackedIcon from '../assets/icons/packed-icon.svg';
 import VolunteerIcon from '../assets/icons/volunteer-icon.svg';
 import { Gear } from '../generated/graphql';
+import { useDeleteGearMutation } from '../generated/graphql';
 
 const iconSize = {
   height: ['35px'],
@@ -20,52 +21,63 @@ const iconButtonSize = {
 };
 
 interface GearItemProps {
+  id: number;
+  gearCategoryId: number;
   needed: number;
   volunteered: number;
 }
 
 const GearItem: React.FC<GearItemProps> = ({
+  id,
+  gearCategoryId,
   needed,
   volunteered,
   children,
-}) => (
-  <>
-    <div
-      role="row"
-      sx={{
-        marginTop: [2, 4],
-        display: 'grid',
-        gridTemplateColumns: 'minmax(120px, 2fr) 1fr 1fr 1fr',
-        columnGap: 1,
-      }}
-    >
-      <span role="cell">{children}</span>
-      <span role="cell">{needed}</span>
-      <span role="cell">{volunteered}</span>
-      <Box
-        role="cell"
+}) => {
+  const [_, deleteGear] = useDeleteGearMutation();
+
+  return (
+    <>
+      <div
+        role="row"
         sx={{
-          display: 'flex',
-          flexFlow: 'row no-wrap',
+          marginTop: [2, 4],
+          display: 'grid',
+          gridTemplateColumns: 'minmax(120px, 2fr) 1fr 1fr 1fr',
+          columnGap: 1,
         }}
       >
-        <IconButton
-          aria-label="volunteer to bring"
-          sx={{ ...iconButtonSize, marginRight: 1 }}
+        <span role="cell">{children}</span>
+        <span role="cell">{needed}</span>
+        <span role="cell">{volunteered}</span>
+        <Box
+          role="cell"
+          sx={{
+            display: 'flex',
+            flexFlow: 'row no-wrap',
+          }}
         >
-          <HandIcon sx={{ ...iconButtonSize }} />
-        </IconButton>
-        <IconButton
-          aria-label="cancel volunteer to bring"
-          sx={{ ...iconButtonSize }}
-        >
-          <CancelIcon sx={{ ...iconButtonSize }} />
-        </IconButton>
-      </Box>
-    </div>
-    <Divider />
-  </>
-);
+          <IconButton
+            aria-label="volunteer to bring"
+            sx={{ ...iconButtonSize, marginRight: 1 }}
+          >
+            <HandIcon sx={{ ...iconButtonSize }} />
+          </IconButton>
+          <IconButton
+            aria-label="delete gear"
+            sx={{ ...iconButtonSize }}
+            onClick={async () => {
+              await deleteGear({ gearId: id, gearCategoryId });
+            }}
+          >
+            <CancelIcon sx={{ ...iconButtonSize }} />
+          </IconButton>
+        </Box>
+      </div>
+      <Divider />
+    </>
+  );
+};
 
 interface GearCategoryProps {
   category: string;
@@ -123,6 +135,8 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
           gear.map((g) => (
             <GearItem
               key={g.id}
+              id={g.id}
+              gearCategoryId={g.gearCategoryId}
               needed={g.quantity}
               volunteered={g.gearVolunteers.reduce(
                 (a, b) => a + b.volunteerAmount,

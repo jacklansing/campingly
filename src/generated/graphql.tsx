@@ -121,6 +121,7 @@ export type Mutation = {
   createCampsite: CampsiteResponse;
   createGearCategory: GearCategoryResponse;
   addGear: GearResponse;
+  deleteGear: Scalars['Boolean'];
   volunteerGear: GearVolunteerResponse;
 };
 
@@ -160,6 +161,12 @@ export type MutationCreateGearCategoryArgs = {
 
 export type MutationAddGearArgs = {
   input: GearInput;
+};
+
+
+export type MutationDeleteGearArgs = {
+  gearCategoryId: Scalars['Int'];
+  gearId: Scalars['Int'];
 };
 
 
@@ -310,6 +317,17 @@ export type CreateGearCategoryMutation = (
   ) }
 );
 
+export type DeleteGearMutationVariables = Exact<{
+  gearId: Scalars['Int'];
+  gearCategoryId: Scalars['Int'];
+}>;
+
+
+export type DeleteGearMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteGear'>
+);
+
 export type ForgotPasswordMutationVariables = Exact<{
   email: Scalars['String'];
 }>;
@@ -387,7 +405,7 @@ export type GetCampsiteQuery = (
       & Pick<GearCategory, 'id' | 'category'>
       & { gears: Array<(
         { __typename?: 'Gear' }
-        & Pick<Gear, 'id' | 'name' | 'quantity'>
+        & Pick<Gear, 'id' | 'gearCategoryId' | 'name' | 'quantity'>
         & { gearVolunteers: Array<(
           { __typename?: 'GearVolunteer' }
           & Pick<GearVolunteer, 'userId' | 'gearId' | 'volunteerAmount'>
@@ -508,6 +526,15 @@ export const CreateGearCategoryDocument = gql`
 export function useCreateGearCategoryMutation() {
   return Urql.useMutation<CreateGearCategoryMutation, CreateGearCategoryMutationVariables>(CreateGearCategoryDocument);
 };
+export const DeleteGearDocument = gql`
+    mutation DeleteGear($gearId: Int!, $gearCategoryId: Int!) {
+  deleteGear(gearId: $gearId, gearCategoryId: $gearCategoryId)
+}
+    `;
+
+export function useDeleteGearMutation() {
+  return Urql.useMutation<DeleteGearMutation, DeleteGearMutationVariables>(DeleteGearDocument);
+};
 export const ForgotPasswordDocument = gql`
     mutation ForgotPassword($email: String!) {
   forgotPassword(email: $email)
@@ -580,6 +607,7 @@ export const GetCampsiteDocument = gql`
       category
       gears {
         id
+        gearCategoryId
         name
         quantity
         gearVolunteers {

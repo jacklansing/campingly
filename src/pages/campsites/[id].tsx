@@ -22,6 +22,7 @@ const CampsitePage: React.FC<Props> = ({}) => {
   usePrivateRoute();
   const router = useRouter();
   const campsiteId = +router.query.id;
+
   const [{ data, fetching }] = useGetCampsiteQuery({
     pause: !campsiteId,
     variables: { campsiteId: campsiteId },
