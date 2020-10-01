@@ -1,29 +1,31 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { Button } from 'theme-ui';
-import { useCreateGearCategoryMutation } from '../../generated/graphql';
-import { toErrorMap } from '../../utils/toErrorMap';
+import { useVolunteerGearMutation } from '../../generated/graphql';
 import { TextInputField } from '../utils/formUtils';
 import { useRouter } from 'next/router';
+import { toErrorMap } from '../../utils/toErrorMap';
 
-const NewCategoryForm: React.FC = () => {
-  const [_, createGearCategory] = useCreateGearCategoryMutation();
+const VolunteerGearForm: React.FC = () => {
   const router = useRouter();
-  const campsiteId = +router.query.id;
+  const [, addGear] = useVolunteerGearMutation();
   return (
     <Formik
-      //   validationSchema={}
-      initialValues={{ category: '' }}
+      enableReinitialize
+      initialValues={{
+        gearId: +router.query.gearId,
+        volunteerAmount: 0,
+      }}
       onSubmit={async (values, actions) => {
-        const response = await createGearCategory({
-          campsiteId: campsiteId,
-          category: values.category,
+        const response = await addGear({
+          input: {
+            gearId: values.gearId,
+            volunteerAmount: values.volunteerAmount,
+          },
         });
-        if (response.data.createGearCategory.errors) {
-          actions.setErrors(
-            toErrorMap(response.data.createGearCategory.errors),
-          );
-        } else if (response.data.createGearCategory.gearCategory.id) {
+        if (response.data.volunteerGear.errors) {
+          actions.setErrors(toErrorMap(response.data.volunteerGear.errors));
+        } else if (response.data.volunteerGear.gearVolunteer.userId) {
           // Success, change route to close modal.
           router.push(`/campsites/[id]`, `/campsites/${router.query.id}`, {
             shallow: true,
@@ -34,10 +36,12 @@ const NewCategoryForm: React.FC = () => {
       {(props) => (
         <Form onSubmit={props.handleSubmit}>
           <TextInputField
-            label="Category Name"
-            name="category"
-            placeholder="Enter category name"
+            label="Volunteer how many?"
+            name="volunteerAmount"
+            placeholder="0"
+            type="number"
           />
+
           <Button
             variant="contained"
             type="submit"
@@ -49,7 +53,7 @@ const NewCategoryForm: React.FC = () => {
               marginLeft: 'auto',
             }}
           >
-            Create Category
+            Confirm
           </Button>
         </Form>
       )}
@@ -57,4 +61,4 @@ const NewCategoryForm: React.FC = () => {
   );
 };
 
-export default NewCategoryForm;
+export default VolunteerGearForm;

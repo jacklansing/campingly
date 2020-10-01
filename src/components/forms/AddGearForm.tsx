@@ -38,11 +38,9 @@ const AddGearForm: React.FC = () => {
           console.error(response.error.message);
         } else if (response.data.addGear.gear.id) {
           // Success, change route to close modal.
-          router.push(
-            `/campsites/${router.query.id}`,
-            `/campsites/${router.query.id}`,
-            { shallow: true },
-          );
+          router.push(`/campsites/[id]`, `/campsites/${router.query.id}`, {
+            shallow: true,
+          });
         }
       }}
     >

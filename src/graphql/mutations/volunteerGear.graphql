@@ -1,0 +1,13 @@
+mutation VolunteerGear($input: VolunteerGearInput!) {
+  volunteerGear(input: $input) {
+    gearVolunteer {
+      gearId
+      userId
+      volunteerAmount
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

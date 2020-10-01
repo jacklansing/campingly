@@ -15,6 +15,7 @@ import {
   GetCampsiteDocument,
   GetCategoriesDocument,
   MeDocument,
+  MutationVolunteerGearArgs,
 } from '../generated/graphql';
 import { isServer } from './isServer';
 
@@ -30,26 +31,27 @@ export const createUrqlClient: NextUrqlClientConfig = (
   ssrExchange: any,
   ctx: any,
 ) => {
-  let cookie = '';
-  let csid = '';
-  if (isServer()) {
-    cookie = ctx?.req?.headers?.cookie;
-    csid = ctx?.query?.id;
-  } else {
-    csid = window.location.pathname.split('/').reverse()[0];
-  }
-
   return {
     url: process.env.NEXT_PUBLIC_API_URL as string,
     requestPolicy: 'cache-first',
-    fetchOptions: {
-      credentials: 'include',
-      headers: cookie
-        ? {
-            cookie,
-            csid,
-          }
-        : { csid },
+    fetchOptions: () => {
+      let cookie = '';
+      let csid = '';
+      if (isServer()) {
+        cookie = ctx?.req?.headers?.cookie;
+        csid = ctx?.query?.id;
+      } else {
+        csid = Router.router.query.id as string;
+      }
+      return {
+        credentials: 'include',
+        headers: cookie
+          ? {
+              cookie,
+              csid,
+            }
+          : { csid },
+      };
     },
     exchanges: [
       devtoolsExchange,
@@ -105,6 +107,7 @@ export const createUrqlClient: NextUrqlClientConfig = (
                     __typename: 'Gear',
                     ...result.addGear.gear,
                     gearVolunteers: [],
+                    userHasVolunteered: false,
                   });
                   return data;
                 },
@@ -176,6 +179,82 @@ export const createUrqlClient: NextUrqlClientConfig = (
                     deletedIndex,
                     1,
                   );
+
+                  return data;
+                },
+              );
+            },
+            volunteerGear: (
+              result: MuData,
+              args: MutationVolunteerGearArgs,
+              cache,
+              info,
+            ) => {
+              cache.updateQuery(
+                {
+                  query: GetCampsiteDocument,
+                  variables: { campsiteId: +Router.router.query.id },
+                },
+                (data: MuData) => {
+                  // Locate volunteer array for the gear and push new result in
+                  const gearCategoryIndex = data.getCampsite.gearCategories.findIndex(
+                    (gc) =>
+                      gc.gears.find((gear) => gear.id === args.input.gearId),
+                  );
+
+                  const gearIndex = data.getCampsite.gearCategories[
+                    gearCategoryIndex
+                  ].gears.findIndex((gear) => gear.id === args.input.gearId);
+
+                  // Add volunteer
+                  data.getCampsite.gearCategories[gearCategoryIndex].gears[
+                    gearIndex
+                  ].gearVolunteers.push({
+                    ...result.volunteerGear.gearVolunteer,
+                  });
+                  // Set userHasVolunteered status back to false
+                  data.getCampsite.gearCategories[gearCategoryIndex].gears[
+                    gearIndex
+                  ].userHasVolunteered = true;
+
+                  return data;
+                },
+              );
+            },
+            undoVolunteerGear: (result: MuData, args, cache, info) => {
+              cache.updateQuery(
+                {
+                  query: GetCampsiteDocument,
+                  variables: { campsiteId: +Router.router.query.id },
+                },
+                (data: MuData) => {
+                  const currentUser: any = cache.readQuery({
+                    query: MeDocument,
+                  });
+                  console.log(data);
+                  // Locate volunteer array for the gear and delete volunteer
+                  const categoryIndex = data.getCampsite.gearCategories.findIndex(
+                    (gc) => gc.gears.find((g) => g.id === args.gearId),
+                  );
+
+                  const gearIndex = data.getCampsite.gearCategories[
+                    categoryIndex
+                  ].gears.findIndex((gear) => gear.id === args.gearId);
+
+                  const volunteerIndex = data.getCampsite.gearCategories[
+                    categoryIndex
+                  ].gears[gearIndex].gearVolunteers.findIndex(
+                    (vol) => vol.userId === currentUser.me.id,
+                  );
+
+                  // Remove volunteer
+                  data.getCampsite.gearCategories[categoryIndex].gears[
+                    gearIndex
+                  ].gearVolunteers.splice(volunteerIndex, 1);
+                  // Set userHasVolunteered status back to false
+                  data.getCampsite.gearCategories[categoryIndex].gears[
+                    gearIndex
+                  ].userHasVolunteered = false;
 
                   return data;
                 },

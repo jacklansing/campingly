@@ -15,6 +15,7 @@ import { Gear, useGetCampsiteQuery } from '../../generated/graphql';
 import { formatDate } from '../../utils/formatDate';
 import CategoryRequiredModal from '../../components/modals/CategoryRequiredModal';
 import NextLink from 'next/link';
+import VolunteerGearModal from '../../components/modals/VolunteerGearModal';
 
 interface Props {}
 
@@ -75,6 +76,7 @@ const CampsitePage: React.FC<Props> = ({}) => {
       <NewCategoryModal open={!!router.query.newCategory} />
       <AddGearModal open={!!router.query.addGear} />
       <CategoryRequiredModal open={!!router.query.categoryRequired} />
+      <VolunteerGearModal open={!!router.query.volunteerGear} />
     </Layout>
   );
 };

@@ -16,6 +16,7 @@ query GetCampsite($campsiteId: Int!) {
         gearCategoryId
         name
         quantity
+        userHasVolunteered
         gearVolunteers {
           userId
           gearId

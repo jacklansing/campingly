@@ -88,6 +88,7 @@ export type Gear = {
   gearVolunteers: Array<GearVolunteer>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+  userHasVolunteered: Scalars['Boolean'];
 };
 
 export type GearVolunteer = {
@@ -123,6 +124,7 @@ export type Mutation = {
   addGear: GearResponse;
   deleteGear: Scalars['Boolean'];
   volunteerGear: GearVolunteerResponse;
+  undoVolunteerGear: Scalars['Boolean'];
 };
 
 
@@ -172,6 +174,11 @@ export type MutationDeleteGearArgs = {
 
 export type MutationVolunteerGearArgs = {
   input: VolunteerGearInput;
+};
+
+
+export type MutationUndoVolunteerGearArgs = {
+  gearId: Scalars['Int'];
 };
 
 export type UserResponse = {
@@ -225,12 +232,11 @@ export type GearInput = {
 export type GearVolunteerResponse = {
   __typename?: 'GearVolunteerResponse';
   gearVolunteer?: Maybe<GearVolunteer>;
-  fieldError?: Maybe<Array<FieldError>>;
+  errors?: Maybe<Array<FieldError>>;
 };
 
 export type VolunteerGearInput = {
   gearId: Scalars['Float'];
-  userId: Scalars['Float'];
   volunteerAmount: Scalars['Float'];
 };
 
@@ -376,6 +382,35 @@ export type RegisterMutation = (
   ) }
 );
 
+export type UndoVolunteerGearMutationVariables = Exact<{
+  gearId: Scalars['Int'];
+}>;
+
+
+export type UndoVolunteerGearMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'undoVolunteerGear'>
+);
+
+export type VolunteerGearMutationVariables = Exact<{
+  input: VolunteerGearInput;
+}>;
+
+
+export type VolunteerGearMutation = (
+  { __typename?: 'Mutation' }
+  & { volunteerGear: (
+    { __typename?: 'GearVolunteerResponse' }
+    & { gearVolunteer?: Maybe<(
+      { __typename?: 'GearVolunteer' }
+      & Pick<GearVolunteer, 'gearId' | 'userId' | 'volunteerAmount'>
+    )>, errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
+  ) }
+);
+
 export type GetAllCampsitesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -405,7 +440,7 @@ export type GetCampsiteQuery = (
       & Pick<GearCategory, 'id' | 'category'>
       & { gears: Array<(
         { __typename?: 'Gear' }
-        & Pick<Gear, 'id' | 'gearCategoryId' | 'name' | 'quantity'>
+        & Pick<Gear, 'id' | 'gearCategoryId' | 'name' | 'quantity' | 'userHasVolunteered'>
         & { gearVolunteers: Array<(
           { __typename?: 'GearVolunteer' }
           & Pick<GearVolunteer, 'userId' | 'gearId' | 'volunteerAmount'>
@@ -577,6 +612,34 @@ export const RegisterDocument = gql`
 export function useRegisterMutation() {
   return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument);
 };
+export const UndoVolunteerGearDocument = gql`
+    mutation UndoVolunteerGear($gearId: Int!) {
+  undoVolunteerGear(gearId: $gearId)
+}
+    `;
+
+export function useUndoVolunteerGearMutation() {
+  return Urql.useMutation<UndoVolunteerGearMutation, UndoVolunteerGearMutationVariables>(UndoVolunteerGearDocument);
+};
+export const VolunteerGearDocument = gql`
+    mutation VolunteerGear($input: VolunteerGearInput!) {
+  volunteerGear(input: $input) {
+    gearVolunteer {
+      gearId
+      userId
+      volunteerAmount
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+
+export function useVolunteerGearMutation() {
+  return Urql.useMutation<VolunteerGearMutation, VolunteerGearMutationVariables>(VolunteerGearDocument);
+};
 export const GetAllCampsitesDocument = gql`
     query GetAllCampsites {
   allCampsites {
@@ -610,6 +673,7 @@ export const GetCampsiteDocument = gql`
         gearCategoryId
         name
         quantity
+        userHasVolunteered
         gearVolunteers {
           userId
           gearId

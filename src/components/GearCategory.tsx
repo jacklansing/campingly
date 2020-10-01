@@ -6,8 +6,10 @@ import CancelIcon from '../assets/icons/cancel-icon.svg';
 import NeededIcon from '../assets/icons/needed-icon.svg';
 import PackedIcon from '../assets/icons/packed-icon.svg';
 import VolunteerIcon from '../assets/icons/volunteer-icon.svg';
-import { Gear } from '../generated/graphql';
+import UndoIcon from '../assets/icons/undo-icon.svg';
+import { Gear, useUndoVolunteerGearMutation } from '../generated/graphql';
 import { useDeleteGearMutation } from '../generated/graphql';
+import { useRouter } from 'next/router';
 
 const iconSize = {
   height: ['35px'],
@@ -25,6 +27,7 @@ interface GearItemProps {
   gearCategoryId: number;
   needed: number;
   volunteered: number;
+  userHasVolunteered: boolean;
 }
 
 const GearItem: React.FC<GearItemProps> = ({
@@ -32,10 +35,12 @@ const GearItem: React.FC<GearItemProps> = ({
   gearCategoryId,
   needed,
   volunteered,
+  userHasVolunteered,
   children,
 }) => {
   const [_, deleteGear] = useDeleteGearMutation();
-
+  const [__, undoVolunteerGear] = useUndoVolunteerGearMutation();
+  const router = useRouter();
   return (
     <>
       <div
@@ -57,12 +62,33 @@ const GearItem: React.FC<GearItemProps> = ({
             flexFlow: 'row no-wrap',
           }}
         >
-          <IconButton
-            aria-label="volunteer to bring"
-            sx={{ ...iconButtonSize, marginRight: 1 }}
-          >
-            <HandIcon sx={{ ...iconButtonSize }} />
-          </IconButton>
+          {userHasVolunteered ? (
+            <IconButton
+              aria-label="volunteer to bring"
+              sx={{ ...iconButtonSize, marginRight: 1 }}
+              onClick={async () => {
+                await undoVolunteerGear({ gearId: id });
+              }}
+            >
+              <UndoIcon sx={{ ...iconButtonSize }} />
+            </IconButton>
+          ) : (
+            <IconButton
+              aria-label="volunteer to bring"
+              sx={{ ...iconButtonSize, marginRight: 1 }}
+              onClick={() => {
+                router.push(
+                  `/campsites/[id]/?volunteerGear=true&gearId=${id}`,
+                  `/campsites/${router.query.id}`,
+                  {
+                    shallow: true,
+                  },
+                );
+              }}
+            >
+              <HandIcon sx={{ ...iconButtonSize }} />
+            </IconButton>
+          )}
           <IconButton
             aria-label="delete gear"
             sx={{ ...iconButtonSize }}
@@ -138,6 +164,7 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
               id={g.id}
               gearCategoryId={g.gearCategoryId}
               needed={g.quantity}
+              userHasVolunteered={g.userHasVolunteered}
               volunteered={g.gearVolunteers.reduce(
                 (a, b) => a + b.volunteerAmount,
                 0,

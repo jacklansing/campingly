@@ -1,0 +1,3 @@
+mutation UndoVolunteerGear($gearId: Int!) {
+  undoVolunteerGear(gearId: $gearId)
+}
