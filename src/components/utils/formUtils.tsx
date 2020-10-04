@@ -6,7 +6,7 @@ import { InputHTMLAttributes, SelectHTMLAttributes } from 'react';
 type TextInputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   type?: string;
 };
 

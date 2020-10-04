@@ -25,7 +25,6 @@ const Expanded: React.FC<ExpandedProps> = ({ show, hasCategories }) => {
         listStyle: 'none',
         padding: 0,
         margin: 0,
-        backgroundColor: 'pink',
         zIndex: show ? 0 : 1,
         height: 'fit-content',
       }}

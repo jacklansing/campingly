@@ -7,6 +7,8 @@ import {
 } from '../../generated/graphql';
 import { SelectField, TextInputField } from '../utils/formUtils';
 import { useRouter } from 'next/router';
+import { toErrorMap } from '../../utils/toErrorMap';
+import { AddGearSchema } from '../../utils/validators/GearSchemas';
 
 const AddGearForm: React.FC = () => {
   const router = useRouter();
@@ -17,8 +19,7 @@ const AddGearForm: React.FC = () => {
   const [_, addGear] = useAddGearMutation();
   return (
     <Formik
-      //TODO: Validation Schema
-      //   validationSchema={}
+      validationSchema={AddGearSchema}
       enableReinitialize
       initialValues={{
         name: '',
@@ -33,9 +34,8 @@ const AddGearForm: React.FC = () => {
             gearCategoryId: +values.gearCategoryId,
           },
         });
-        if (response.error) {
-          //TODO: Show general error
-          console.error(response.error.message);
+        if (response.data.addGear.errors) {
+          actions.setErrors(toErrorMap(response.data.addGear.errors));
         } else if (response.data.addGear.gear.id) {
           // Success, change route to close modal.
           router.push(`/campsites/[id]`, `/campsites/${router.query.id}`, {
@@ -61,12 +61,7 @@ const AddGearForm: React.FC = () => {
             name="name"
             placeholder="New gear label"
           />
-          <TextInputField
-            label="Amount Needed"
-            name="quantity"
-            placeholder="0"
-            type="number"
-          />
+          <TextInputField label="Amount Needed" name="quantity" type="number" />
           <Button
             variant="contained"
             type="submit"

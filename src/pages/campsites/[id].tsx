@@ -4,10 +4,10 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import { createUrqlClient } from '../../utils/createUrqlClient';
 import { usePrivateRoute } from '../../utils/usePrivateRoute';
-import { Heading, Image, jsx, Spinner, Text } from 'theme-ui';
+import { Heading, IconButton, Image, jsx, Spinner, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
 import DateRange from '../../components/DateRange';
-import Fab from '../../components/Fab';
+import CampsiteFab from '../../components/CampsiteFab';
 import GearCategory from '../../components/GearCategory';
 import NewCategoryModal from '../../components/modals/NewCategoryModal';
 import AddGearModal from '../../components/modals/AddGearModal';
@@ -17,9 +17,7 @@ import CategoryRequiredModal from '../../components/modals/CategoryRequiredModal
 import NextLink from 'next/link';
 import VolunteerGearModal from '../../components/modals/VolunteerGearModal';
 
-interface Props {}
-
-const CampsitePage: React.FC<Props> = ({}) => {
+const CampsitePage: React.FC = ({}) => {
   usePrivateRoute();
   const router = useRouter();
   const campsiteId = +router.query.id;
@@ -30,7 +28,17 @@ const CampsitePage: React.FC<Props> = ({}) => {
   });
 
   if (fetching || !data) {
-    return <Spinner />;
+    return (
+      <div sx={{ height: '300px' }}>
+        <Spinner
+          size={100}
+          mx="auto"
+          my="auto"
+          mt="50%"
+          sx={{ display: 'block', verticalAlign: 'middle' }}
+        />
+      </div>
+    );
   }
   return (
     <Layout pageTitle="Campsite">
@@ -72,7 +80,8 @@ const CampsitePage: React.FC<Props> = ({}) => {
           gear={gc.gears as Gear[]}
         />
       ))}
-      <Fab hasCategories={!!data.getCampsite.gearCategories.length} />
+      <IconButton></IconButton>
+      <CampsiteFab hasCategories={!!data.getCampsite.gearCategories.length} />
       <NewCategoryModal open={!!router.query.newCategory} />
       <AddGearModal open={!!router.query.addGear} />
       <CategoryRequiredModal open={!!router.query.categoryRequired} />

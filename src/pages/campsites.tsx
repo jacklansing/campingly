@@ -5,6 +5,7 @@ import { Box, Button } from 'theme-ui';
 import CampsiteCard from '../components/CampsiteCard';
 import Layout from '../components/Layout';
 import CreateCampsiteModal from '../components/modals/CreateCampsiteModal';
+import NewCampsiteFab from '../components/NewCampsiteFab';
 import { useGetAllCampsitesQuery } from '../generated/graphql';
 import { createUrqlClient } from '../utils/createUrqlClient';
 import { usePrivateRoute } from '../utils/usePrivateRoute';
@@ -35,16 +36,7 @@ const Campsites: React.FC = () => {
             />
           ))}
       </Box>
-      <Button
-        mt={4}
-        onClick={() =>
-          router.push(`/campsites?createCampsite=true`, `/campsites`, {
-            shallow: true,
-          })
-        }
-      >
-        New Campsite
-      </Button>
+      <NewCampsiteFab />
       <CreateCampsiteModal open={!!router.query.createCampsite} />
     </Layout>
   );

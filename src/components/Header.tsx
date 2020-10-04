@@ -1,4 +1,5 @@
 import { Flex, Heading, Image } from 'theme-ui';
+import Link from 'next/link';
 import NavBar from './NavBar';
 
 const Header: React.FC = () => {
@@ -15,13 +16,16 @@ const Header: React.FC = () => {
       bg="translucent"
     >
       <Heading as="h5" sx={{ variant: 'headings.h2' }}>
-        <Image
-          alt="Campingly Logo"
-          src="/assets/campingly_logo.png"
-          sx={{
-            maxHeight: ['75px', null, null, '125px'],
-          }}
-        />
+        <Link href="/campsites">
+          <Image
+            alt="Campingly Logo"
+            src="/assets/campingly_logo.png"
+            sx={{
+              maxHeight: ['75px', null, null, '125px'],
+              cursor: 'pointer',
+            }}
+          />
+        </Link>
       </Heading>
       <NavBar />
     </Flex>

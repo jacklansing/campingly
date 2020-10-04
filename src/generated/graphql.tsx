@@ -220,7 +220,7 @@ export type GearCategoryResponse = {
 export type GearResponse = {
   __typename?: 'GearResponse';
   gear?: Maybe<Gear>;
-  errors?: Maybe<Array<ErrorMessage>>;
+  errors?: Maybe<Array<FieldError>>;
 };
 
 export type GearInput = {
@@ -264,8 +264,8 @@ export type AddGearMutation = (
       { __typename?: 'Gear' }
       & Pick<Gear, 'id' | 'name' | 'quantity' | 'gearCategoryId'>
     )>, errors?: Maybe<Array<(
-      { __typename?: 'ErrorMessage' }
-      & Pick<ErrorMessage, 'message'>
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
     )>> }
   ) }
 );
@@ -502,6 +502,7 @@ export const AddGearDocument = gql`
       gearCategoryId
     }
     errors {
+      field
       message
     }
   }

@@ -38,7 +38,6 @@ const VolunteerGearForm: React.FC = () => {
           <TextInputField
             label="Volunteer how many?"
             name="volunteerAmount"
-            placeholder="0"
             type="number"
           />
 
