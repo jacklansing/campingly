@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { Button } from 'theme-ui';
+import Button from '../utils/Button';
 import { useChangePasswordMutation } from '../../generated/graphql';
 import { PasswordResetSchema } from '../../utils/validators/UserSchemas';
 import { TextInputField } from '../utils/formUtils';
@@ -36,7 +36,8 @@ const ResetPasswordForm: React.FC<{ token: string }> = ({ token }) => {
           <Button
             variant="contained"
             type="submit"
-            disabled={props.isSubmitting}
+            isLoading={props.isSubmitting}
+            isDisabled={props.isSubmitting}
             mt={4}
             px={5}
             sx={{

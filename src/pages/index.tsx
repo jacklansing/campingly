@@ -31,7 +31,7 @@ const IndexPage = () => {
         >
           <Box mt={[null, null, 1, 3, 5, 6]}>
             <Heading as="h1" variant="headings.h1">
-              Your campsite {<br />} <strong>Your plan.</strong>
+              Your campsite {<br />} <strong>Organized.</strong>
             </Heading>
             <Text sx={{ fontSize: [5] }}>Collect and manage gear.</Text>
             <Button mt={3} variant="contained" py={2} px={5}>

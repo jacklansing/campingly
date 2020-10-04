@@ -1,4 +1,4 @@
-import { Flex, Heading } from 'theme-ui';
+import { Flex, Heading, Image } from 'theme-ui';
 import NavBar from './NavBar';
 
 const Header: React.FC = () => {
@@ -10,12 +10,18 @@ const Header: React.FC = () => {
         width: ['96%', '90%', '80%'],
       }}
       mx="auto"
-      px="4"
-      py="4"
+      px={[1, 2, 2, 4]}
+      py={[1, 2, 2, 4]}
       bg="translucent"
     >
       <Heading as="h5" sx={{ variant: 'headings.h2' }}>
-        Campingly
+        <Image
+          alt="Campingly Logo"
+          src="/assets/campingly_logo.png"
+          sx={{
+            maxHeight: ['75px', null, null, '125px'],
+          }}
+        />
       </Heading>
       <NavBar />
     </Flex>

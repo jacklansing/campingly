@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { Button } from 'theme-ui';
+import Button from '../utils/Button';
 import { useCreateCampsiteMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../utils/toErrorMap';
 import { TextInputField } from '../utils/formUtils';
@@ -55,7 +55,8 @@ const NewCampsiteForm: React.FC = () => {
           <Button
             variant="contained"
             type="submit"
-            disabled={props.isSubmitting}
+            isLoading={props.isSubmitting}
+            isDisabled={props.isSubmitting}
             mt={4}
             px={5}
             sx={{

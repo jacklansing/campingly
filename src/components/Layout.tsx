@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children, ...props }) => {
     <>
       <Header />
       <Head>
-        <title>{pageTitle} | Next-Theme-UI Boiler</title>
+        <title>{pageTitle} | Campingly</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
           name="description"

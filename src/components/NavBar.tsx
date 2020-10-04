@@ -83,7 +83,10 @@ const NavBar: React.FC = ({}) => {
   }
 
   return (
-    <Box as="nav" sx={{ display: ['none', 'none', 'block'] }}>
+    <Box
+      as="nav"
+      sx={{ display: ['none', 'none', 'block'], alignSelf: 'start' }}
+    >
       {navBar}
     </Box>
   );

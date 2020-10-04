@@ -231,7 +231,6 @@ export const createUrqlClient: NextUrqlClientConfig = (
                   const currentUser: any = cache.readQuery({
                     query: MeDocument,
                   });
-                  console.log(data);
                   // Locate volunteer array for the gear and delete volunteer
                   const categoryIndex = data.getCampsite.gearCategories.findIndex(
                     (gc) => gc.gears.find((g) => g.id === args.gearId),

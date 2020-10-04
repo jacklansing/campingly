@@ -1,6 +1,7 @@
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
-import { Button, Text } from 'theme-ui';
+import { Text } from 'theme-ui';
+import Button from '../utils/Button';
 import { useForgotPasswordMutation } from '../../generated/graphql';
 import { ForgotPasswordSchema } from '../../utils/validators/UserSchemas';
 import { TextInputField } from '../utils/formUtils';
@@ -42,7 +43,8 @@ const RegisterForm: React.FC = () => {
           <Button
             variant="contained"
             type="submit"
-            disabled={props.isSubmitting}
+            isLoading={props.isSubmitting}
+            isDisabled={props.isSubmitting}
             mt={4}
             px={5}
             sx={{

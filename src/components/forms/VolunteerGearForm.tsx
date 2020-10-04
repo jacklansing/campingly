@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { Button } from 'theme-ui';
+import Button from '../utils/Button';
 import { useVolunteerGearMutation } from '../../generated/graphql';
 import { TextInputField } from '../utils/formUtils';
 import { useRouter } from 'next/router';
@@ -45,7 +45,8 @@ const VolunteerGearForm: React.FC = () => {
           <Button
             variant="contained"
             type="submit"
-            disabled={props.isSubmitting}
+            isLoading={props.isSubmitting}
+            isDisabled={props.isSubmitting}
             mt={4}
             px={5}
             sx={{

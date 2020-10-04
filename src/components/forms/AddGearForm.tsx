@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { Button } from 'theme-ui';
+import Button from '../utils/Button';
 import {
   useAddGearMutation,
   useGetCategoriesQuery,
@@ -70,7 +70,8 @@ const AddGearForm: React.FC = () => {
           <Button
             variant="contained"
             type="submit"
-            disabled={props.isSubmitting || (!data && fetching)}
+            isLoading={props.isSubmitting || (!data && fetching)}
+            isDisabled={props.isSubmitting || (!data && fetching)}
             mt={4}
             px={5}
             sx={{

@@ -10,6 +10,7 @@ import UndoIcon from '../assets/icons/undo-icon.svg';
 import { Gear, useUndoVolunteerGearMutation } from '../generated/graphql';
 import { useDeleteGearMutation } from '../generated/graphql';
 import { useRouter } from 'next/router';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const iconSize = {
   height: ['35px'],
@@ -37,13 +38,19 @@ const GearItem: React.FC<GearItemProps> = ({
   volunteered,
   userHasVolunteered,
   children,
+  ...props
 }) => {
   const [_, deleteGear] = useDeleteGearMutation();
   const [__, undoVolunteerGear] = useUndoVolunteerGearMutation();
   const router = useRouter();
   return (
     <>
-      <div
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        exit={{ opacity: 0 }}
+        {...props}
         role="row"
         sx={{
           marginTop: [2, 4],
@@ -99,7 +106,7 @@ const GearItem: React.FC<GearItemProps> = ({
             <CancelIcon sx={{ ...iconButtonSize }} />
           </IconButton>
         </Box>
-      </div>
+      </motion.div>
       <Divider />
     </>
   );
@@ -157,27 +164,35 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
             <VolunteerIcon sx={{ ...iconSize, marginLeft: 4 }} />
           </Box>
         </div>
-        {gear.length ? (
-          gear.map((g) => (
-            <GearItem
-              key={g.id}
-              id={g.id}
-              gearCategoryId={g.gearCategoryId}
-              needed={g.quantity}
-              userHasVolunteered={g.userHasVolunteered}
-              volunteered={g.gearVolunteers.reduce(
-                (a, b) => a + b.volunteerAmount,
-                0,
-              )}
+        <AnimatePresence>
+          {gear.length ? (
+            gear.map((g) => (
+              <GearItem
+                key={g.id}
+                id={g.id}
+                gearCategoryId={g.gearCategoryId}
+                needed={g.quantity}
+                userHasVolunteered={g.userHasVolunteered}
+                volunteered={g.gearVolunteers.reduce(
+                  (a, b) => a + b.volunteerAmount,
+                  0,
+                )}
+              >
+                {g.name}
+              </GearItem>
+            ))
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              exit={{ opacity: 0 }}
+              sx={{ textAlign: 'center', marginTop: 4, marginBottom: 4 }}
             >
-              {g.name}
-            </GearItem>
-          ))
-        ) : (
-          <Text mt={4} mb={4} sx={{ textAlign: 'center' }}>
-            No gear for this category, yet!
-          </Text>
-        )}
+              No gear for this category, yet!
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </Box>
   );

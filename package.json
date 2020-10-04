@@ -1,5 +1,5 @@
 {
-  "name": "with-theme-ui",
+  "name": "Campingly",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,6 +15,7 @@
     "@urql/exchange-graphcache": "^3.1.0",
     "emotion-theming": "^10.0.27",
     "formik": "^2.1.5",
+    "framer-motion": "^2.7.7",
     "graphql": "^15.3.0",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.1.7",
