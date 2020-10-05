@@ -263,11 +263,6 @@ export const createUrqlClient: NextUrqlClientConfig = (
         },
       }),
       ssrExchange,
-      errorExchange({
-        onError: (error: CombinedError, operation: Operation) => {
-          console.log('An error!', error);
-        },
-      }),
       fetchExchange,
     ],
   };
