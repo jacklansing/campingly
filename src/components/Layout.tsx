@@ -1,5 +1,7 @@
+/** @jsx jsx */
+import { motion } from 'framer-motion';
 import Head from 'next/head';
-import { Box } from 'theme-ui';
+import { jsx } from 'theme-ui';
 import Header from './Header';
 
 interface LayoutProps {
@@ -15,24 +17,28 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children, ...props }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
           name="description"
-          content="Next.js and Theme-UI Boilerplate with Authentication"
+          content="Organize your camping trips with campingly"
         />
       </Head>
-      <Box
-        as="main"
+      <motion.main
+        initial="initial"
+        exit={{ opacity: 0 }}
+        animate="animate"
+        transition={{ delay: 0.2 }}
         sx={{
           display: 'flex',
           width: ['98%', '96%', '80%'],
           flexFlow: 'column wrap',
           alignItems: 'center',
           justifyContent: 'flex-start',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginBottom: 5,
         }}
-        mx="auto"
-        mb={5}
         {...props}
       >
         {children}
-      </Box>
+      </motion.main>
     </>
   );
 };

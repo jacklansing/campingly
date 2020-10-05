@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import React from 'react';
 import { useRouter } from 'next/router';
 import ExitIcon from '../../assets/icons/exit-icon.svg';
+import { motion } from 'framer-motion';
 Modal.setAppElement('#__next');
 
 interface Props {
@@ -54,7 +55,14 @@ const ResponsiveModal: React.FC<Props> = ({ open, children }) => {
         >
           <ExitIcon sx={{ height: '15px', width: '15px' }} />
         </Button>
-        {children}
+        <motion.div
+          initial={{ height: 0 }}
+          animate={{ height: 'fit-content' }}
+          transition={{ duration: 0.2 }}
+          sx={{ overflow: 'hidden' }}
+        >
+          {children}
+        </motion.div>
       </Modal>
       <Global
         styles={{

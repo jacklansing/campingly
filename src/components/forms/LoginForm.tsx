@@ -1,7 +1,6 @@
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
-// import { Button } from 'theme-ui';
 import Button from '../utils/Button';
 import { useLoginMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../utils/toErrorMap';
@@ -23,7 +22,7 @@ const RegisterForm: React.FC = () => {
           if (typeof router.query.next === 'string') {
             router.push(router.query.next);
           } else {
-            router.push('/campsites');
+            router.push('/campsites/');
           }
         }
       }}

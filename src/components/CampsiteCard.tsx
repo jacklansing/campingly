@@ -1,8 +1,11 @@
+/** @jsx jsx */
 import React from 'react';
-import { Box, Image, Heading } from 'theme-ui';
+import { jsx, Image, Heading } from 'theme-ui';
 import router from 'next/router';
 import DateRange from './DateRange';
 import { formatDate } from '../utils/formatDate';
+import { motion } from 'framer-motion';
+import { fadeInUp } from '../utils/animations';
 
 interface Props {
   id: number;
@@ -13,7 +16,8 @@ interface Props {
 
 const CampsiteCard: React.FC<Props> = ({ id, name, startDate, endDate }) => {
   return (
-    <Box
+    <motion.div
+      variants={fadeInUp}
       sx={{
         border: 2,
         borderRadius: 1,
@@ -30,10 +34,10 @@ const CampsiteCard: React.FC<Props> = ({ id, name, startDate, endDate }) => {
           boxShadow: 4,
           outline: 'none',
         },
+        padding: 4,
+        marginTop: 4,
+        marginLeft: [0, 0, 4],
       }}
-      p={4}
-      mt={4}
-      ml={[0, 0, 4]}
       tabIndex={0}
       role="button"
       aria-label="Go to campsite details"
@@ -60,7 +64,7 @@ const CampsiteCard: React.FC<Props> = ({ id, name, startDate, endDate }) => {
         mt={2}
         mx="auto"
       />
-    </Box>
+    </motion.div>
   );
 };
 export default CampsiteCard;

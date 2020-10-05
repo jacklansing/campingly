@@ -4,7 +4,7 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import { createUrqlClient } from '../../utils/createUrqlClient';
 import { usePrivateRoute } from '../../utils/usePrivateRoute';
-import { Heading, IconButton, Image, jsx, Spinner, Text } from 'theme-ui';
+import { Heading, Image, jsx, Spinner, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
 import DateRange from '../../components/DateRange';
 import CampsiteFab from '../../components/CampsiteFab';
@@ -16,6 +16,7 @@ import { formatDate } from '../../utils/formatDate';
 import CategoryRequiredModal from '../../components/modals/CategoryRequiredModal';
 import NextLink from 'next/link';
 import VolunteerGearModal from '../../components/modals/VolunteerGearModal';
+import { motion } from 'framer-motion';
 
 const CampsitePage: React.FC = ({}) => {
   usePrivateRoute();
@@ -29,7 +30,7 @@ const CampsitePage: React.FC = ({}) => {
 
   if (fetching || !data) {
     return (
-      <div sx={{ height: '300px' }}>
+      <Layout pageTitle="Campsite">
         <Spinner
           size={100}
           mx="auto"
@@ -37,15 +38,18 @@ const CampsitePage: React.FC = ({}) => {
           mt="50%"
           sx={{ display: 'block', verticalAlign: 'middle' }}
         />
-      </div>
+      </Layout>
     );
   }
   return (
     <Layout pageTitle="Campsite">
-      <Image
+      <motion.img
         alt="campsite"
         src="/assets/campsite-ground.svg"
-        sx={{ maxWidth: [null, null, '33%'] }}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.4, delay: 0.2 }}
+        sx={{ maxWidth: ['100%', '100%', '33%'], height: 'auto' }}
       />
       <Heading as="h1" variant="headings.h2">
         {data.getCampsite.name}
@@ -80,7 +84,6 @@ const CampsitePage: React.FC = ({}) => {
           gear={gc.gears as Gear[]}
         />
       ))}
-      <IconButton></IconButton>
       <CampsiteFab hasCategories={!!data.getCampsite.gearCategories.length} />
       <NewCategoryModal open={!!router.query.newCategory} />
       <AddGearModal open={!!router.query.addGear} />
