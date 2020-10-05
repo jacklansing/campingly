@@ -27,7 +27,7 @@ const NavLink: React.FC<NavLinkProps> = ({ href, children }) => (
         position: 'relative',
         cursor: 'pointer',
         '::after': {
-          content: "''",
+          content: [null, null, "''"],
           position: 'absolute',
           bottom: -2,
           left: 0,
@@ -77,7 +77,7 @@ const NavBar: React.FC = ({}) => {
           mt={4}
           px={5}
           sx={{
-            display: 'block',
+            display: ['none', null, 'block'],
             marginLeft: 'auto',
           }}
         >
@@ -91,11 +91,14 @@ const NavBar: React.FC = ({}) => {
     <>
       <Box
         as="nav"
-        sx={{ display: ['none', 'none', 'block'], alignSelf: 'start' }}
+        sx={{
+          display: ['flex', 'flex', 'block'],
+          alignSelf: ['center', 'center', 'start'],
+        }}
       >
         {navBar}
       </Box>
-      {data.me ? (
+      {data?.me ? (
         <Box
           as="nav"
           sx={{

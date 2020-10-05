@@ -32,22 +32,7 @@ const IndexPage = () => {
           <Heading as="h1" variant="headings.h1">
             Your campsite {<br />} <strong>Organized.</strong>
           </Heading>
-          <Text sx={{ fontSize: [5] }}>Collect and manage gear.</Text>
-          <Button mt={3} variant="contained" py={2} px={5}>
-            Sign Up Now
-          </Button>
-          <Link
-            href="#"
-            sx={{
-              display: 'block',
-              color: 'dark',
-              opacity: 0.8,
-            }}
-            mt={2}
-            ml={12}
-          >
-            Click here to learn more
-          </Link>
+          <Text sx={{ fontSize: [5] }}>Track and manage gear.</Text>
         </Box>
         <FormBox header="Sign Up 🚀">
           <RegisterForm />
