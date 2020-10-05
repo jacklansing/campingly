@@ -15,7 +15,7 @@ const AppMenu: React.FC<Props> = ({}) => {
       }
       style={{
         content: {
-          top: '11%',
+          top: '75px',
           left: '74%',
           height: 'fit-content',
           width: '25%',

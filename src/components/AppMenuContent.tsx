@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 /** @jsx jsx */
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -24,7 +25,7 @@ const AppMenuContent: React.FC<Props> = ({}) => {
   }
 
   return (
-    <>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <Button
         aria-label="close menu"
         sx={{
@@ -98,7 +99,7 @@ const AppMenuContent: React.FC<Props> = ({}) => {
           <div>Sign Out</div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 };
 
