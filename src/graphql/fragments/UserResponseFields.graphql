@@ -6,5 +6,6 @@ fragment UserResponseFields on UserResponse {
   user {
     id
     username
+    email
   }
 }

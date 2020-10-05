@@ -247,7 +247,7 @@ export type UserResponseFieldsFragment = (
     & Pick<FieldError, 'field' | 'message'>
   )>>, user?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'username'>
+    & Pick<User, 'id' | 'username' | 'email'>
   )> }
 );
 
@@ -489,6 +489,7 @@ export const UserResponseFieldsFragmentDoc = gql`
   user {
     id
     username
+    email
   }
 }
     `;
