@@ -67,7 +67,7 @@ const Expanded: React.FC<ExpandedProps> = ({ show, hasCategories }) => {
                 )
           }
         >
-          New Gear
+          Add Gear
         </Button>
       </li>
     </ul>
