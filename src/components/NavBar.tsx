@@ -6,6 +6,7 @@ import { useLogoutMutation, useMeQuery } from '../generated/graphql';
 
 import { useRouter } from 'next/router';
 import MobileMenu from './MobileMenu';
+import AppMenu from './AppMenu';
 
 interface NavLinkProps {
   href: string;
@@ -70,7 +71,7 @@ const NavBar: React.FC = ({}) => {
     // User is logged in
     navBar = (
       <>
-        <Button
+        {/* <Button
           variant="contained"
           disabled={logoutFetching}
           onClick={async () => await logout()}
@@ -82,7 +83,7 @@ const NavBar: React.FC = ({}) => {
           }}
         >
           Logout
-        </Button>
+        </Button> */}
       </>
     );
   }
@@ -102,7 +103,6 @@ const NavBar: React.FC = ({}) => {
         <Box
           as="nav"
           sx={{
-            display: ['block', 'block', 'none'],
             position: 'absolute',
             top: 2,
             right: 0,
@@ -110,12 +110,17 @@ const NavBar: React.FC = ({}) => {
         >
           <Button
             onClick={() => {
-              router.push(`${router.pathname}/?menu=open`, router.asPath, {
-                shallow: true,
-              });
+              router.push(
+                `${router.pathname}/?mobileAppMenu=open`,
+                router.asPath,
+                {
+                  shallow: true,
+                },
+              );
             }}
             aria-haspopup="true"
             sx={{
+              display: ['block', null, 'none'],
               backgroundColor: 'transparent',
               border: 'none',
             }}
@@ -125,6 +130,25 @@ const NavBar: React.FC = ({}) => {
               sx={{ verticalAlign: 'middle' }}
             />
           </Button>
+          <Button
+            onClick={() => {
+              router.push(`${router.pathname}/?appMenu=open`, router.asPath, {
+                shallow: true,
+              });
+            }}
+            aria-haspopup="true"
+            sx={{
+              display: ['none', null, 'block'],
+              backgroundColor: 'transparent',
+              border: 'none',
+            }}
+          >
+            <Avatar
+              src="/assets/default-avatar.svg"
+              sx={{ verticalAlign: 'middle', width: '50px' }}
+            />
+          </Button>
+          <AppMenu />
           <MobileMenu />
         </Box>
       ) : null}
