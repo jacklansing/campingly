@@ -1,6 +1,4 @@
-## Next/Theme-UI Boiler with Urql GraphQL Client
-
-[Server 💾](https://github.com/jacklansing/apollo-express-boiler)
+## Campingly
 
 - [Next-JS](https://nextjs.org/)
 
@@ -12,12 +10,4 @@
 
 - [Formik](https://formik.org/) w/ [Yup](https://github.com/jquense/yup)
 
-## Setup
-
-1. Requires TypeScript + Server (above)
-2. `yarn`
-3. `yarn dev`
-
-## Notes
-
-`yarn gen` to generate new graphql code. see `/codegen.yml` for config.
+- and friends
