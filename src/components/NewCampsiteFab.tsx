@@ -10,7 +10,7 @@ const NewCampsiteFab: React.FC<Props> = ({}) => {
   const router = useRouter();
   return (
     <Button
-      aria-label="show campsite options"
+      aria-label="create new campsite"
       onClick={() =>
         router.push(`/campsites?createCampsite=true`, `/campsites`, {
           shallow: true,

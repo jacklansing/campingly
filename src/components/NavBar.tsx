@@ -2,7 +2,7 @@
 import NextLink from 'next/link';
 import React from 'react';
 import { Box, Button, Link, jsx, Avatar } from 'theme-ui';
-import { useLogoutMutation, useMeQuery } from '../generated/graphql';
+import { useMeQuery } from '../generated/graphql';
 
 import { useRouter } from 'next/router';
 import MobileMenu from './MobileMenu';
@@ -52,53 +52,11 @@ const NavLink: React.FC<NavLinkProps> = ({ href, children }) => (
 );
 
 const NavBar: React.FC = ({}) => {
-  const [{ data, fetching: meQueryFetching }, _] = useMeQuery();
-  const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
+  const [{ data }, _] = useMeQuery();
   const router = useRouter();
-
-  let navBar = null;
-  if (meQueryFetching) {
-    // Data is loading
-  } else if (!data?.me) {
-    // Not logged in
-    navBar = (
-      <>
-        <NavLink href="/">Home</NavLink>
-        <NavLink href="/login">Login</NavLink>
-      </>
-    );
-  } else {
-    // User is logged in
-    navBar = (
-      <>
-        {/* <Button
-          variant="contained"
-          disabled={logoutFetching}
-          onClick={async () => await logout()}
-          mt={4}
-          px={5}
-          sx={{
-            display: ['none', null, 'block'],
-            marginLeft: 'auto',
-          }}
-        >
-          Logout
-        </Button> */}
-      </>
-    );
-  }
 
   return (
     <>
-      <Box
-        as="nav"
-        sx={{
-          display: ['flex', 'flex', 'block'],
-          alignSelf: ['center', 'center', 'start'],
-        }}
-      >
-        {navBar}
-      </Box>
       {data?.me ? (
         <Box
           as="nav"
@@ -109,6 +67,7 @@ const NavBar: React.FC = ({}) => {
           }}
         >
           <Button
+            aria-label="open navigation"
             onClick={() => {
               router.push(
                 `${router.pathname}/?mobileAppMenu=open`,
@@ -126,12 +85,15 @@ const NavBar: React.FC = ({}) => {
             }}
           >
             <Avatar
+              alt="avatar"
               src="/assets/default-avatar.svg"
               sx={{ verticalAlign: 'middle' }}
             />
           </Button>
           <Button
-            onClick={() => {
+            aria-label="open navigation"
+            onClick={(e) => {
+              e.currentTarget.blur();
               router.push(`${router.pathname}/?appMenu=open`, router.asPath, {
                 shallow: true,
               });
@@ -144,6 +106,7 @@ const NavBar: React.FC = ({}) => {
             }}
           >
             <Avatar
+              alt="avatar"
               src="/assets/default-avatar.svg"
               sx={{ verticalAlign: 'middle', width: '50px' }}
             />
@@ -151,7 +114,18 @@ const NavBar: React.FC = ({}) => {
           <AppMenu />
           <MobileMenu />
         </Box>
-      ) : null}
+      ) : (
+        <Box
+          as="nav"
+          sx={{
+            display: ['flex', 'flex', 'block'],
+            alignSelf: ['center', 'center', 'start'],
+          }}
+        >
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/login">Login</NavLink>
+        </Box>
+      )}
     </>
   );
 };

@@ -4,6 +4,7 @@ import { jsx } from 'theme-ui';
 import Modal from 'react-modal';
 import { useRouter } from 'next/router';
 import AppMenuContent from './AppMenuContent';
+Modal.setAppElement('#__next');
 
 const MobileMenu: React.FC = ({}) => {
   const router = useRouter();

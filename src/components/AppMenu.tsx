@@ -1,24 +1,32 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useRef } from 'react';
 import Modal from 'react-modal';
 import AppMenuContent from './AppMenuContent';
-interface Props {}
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+Modal.setAppElement('#__next');
 
-const AppMenu: React.FC<Props> = ({}) => {
+const AppMenu: React.FC = ({}) => {
   const router = useRouter();
+  const modal = useRef(null);
   return (
     <Modal
+      ref={modal}
       isOpen={!!router.query.appMenu}
       shouldCloseOnOverlayClick={true}
+      onAfterOpen={() => disableBodyScroll(modal as any)}
+      onAfterClose={() => enableBodyScroll(modal as any)}
       onRequestClose={() =>
         router.push(router.pathname, router.asPath, { shallow: true })
       }
       style={{
         content: {
+          position: 'relative',
           top: '75px',
-          left: '74%',
+          left: '-1.333%',
           height: 'fit-content',
           width: '25%',
+          minWidth: '320px',
+          marginLeft: 'auto',
         },
       }}
     >

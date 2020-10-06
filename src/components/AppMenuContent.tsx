@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
 /** @jsx jsx */
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { jsx, Button, Avatar, Divider, Spinner } from 'theme-ui';
@@ -15,7 +15,7 @@ const AppMenuContent: React.FC<Props> = ({}) => {
   const [{ data, fetching: meQueryFetching }, _] = useMeQuery();
 
   const closeModal = () => {
-    router.push(`${router.pathname}/?menu=open`, router.asPath, {
+    router.push(router.pathname, router.asPath, {
       shallow: true,
     });
   };
@@ -60,7 +60,15 @@ const AppMenuContent: React.FC<Props> = ({}) => {
       <div>
         <div
           role="button"
-          aria-label="logout"
+          tabIndex={0}
+          aria-label="go to campsites list"
+          onKeyDown={(e) => {
+            e.currentTarget.focus();
+            if (e.key === 'Enter') {
+              closeModal();
+              router.push('/campsites');
+            }
+          }}
           onClick={() => {
             closeModal();
             router.push('/campsites');
@@ -80,7 +88,14 @@ const AppMenuContent: React.FC<Props> = ({}) => {
         </div>
         <div
           role="button"
+          tabIndex={0}
           aria-label="logout"
+          onKeyDown={async (e) => {
+            if (e.key === 'Enter') {
+              closeModal();
+              await logout();
+            }
+          }}
           onClick={async () => {
             closeModal();
             await logout();
