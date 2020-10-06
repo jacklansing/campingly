@@ -71,8 +71,11 @@ const GearItem: React.FC<GearItemProps> = ({
         >
           {userHasVolunteered ? (
             <IconButton
-              aria-label="volunteer to bring"
-              sx={{ ...iconButtonSize, marginRight: 1 }}
+              aria-label="undo volunteer to bring"
+              sx={{
+                ...iconButtonSize,
+                marginRight: 1,
+              }}
               onClick={async () => {
                 await undoVolunteerGear({ gearId: id });
               }}
@@ -82,7 +85,14 @@ const GearItem: React.FC<GearItemProps> = ({
           ) : (
             <IconButton
               aria-label="volunteer to bring"
-              sx={{ ...iconButtonSize, marginRight: 1 }}
+              sx={{
+                ...iconButtonSize,
+                marginRight: 1,
+                transition: 'all .2s ease',
+                '&:hover': {
+                  transform: 'translateY(-1px)',
+                },
+              }}
               onClick={() => {
                 router.push(
                   `/campsites/[id]/?volunteerGear=true&gearId=${id}`,

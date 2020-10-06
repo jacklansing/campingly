@@ -31,6 +31,7 @@ const Expanded: React.FC<ExpandedProps> = ({ show, hasCategories }) => {
     >
       <li>
         <Button
+          variant="contained"
           sx={{ borderRadius: 1, height: ['50px'], width: ['100%'] }}
           onClick={() =>
             router.push(
@@ -47,6 +48,7 @@ const Expanded: React.FC<ExpandedProps> = ({ show, hasCategories }) => {
       </li>
       <li>
         <Button
+          variant="contained"
           mt={2}
           sx={{ borderRadius: 1, height: ['50px'], width: ['100%'] }}
           onClick={() =>
