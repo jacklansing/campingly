@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { Box, Divider, Heading, IconButton, Text, jsx } from 'theme-ui';
+import { Box, Divider, Heading, IconButton, jsx } from 'theme-ui';
 import HandIcon from '../assets/icons/hand-icon.svg';
 import CancelIcon from '../assets/icons/cancel-icon.svg';
 import NeededIcon from '../assets/icons/needed-icon.svg';
@@ -131,7 +131,7 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
   return (
     <Box
       mt={4}
-      p={2}
+      p={[2, 2, 2, 4]}
       sx={{
         minHeight: 'fit-content',
         width: ['100%', null, null, null, '60%'],
@@ -197,9 +197,17 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
               exit={{ opacity: 0 }}
-              sx={{ textAlign: 'center', marginTop: 4, marginBottom: 4 }}
+              sx={{
+                textAlign: 'center',
+                marginTop: 4,
+                marginBottom: 4,
+                paddingTop: 3,
+              }}
             >
-              No gear for this category, yet!
+              No gear for this category, yet!{' '}
+              <div>
+                Use the backpack to <strong>Add Gear</strong>.
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

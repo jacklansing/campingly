@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { withUrqlClient } from 'next-urql';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../../components/Layout';
 import { createUrqlClient } from '../../utils/createUrqlClient';
 import { usePrivateRoute } from '../../utils/usePrivateRoute';
@@ -28,6 +28,14 @@ const CampsitePage: React.FC = ({}) => {
     variables: { campsiteId: campsiteId },
   });
 
+  useEffect(() => {
+    // Helps prevent getting stuck when loading a campsite that
+    // is not yours. E.g. upon switching accounts
+    if (!fetching && !data) {
+      router.push('/campsites');
+    }
+  }, [data]);
+
   if (fetching || !data) {
     return (
       <Layout pageTitle="Campsite">
@@ -35,7 +43,7 @@ const CampsitePage: React.FC = ({}) => {
           size={100}
           mx="auto"
           my="auto"
-          mt="50%"
+          mt="15%"
           sx={{ display: 'block', verticalAlign: 'middle' }}
         />
       </Layout>
