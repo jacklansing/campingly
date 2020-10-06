@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { useThemeUI, jsx, IconButton, Button } from 'theme-ui';
 import { Global } from '@emotion/core';
-import Modal from 'react-modal';
-import React from 'react';
-import { useRouter } from 'next/router';
-import ExitIcon from '../../assets/icons/exit-icon.svg';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import React from 'react';
+import Modal from 'react-modal';
+import { Button, jsx, useThemeUI } from 'theme-ui';
+import ExitIcon from '../../assets/icons/exit-icon.svg';
 Modal.setAppElement('#__next');
 
 interface Props {

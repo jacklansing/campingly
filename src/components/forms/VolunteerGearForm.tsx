@@ -1,10 +1,10 @@
 import { Form, Formik } from 'formik';
-import React from 'react';
-import Button from '../utils/Button';
-import { useVolunteerGearMutation } from '../../generated/graphql';
-import { TextInputField } from '../utils/formUtils';
 import { useRouter } from 'next/router';
+import React from 'react';
+import { useVolunteerGearMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../utils/toErrorMap';
+import Button from '../utils/Button';
+import { TextInputField } from '../utils/formUtils';
 
 const VolunteerGearForm: React.FC = () => {
   const router = useRouter();

@@ -1,7 +1,7 @@
 import React from 'react';
-import ResponsiveModal from '../utils/ResponsiveModal';
-import NewCampsiteForm from '../forms/NewCampsiteForm';
 import { Heading } from 'theme-ui';
+import NewCampsiteForm from '../forms/NewCampsiteForm';
+import ResponsiveModal from '../utils/ResponsiveModal';
 
 interface Props {
   open: boolean;

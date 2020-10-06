@@ -1,8 +1,8 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
-import Button from '../utils/Button';
 import { useChangePasswordMutation } from '../../generated/graphql';
 import { PasswordResetSchema } from '../../utils/validators/UserSchemas';
+import Button from '../utils/Button';
 import { TextInputField } from '../utils/formUtils';
 
 const ResetPasswordForm: React.FC<{ token: string }> = ({ token }) => {
@@ -13,7 +13,7 @@ const ResetPasswordForm: React.FC<{ token: string }> = ({ token }) => {
       validationSchema={PasswordResetSchema}
       initialValues={{ password: '', passwordConfirm: '' }}
       onSubmit={async (values, _) => {
-        const response = await changePassword({
+        await changePassword({
           newPassword: values.password,
           token,
         });

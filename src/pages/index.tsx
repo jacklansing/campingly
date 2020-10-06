@@ -1,9 +1,9 @@
-import Layout from '../components/Layout';
-import { Box, Heading, Text, Button, Link } from 'theme-ui';
-import RegisterForm from '../components/forms/RegisterForm';
-import React from 'react';
-import FormBox from '../components/FormBox';
 import { withUrqlClient } from 'next-urql';
+import React from 'react';
+import { Box, Heading, Text } from 'theme-ui';
+import FormBox from '../components/FormBox';
+import RegisterForm from '../components/forms/RegisterForm';
+import Layout from '../components/Layout';
 import { createUrqlClient } from '../utils/createUrqlClient';
 import { usePublicRoute } from '../utils/usePublicRoute';
 

@@ -1,9 +1,9 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
-import Button from '../utils/Button';
 import { useRegisterMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../utils/toErrorMap';
 import { RegisterSchema } from '../../utils/validators/UserSchemas';
+import Button from '../utils/Button';
 import { TextInputField } from '../utils/formUtils';
 
 const RegisterForm: React.FC = () => {

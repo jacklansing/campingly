@@ -1,9 +1,9 @@
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { Text } from 'theme-ui';
-import Button from '../utils/Button';
 import { useForgotPasswordMutation } from '../../generated/graphql';
 import { ForgotPasswordSchema } from '../../utils/validators/UserSchemas';
+import Button from '../utils/Button';
 import { TextInputField } from '../utils/formUtils';
 
 const RegisterForm: React.FC = () => {

@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import React from 'react';
-import { jsx, Image, Heading } from 'theme-ui';
-import router from 'next/router';
-import DateRange from './DateRange';
-import { formatDate } from '../utils/formatDate';
 import { motion } from 'framer-motion';
+import router from 'next/router';
+import React from 'react';
+import { Heading, Image, jsx } from 'theme-ui';
 import { fadeInUp } from '../utils/animations';
+import { formatDate } from '../utils/formatDate';
+import DateRange from './DateRange';
 
 interface Props {
   id: number;

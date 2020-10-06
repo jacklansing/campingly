@@ -1,12 +1,10 @@
 /** @jsx jsx */
+import { useRouter } from 'next/router';
 import React from 'react';
 import { Button, jsx } from 'theme-ui';
 import AddIcon from '../assets/icons/add-icon.svg';
-import { useRouter } from 'next/router';
 
-interface Props {}
-
-const NewCampsiteFab: React.FC<Props> = ({}) => {
+const NewCampsiteFab: React.FC = ({}) => {
   const router = useRouter();
   return (
     <Button

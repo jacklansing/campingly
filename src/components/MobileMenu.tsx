@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import React from 'react';
-import { jsx } from 'theme-ui';
-import Modal from 'react-modal';
 import { useRouter } from 'next/router';
+import React from 'react';
+import Modal from 'react-modal';
+import { jsx } from 'theme-ui';
 import AppMenuContent from './AppMenuContent';
 Modal.setAppElement('#__next');
 

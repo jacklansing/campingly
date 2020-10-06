@@ -1,16 +1,19 @@
 /** @jsx jsx */
+import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { Box, Divider, Heading, IconButton, jsx } from 'theme-ui';
-import HandIcon from '../assets/icons/hand-icon.svg';
 import CancelIcon from '../assets/icons/cancel-icon.svg';
+import HandIcon from '../assets/icons/hand-icon.svg';
 import NeededIcon from '../assets/icons/needed-icon.svg';
 import PackedIcon from '../assets/icons/packed-icon.svg';
-import VolunteerIcon from '../assets/icons/volunteer-icon.svg';
 import UndoIcon from '../assets/icons/undo-icon.svg';
-import { Gear, useUndoVolunteerGearMutation } from '../generated/graphql';
-import { useDeleteGearMutation } from '../generated/graphql';
-import { useRouter } from 'next/router';
-import { AnimatePresence, motion } from 'framer-motion';
+import VolunteerIcon from '../assets/icons/volunteer-icon.svg';
+import {
+  Gear,
+  useDeleteGearMutation,
+  useUndoVolunteerGearMutation,
+} from '../generated/graphql';
 
 const iconSize = {
   height: ['35px'],

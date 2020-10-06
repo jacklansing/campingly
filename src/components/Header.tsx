@@ -1,5 +1,5 @@
-import { Flex, Heading, Image } from 'theme-ui';
 import Link from 'next/link';
+import { Flex, Heading, Image } from 'theme-ui';
 import NavBar from './NavBar';
 
 const Header: React.FC = () => {

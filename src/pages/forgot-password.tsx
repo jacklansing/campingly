@@ -1,8 +1,8 @@
 import { withUrqlClient } from 'next-urql';
 import React from 'react';
 import { Box } from 'theme-ui';
-import ForgotPasswordForm from '../components/forms/ForgotPasswordForm';
 import FormBox from '../components/FormBox';
+import ForgotPasswordForm from '../components/forms/ForgotPasswordForm';
 import Layout from '../components/Layout';
 import { createUrqlClient } from '../utils/createUrqlClient';
 import { usePublicRoute } from '../utils/usePublicRoute';

@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import NextLink from 'next/link';
-import React from 'react';
-import { Box, Button, Link, jsx, Avatar } from 'theme-ui';
-import { useMeQuery } from '../generated/graphql';
-
 import { useRouter } from 'next/router';
-import MobileMenu from './MobileMenu';
+import React from 'react';
+import { Avatar, Box, Button, jsx, Link } from 'theme-ui';
+import { useMeQuery } from '../generated/graphql';
 import AppMenu from './AppMenu';
+import MobileMenu from './MobileMenu';
 
 interface NavLinkProps {
   href: string;

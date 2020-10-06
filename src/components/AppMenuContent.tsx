@@ -2,14 +2,13 @@
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { jsx, Button, Avatar, Divider, Spinner } from 'theme-ui';
+import { Avatar, Button, Divider, jsx, Spinner } from 'theme-ui';
 import ExitIcon from '../assets/icons/exit-icon.svg';
 import LogoutIcon from '../assets/icons/logout-icon.svg';
 import TentIcon from '../assets/icons/tent-icon.svg';
 import { useLogoutMutation, useMeQuery } from '../generated/graphql';
-interface Props {}
 
-const AppMenuContent: React.FC<Props> = ({}) => {
+const AppMenuContent: React.FC = ({}) => {
   const router = useRouter();
   const [, logout] = useLogoutMutation();
   const [{ data, fetching: meQueryFetching }, _] = useMeQuery();

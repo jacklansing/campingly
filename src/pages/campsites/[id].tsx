@@ -1,22 +1,22 @@
 /** @jsx jsx */
-import { withUrqlClient } from 'next-urql';
-import React, { useEffect } from 'react';
-import Layout from '../../components/Layout';
-import { createUrqlClient } from '../../utils/createUrqlClient';
-import { usePrivateRoute } from '../../utils/usePrivateRoute';
-import { Heading, Image, jsx, Spinner, Text } from 'theme-ui';
-import { useRouter } from 'next/router';
-import DateRange from '../../components/DateRange';
-import CampsiteFab from '../../components/CampsiteFab';
-import GearCategory from '../../components/GearCategory';
-import NewCategoryModal from '../../components/modals/NewCategoryModal';
-import AddGearModal from '../../components/modals/AddGearModal';
-import { Gear, useGetCampsiteQuery } from '../../generated/graphql';
-import { formatDate } from '../../utils/formatDate';
-import CategoryRequiredModal from '../../components/modals/CategoryRequiredModal';
-import NextLink from 'next/link';
-import VolunteerGearModal from '../../components/modals/VolunteerGearModal';
 import { motion } from 'framer-motion';
+import { withUrqlClient } from 'next-urql';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import { Heading, jsx, Spinner, Text } from 'theme-ui';
+import CampsiteFab from '../../components/CampsiteFab';
+import DateRange from '../../components/DateRange';
+import GearCategory from '../../components/GearCategory';
+import Layout from '../../components/Layout';
+import AddGearModal from '../../components/modals/AddGearModal';
+import CategoryRequiredModal from '../../components/modals/CategoryRequiredModal';
+import NewCategoryModal from '../../components/modals/NewCategoryModal';
+import VolunteerGearModal from '../../components/modals/VolunteerGearModal';
+import { Gear, useGetCampsiteQuery } from '../../generated/graphql';
+import { createUrqlClient } from '../../utils/createUrqlClient';
+import { formatDate } from '../../utils/formatDate';
+import { usePrivateRoute } from '../../utils/usePrivateRoute';
 
 const CampsitePage: React.FC = ({}) => {
   usePrivateRoute();

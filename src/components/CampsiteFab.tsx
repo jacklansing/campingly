@@ -1,9 +1,9 @@
 /** @jsx jsx */
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Button, jsx } from 'theme-ui';
 import BackpackIcon from '../assets/icons/backpack-icon.svg';
 import ExitIcon from '../assets/icons/exit-icon.svg';
-import { useRouter } from 'next/router';
 
 interface ExpandedProps {
   show: boolean;

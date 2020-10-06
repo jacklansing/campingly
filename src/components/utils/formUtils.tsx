@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { Label, Input, Box, jsx, Text, Select } from 'theme-ui';
 import { useField } from 'formik';
 import { InputHTMLAttributes, SelectHTMLAttributes } from 'react';
+import { Box, Input, jsx, Label, Select, Text } from 'theme-ui';
 
 type TextInputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;

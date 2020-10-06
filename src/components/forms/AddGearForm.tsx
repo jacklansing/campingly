@@ -1,14 +1,14 @@
 import { Form, Formik } from 'formik';
+import { useRouter } from 'next/router';
 import React from 'react';
-import Button from '../utils/Button';
 import {
   useAddGearMutation,
   useGetCategoriesQuery,
 } from '../../generated/graphql';
-import { SelectField, TextInputField } from '../utils/formUtils';
-import { useRouter } from 'next/router';
 import { toErrorMap } from '../../utils/toErrorMap';
 import { AddGearSchema } from '../../utils/validators/GearSchemas';
+import Button from '../utils/Button';
+import { SelectField, TextInputField } from '../utils/formUtils';
 
 const AddGearForm: React.FC = () => {
   const router = useRouter();

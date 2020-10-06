@@ -2,8 +2,8 @@ import { withUrqlClient } from 'next-urql';
 import React from 'react';
 import { Box, Heading, Link, Text } from 'theme-ui';
 import FormBox from '../components/FormBox';
-import Layout from '../components/Layout';
 import LoginForm from '../components/forms/LoginForm';
+import Layout from '../components/Layout';
 import { createUrqlClient } from '../utils/createUrqlClient';
 import { usePublicRoute } from '../utils/usePublicRoute';
 

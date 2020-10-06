@@ -1,8 +1,8 @@
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import Modal from 'react-modal';
 import AppMenuContent from './AppMenuContent';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 Modal.setAppElement('#__next');
 
 const AppMenu: React.FC = ({}) => {

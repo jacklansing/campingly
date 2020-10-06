@@ -1,10 +1,8 @@
 import React from 'react';
-import { Heading, Text, Box } from 'theme-ui';
+import { Box, Heading, Text } from 'theme-ui';
 import Layout from '../components/Layout';
 
-interface Props {}
-
-const Custom404: React.FC<Props> = ({}) => {
+const Custom404: React.FC = ({}) => {
   return (
     <Layout pageTitle="404 Not Found">
       <Box

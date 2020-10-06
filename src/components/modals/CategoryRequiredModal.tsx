@@ -1,7 +1,7 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { Box, Button, Text } from 'theme-ui';
 import ResponsiveModal from '../utils/ResponsiveModal';
-import { useRouter } from 'next/router';
 
 interface Props {
   open: boolean;

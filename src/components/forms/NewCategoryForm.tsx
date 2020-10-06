@@ -1,10 +1,10 @@
 import { Form, Formik } from 'formik';
+import { useRouter } from 'next/router';
 import React from 'react';
-import Button from '../utils/Button';
 import { useCreateGearCategoryMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../utils/toErrorMap';
+import Button from '../utils/Button';
 import { TextInputField } from '../utils/formUtils';
-import { useRouter } from 'next/router';
 
 const NewCategoryForm: React.FC = () => {
   const [_, createGearCategory] = useCreateGearCategoryMutation();
