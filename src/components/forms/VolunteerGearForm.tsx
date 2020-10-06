@@ -12,9 +12,25 @@ const VolunteerGearForm: React.FC = () => {
   return (
     <Formik
       enableReinitialize
+      validate={(values) => {
+        const errors = {} as any;
+        if (!values.volunteerAmount) {
+          errors.volunteerAmount = 'Must enter an amount';
+        }
+
+        if (values.volunteerAmount < 0) {
+          errors.volunteerAmount = 'Cannot be an amount less than 1';
+        }
+
+        if (values.volunteerAmount > 99) {
+          errors.volunteerAmount = 'Cannot be an amount more than 99';
+        }
+
+        return errors;
+      }}
       initialValues={{
         gearId: +router.query.gearId,
-        volunteerAmount: 0,
+        volunteerAmount: undefined,
       }}
       onSubmit={async (values, actions) => {
         const response = await addGear({
