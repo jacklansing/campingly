@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { motion } from 'framer-motion';
 import { withUrqlClient } from 'next-urql';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { jsx, Spinner } from 'theme-ui';
+import { Box, jsx, Spinner, Text } from 'theme-ui';
 import CampsiteCard from '../components/CampsiteCard';
 import Layout from '../components/Layout';
 import CreateCampsiteModal from '../components/modals/CreateCampsiteModal';
@@ -55,6 +56,24 @@ const Campsites: React.FC = () => {
             />
           ))}
       </motion.div>
+      {!fetching && data && data.allCampsites.length === 0 ? (
+        <Box mr="auto" px={[2, 3, 4]} py={1} sx={{ maxWidth: '500px' }}>
+          <Text
+            sx={{
+              fontSize: 4,
+            }}
+          >
+            You don't have any campsites, yet!
+          </Text>
+          <Text mt={2}>
+            Click on the plus icon to get started creating one, or you can{' '}
+            <Link href="/campsites/?createCampsite=true" as="/campsites">
+              click here
+            </Link>{' '}
+            to create your first.
+          </Text>
+        </Box>
+      ) : null}
       <NewCampsiteFab />
       <CreateCampsiteModal open={!!router.query.createCampsite} />
     </Layout>
