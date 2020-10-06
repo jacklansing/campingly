@@ -65,7 +65,12 @@ const CampsitePage: React.FC = ({}) => {
         Camping Gear
       </Heading>
       {data.getCampsite.gearCategories.length ? null : (
-        <Text mt={2} mb={5} px={2} sx={{ textAlign: 'center' }}>
+        <Text
+          mt={2}
+          mb={5}
+          px={2}
+          sx={{ textAlign: 'center', maxWidth: '420px' }}
+        >
           Looks like there isn't any camping gear yet!{' '}
           <NextLink
             href="/campsites/[id]/?newCategory=true"

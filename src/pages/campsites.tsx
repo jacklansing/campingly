@@ -40,6 +40,7 @@ const Campsites: React.FC = () => {
         sx={{
           display: 'flex',
           flexFlow: 'row wrap',
+          alignSelf: ['center', null, null, 'start'],
           alignItems: 'center',
           justifyContent: ['center', 'center', 'center', 'center', 'start'],
         }}
