@@ -1,6 +1,11 @@
 /** @jsx jsx */
 import { useField } from 'formik';
-import { InputHTMLAttributes, SelectHTMLAttributes } from 'react';
+import {
+  InputHTMLAttributes,
+  SelectHTMLAttributes,
+  useEffect,
+  useRef,
+} from 'react';
 import { Box, Input, jsx, Label, Select, Text } from 'theme-ui';
 
 type TextInputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -17,7 +22,13 @@ export const TextInputField: React.FC<TextInputFieldProps> = ({
   ...props
 }) => {
   const [field, { error, touched }] = useField(props);
+  const inputRef = useRef(null);
   const fieldError = error && touched;
+  useEffect(() => {
+    if (fieldError) {
+      inputRef.current.focus();
+    }
+  }, [fieldError]);
   return (
     <Box mt={4}>
       <Label
@@ -35,6 +46,7 @@ export const TextInputField: React.FC<TextInputFieldProps> = ({
         {...field}
         {...props}
         id={field.name}
+        ref={inputRef}
         placeholder={placeholder}
         type={type}
         variant={fieldError ? 'fieldError' : 'input'}

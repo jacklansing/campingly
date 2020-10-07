@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useCreateCampsiteMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../utils/toErrorMap';
+import { NewCampsiteSchema } from '../../utils/validators/CampsiteSchema';
 import Button from '../utils/Button';
 import { TextInputField } from '../utils/formUtils';
 
@@ -11,10 +12,11 @@ const NewCampsiteForm: React.FC = () => {
   const router = useRouter();
   return (
     <Formik
+      validationSchema={NewCampsiteSchema}
       initialValues={{
         name: '',
-        startingDate: '',
-        endingDate: '',
+        startingDate: undefined,
+        endingDate: undefined,
       }}
       onSubmit={async (values, actions) => {
         const response = await createCampsite({
@@ -40,18 +42,8 @@ const NewCampsiteForm: React.FC = () => {
             name="name"
             placeholder="Campsite name"
           />
-          <TextInputField
-            label="Start Date"
-            name="startingDate"
-            type="Date"
-            placeholder="05/30/1990"
-          />
-          <TextInputField
-            label="End Date"
-            name="endingDate"
-            type="Date"
-            placeholder="05/30/1990"
-          />
+          <TextInputField label="Start Date" name="startingDate" type="Date" />
+          <TextInputField label="End Date" name="endingDate" type="Date" />
           <Button
             variant="contained"
             type="submit"

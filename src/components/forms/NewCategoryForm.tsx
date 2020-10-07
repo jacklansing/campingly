@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useCreateGearCategoryMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../utils/toErrorMap';
+import { NewGearCategorySchema } from '../../utils/validators/GearCategorySchema';
 import Button from '../utils/Button';
 import { TextInputField } from '../utils/formUtils';
 
@@ -12,7 +13,7 @@ const NewCategoryForm: React.FC = () => {
   const campsiteId = +router.query.id;
   return (
     <Formik
-      //   validationSchema={}
+      validationSchema={NewGearCategorySchema}
       initialValues={{ category: '' }}
       onSubmit={async (values, actions) => {
         const response = await createGearCategory({

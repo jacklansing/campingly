@@ -18,7 +18,7 @@ import { createUrqlClient } from '../../utils/createUrqlClient';
 import { formatDate } from '../../utils/formatDate';
 import { usePrivateRoute } from '../../utils/usePrivateRoute';
 
-const CampsitePage: React.FC = ({}) => {
+const CampsitePage: React.FC = () => {
   usePrivateRoute();
   const router = useRouter();
   const campsiteId = +router.query.id;
@@ -50,7 +50,7 @@ const CampsitePage: React.FC = ({}) => {
     );
   }
   return (
-    <Layout pageTitle="Campsite">
+    <Layout pageTitle={`${data.getCampsite.name}`}>
       <motion.img
         alt="campsite"
         src="/assets/campsite-ground.svg"
