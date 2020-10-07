@@ -24,7 +24,25 @@ const AppMenuContent: React.FC = ({}) => {
   }
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+    <motion.div
+      initial={{ opacity: 0, x: '100%' }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.2 }}
+      sx={{
+        overflowX: 'hidden',
+        position: 'relative',
+        top: [0, 0, '75px'],
+        left: [0, 0, '-1.333%'],
+        height: ['100%', '100%', 'fit-content'],
+        width: ['100%', '100%', '25%'],
+        minWidth: '320px',
+        marginLeft: 'auto',
+        border: 2,
+        boxShadow: 2,
+        padding: 3,
+        backgroundColor: 'white',
+      }}
+    >
       <Button
         aria-label="close menu"
         sx={{

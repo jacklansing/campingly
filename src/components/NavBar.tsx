@@ -5,7 +5,6 @@ import React from 'react';
 import { Avatar, Box, Button, jsx, Link } from 'theme-ui';
 import { useMeQuery } from '../generated/graphql';
 import AppMenu from './AppMenu';
-import MobileMenu from './MobileMenu';
 
 interface NavLinkProps {
   href: string;
@@ -67,30 +66,6 @@ const NavBar: React.FC = ({}) => {
         >
           <Button
             aria-label="open navigation"
-            onClick={() => {
-              router.push(
-                `${router.pathname}/?mobileAppMenu=open`,
-                router.asPath,
-                {
-                  shallow: true,
-                },
-              );
-            }}
-            aria-haspopup="true"
-            sx={{
-              display: ['block', null, 'none'],
-              backgroundColor: 'transparent',
-              border: 'none',
-            }}
-          >
-            <Avatar
-              alt="avatar"
-              src="/assets/default-avatar.svg"
-              sx={{ verticalAlign: 'middle' }}
-            />
-          </Button>
-          <Button
-            aria-label="open navigation"
             onClick={(e) => {
               e.currentTarget.blur();
               router.push(`${router.pathname}/?appMenu=open`, router.asPath, {
@@ -99,7 +74,7 @@ const NavBar: React.FC = ({}) => {
             }}
             aria-haspopup="true"
             sx={{
-              display: ['none', null, 'block'],
+              display: ['block'],
               backgroundColor: 'transparent',
               border: 'none',
             }}
@@ -107,11 +82,10 @@ const NavBar: React.FC = ({}) => {
             <Avatar
               alt="avatar"
               src="/assets/default-avatar.svg"
-              sx={{ verticalAlign: 'middle', width: '50px' }}
+              sx={{ verticalAlign: 'middle', width: [null, null, '50px'] }}
             />
           </Button>
           <AppMenu />
-          <MobileMenu />
         </Box>
       ) : (
         <Box

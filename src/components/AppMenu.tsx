@@ -20,13 +20,7 @@ const AppMenu: React.FC = ({}) => {
       }
       style={{
         content: {
-          position: 'relative',
-          top: '75px',
-          left: '-1.333%',
-          height: 'fit-content',
-          width: '25%',
-          minWidth: '320px',
-          marginLeft: 'auto',
+          display: 'contents',
         },
       }}
     >
