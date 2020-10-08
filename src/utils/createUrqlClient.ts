@@ -153,6 +153,7 @@ export const createUrqlClient: NextUrqlClientConfig = (
               cache.updateQuery(
                 { query: GetAllCampsitesDocument },
                 (data: MuData) => {
+                  if (result.createCampsite.campsite === null) return data;
                   data.allCampsites.push({
                     __typename: 'Campsite',
                     ...result.createCampsite.campsite,

@@ -15,8 +15,8 @@ const NewCampsiteForm: React.FC = () => {
       validationSchema={NewCampsiteSchema}
       initialValues={{
         name: '',
-        startingDate: undefined,
-        endingDate: undefined,
+        startingDate: '',
+        endingDate: '',
       }}
       onSubmit={async (values, actions) => {
         const response = await createCampsite({

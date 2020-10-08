@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { motion } from 'framer-motion';
 import router from 'next/router';
-import React from 'react';
+import React, { memo } from 'react';
 import { Heading, Image, jsx } from 'theme-ui';
 import { fadeInUp } from '../utils/animations';
 import { formatDate } from '../utils/formatDate';
@@ -67,4 +67,4 @@ const CampsiteCard: React.FC<Props> = ({ id, name, startDate, endDate }) => {
     </motion.div>
   );
 };
-export default CampsiteCard;
+export default memo(CampsiteCard);

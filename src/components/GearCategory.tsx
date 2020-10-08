@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { memo } from 'react';
 import { Box, Divider, Heading, IconButton, jsx } from 'theme-ui';
 import CancelIcon from '../assets/icons/cancel-icon.svg';
 import HandIcon from '../assets/icons/hand-icon.svg';
@@ -219,4 +219,14 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
   );
 };
 
-export default GearCategory;
+function compareGearProps(
+  prevProps: GearCategoryProps,
+  nextProps: GearCategoryProps,
+) {
+  return (
+    prevProps.category === nextProps.category &&
+    prevProps.gear.length === nextProps.gear.length
+  );
+}
+
+export default memo(GearCategory, compareGearProps);
