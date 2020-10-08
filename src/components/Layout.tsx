@@ -14,6 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children, ...props }) => {
       <Header />
       <Head>
         <title>{pageTitle} | Campingly</title>
+        <link rel="icon" href="/favicon/favicon-32x32.png" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
           name="description"
