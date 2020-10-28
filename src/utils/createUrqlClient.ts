@@ -1,13 +1,7 @@
 import { cacheExchange, Data } from '@urql/exchange-graphcache';
 import { NextUrqlClientConfig } from 'next-urql';
-import {
-  CombinedError,
-  dedupExchange,
-  errorExchange,
-  fetchExchange,
-  Operation,
-} from 'urql';
-import { devtoolsExchange } from '@urql/devtools';
+import Router from 'next/router';
+import { dedupExchange, fetchExchange } from 'urql';
 import {
   AddGearMutationVariables,
   GearCategory,
@@ -18,8 +12,6 @@ import {
   MutationVolunteerGearArgs,
 } from '../generated/graphql';
 import { isServer } from './isServer';
-
-import Router from 'next/router';
 
 // Prevents from needing to ts-ignore all the time
 // when working with updateQuery
@@ -54,7 +46,6 @@ export const createUrqlClient: NextUrqlClientConfig = (
       };
     },
     exchanges: [
-      devtoolsExchange,
       dedupExchange,
       cacheExchange({
         keys: {
