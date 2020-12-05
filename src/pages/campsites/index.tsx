@@ -5,14 +5,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { Box, jsx, Spinner, Text } from 'theme-ui';
-import CampsiteCard from '../components/CampsiteCard';
-import Layout from '../components/Layout';
-import CreateCampsiteModal from '../components/modals/CreateCampsiteModal';
-import NewCampsiteFab from '../components/NewCampsiteFab';
-import { useGetAllCampsitesQuery } from '../generated/graphql';
-import { staggerChildren } from '../utils/animations';
-import { createUrqlClient } from '../utils/createUrqlClient';
-import { usePrivateRoute } from '../utils/usePrivateRoute';
+import CampsiteCard from '../../components/CampsiteCard';
+import Layout from '../../components/Layout';
+import CreateCampsiteModal from '../../components/modals/CreateCampsiteModal';
+import NewCampsiteFab from '../../components/NewCampsiteFab';
+import { useGetAllCampsitesQuery } from '../../generated/graphql';
+import { staggerChildren } from '../../utils/animations';
+import { createUrqlClient } from '../../utils/createUrqlClient';
+import { usePrivateRoute } from '../../utils/usePrivateRoute';
 
 const Campsites: React.FC = () => {
   usePrivateRoute();
