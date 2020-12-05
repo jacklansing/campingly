@@ -102,7 +102,7 @@ const GearItem: React.FC<GearItemProps> = ({
               }}
               onClick={() => {
                 router.push(
-                  `/campsites/[id]/?volunteerGear=true&gearId=${id}&campsiteId=${campsiteId}&gearCategoryId=${gearCategoryId}`,
+                  `/campsites/[id]/?volunteerGear=true&gearId=${id}&campsiteId=${campsiteId}&gearCategoryId=${gearCategoryId}&amountNeeded=${needed}`,
                   `/campsites/${router.query.id}`,
                   {
                     shallow: true,
@@ -151,9 +151,8 @@ const GearCategory: React.FC<GearCategoryProps> = ({
       sx={{
         minHeight: 'fit-content',
         width: ['100%', null, null, null, '60%'],
-        border: [null, null, 2],
-        borderRadius: [null, null, 1],
-        boxShadow: [null, null, 4],
+        border: [null, null, 3],
+        borderRadius: [null, null, 2],
         marginBottom: 4,
       }}
     >

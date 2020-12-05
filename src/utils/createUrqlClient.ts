@@ -44,7 +44,7 @@ export const createUrqlClient: NextUrqlClientConfig = (
       cacheExchange({
         keys: {
           Gear: (data) => data.id as string,
-          GearVolunteer: (data) => data.userId as string,
+          GearVolunteer: () => null,
         },
         updates: {
           Mutation: {

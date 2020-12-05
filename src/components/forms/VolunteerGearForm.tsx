@@ -30,7 +30,7 @@ const VolunteerGearForm: React.FC = () => {
       }}
       initialValues={{
         gearId: router.query.gearId,
-        volunteerAmount: 0,
+        volunteerAmount: +router.query.amountNeeded,
       }}
       onSubmit={async (values, actions) => {
         const response = await addGear({

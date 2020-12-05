@@ -43,7 +43,12 @@ export default {
     '0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12)',
   ],
   radii: ['4px', '6px', '8px', '12px'],
-  borders: ['.4px solid #2c4247', '1px solid #2c4247', '.4px solid lightgray'],
+  borders: [
+    '.4px solid #2c4247',
+    '1px solid #2c4247',
+    '.4px solid lightgray',
+    '.4px solid #002f1e44',
+  ],
   layout: {
     header: {
       bg: 'primary',
