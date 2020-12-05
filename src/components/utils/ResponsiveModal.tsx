@@ -56,9 +56,9 @@ const ResponsiveModal: React.FC<Props> = ({ open, children }) => {
           <ExitIcon sx={{ height: '15px', width: '15px' }} />
         </Button>
         <motion.div
-          initial={{ height: 0 }}
-          animate={{ height: 'fit-content' }}
-          transition={{ duration: 0.2 }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
           sx={{ overflow: 'hidden' }}
         >
           {children}
