@@ -1872,7 +1872,7 @@
 
 "@urql/devtools@^2.0.2":
   version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@urql/devtools/-/devtools-2.0.2.tgz#0991bc3bb09444b162ef56518b76f64f286954fc"
+  resolved "https://registry.npmjs.org/@urql/devtools/-/devtools-2.0.2.tgz#0991bc3bb09444b162ef56518b76f64f286954fc"
   integrity sha512-f3gIx4NDOuWdXC54m4VQlLKNtYHl6PITSEqexH6xiktzvH7QcwS5hNPg0Fkki8cas/DZtkmDpwxNV1uRZ5xlvA==
   dependencies:
     wonka ">= 4.0.9"

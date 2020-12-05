@@ -1,0 +1,9 @@
+fragment ShallowCampsiteFields on Campsite {
+  id
+  name
+  startingDate
+  endingDate
+  manager {
+    ...UserFields
+  }
+}

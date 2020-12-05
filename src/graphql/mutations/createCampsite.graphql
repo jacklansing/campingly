@@ -1,10 +1,7 @@
-mutation CreateCampsite($input: CampsiteInput!) {
+mutation CreateCampsite($input: CreateCampsiteInput!) {
   createCampsite(input: $input) {
     campsite {
-      id
-      name
-      startingDate
-      endingDate
+      ...ShallowCampsiteFields
     }
     errors {
       field

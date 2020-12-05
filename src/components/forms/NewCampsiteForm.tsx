@@ -21,7 +21,9 @@ const NewCampsiteForm: React.FC = () => {
       onSubmit={async (values, actions) => {
         const response = await createCampsite({
           input: {
-            ...values,
+            name: values.name,
+            startingDate: new Date(values.startingDate),
+            endingDate: new Date(values.endingDate),
           },
         });
         if (response.data?.createCampsite.errors) {

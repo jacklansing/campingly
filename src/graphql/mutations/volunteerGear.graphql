@@ -1,9 +1,21 @@
 mutation VolunteerGear($input: VolunteerGearInput!) {
   volunteerGear(input: $input) {
-    gearVolunteer {
-      gearId
-      userId
-      volunteerAmount
+    campsite {
+      id
+      gearCategories {
+        id
+        category
+        gear {
+          id
+          name
+          quantity
+          userHasVolunteered
+          volunteers {
+            userId
+            volunteerAmount
+          }
+        }
+      }
     }
     errors {
       field

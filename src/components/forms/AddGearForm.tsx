@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import {
   useAddGearMutation,
-  useGetCategoriesQuery,
+  useGetCampsiteQuery,
 } from '../../generated/graphql';
 import { toErrorMap } from '../../utils/toErrorMap';
 import { AddGearSchema } from '../../utils/validators/GearSchemas';
@@ -12,10 +12,11 @@ import { SelectField, TextInputField } from '../utils/formUtils';
 
 const AddGearForm: React.FC = () => {
   const router = useRouter();
-  const campsiteId = +router.query.id;
-  const [{ data, fetching }] = useGetCategoriesQuery({
+  const campsiteId = router.query.id as string;
+  const [{ data, fetching }] = useGetCampsiteQuery({
     variables: { campsiteId: campsiteId },
   });
+
   const [_, addGear] = useAddGearMutation();
   return (
     <Formik
@@ -24,19 +25,20 @@ const AddGearForm: React.FC = () => {
       initialValues={{
         name: '',
         quantity: '',
-        gearCategoryId: data?.getCategories?.gearCategories[0].id,
+        gearCategoryId: data.getCampsite.gearCategories[0].id,
       }}
       onSubmit={async (values, actions) => {
         const response = await addGear({
           input: {
+            campsiteId,
             name: values.name,
             quantity: +values.quantity,
-            gearCategoryId: +values.gearCategoryId,
+            gearCategoryId: values.gearCategoryId,
           },
         });
         if (response.data.addGear.errors) {
           actions.setErrors(toErrorMap(response.data.addGear.errors));
-        } else if (response.data.addGear.gear.id) {
+        } else if (response.data.addGear.campsite) {
           // Success, change route to close modal.
           router.push(`/campsites/[id]`, `/campsites/${router.query.id}`, {
             shallow: true,
@@ -49,7 +51,7 @@ const AddGearForm: React.FC = () => {
           <SelectField
             name="gearCategoryId"
             label="Category"
-            options={data && !fetching ? data.getCategories.gearCategories : []}
+            options={data && !fetching ? data.getCampsite.gearCategories : []}
             formatOptionFn={(opt) => (
               <option key={opt.id} value={opt.id}>
                 {opt.category}

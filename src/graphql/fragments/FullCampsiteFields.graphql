@@ -1,0 +1,29 @@
+fragment FullCampsiteFields on Campsite {
+  id
+  name
+  startingDate
+  endingDate
+  manager {
+    ...UserFields
+  }
+  counselors {
+    ...UserFields
+  }
+  campers {
+    ...UserFields
+  }
+  gearCategories {
+    id
+    category
+    gear {
+      id
+      name
+      quantity
+      userHasVolunteered
+      volunteers {
+        userId
+        volunteerAmount
+      }
+    }
+  }
+}

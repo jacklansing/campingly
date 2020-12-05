@@ -10,21 +10,23 @@ import { TextInputField } from '../utils/formUtils';
 const NewCategoryForm: React.FC = () => {
   const [_, createGearCategory] = useCreateGearCategoryMutation();
   const router = useRouter();
-  const campsiteId = +router.query.id;
+  const campsiteId = router.query.id as string;
   return (
     <Formik
       validationSchema={NewGearCategorySchema}
       initialValues={{ category: '' }}
       onSubmit={async (values, actions) => {
         const response = await createGearCategory({
-          campsiteId: campsiteId,
-          category: values.category,
+          input: {
+            campsiteId: campsiteId,
+            category: values.category,
+          },
         });
         if (response.data.createGearCategory.errors) {
           actions.setErrors(
             toErrorMap(response.data.createGearCategory.errors),
           );
-        } else if (response.data.createGearCategory.gearCategory.id) {
+        } else if (response.data.createGearCategory.campsite) {
           // Success, change route to close modal.
           router.push(`/campsites/[id]`, `/campsites/${router.query.id}`, {
             shallow: true,

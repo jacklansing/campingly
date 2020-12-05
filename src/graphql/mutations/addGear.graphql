@@ -1,10 +1,21 @@
-mutation AddGear($input: GearInput!) {
+mutation AddGear($input: AddGearInput!) {
   addGear(input: $input) {
-    gear {
+    campsite {
       id
-      name
-      quantity
-      gearCategoryId
+      gearCategories {
+        id
+        category
+        gear {
+          id
+          name
+          quantity
+          userHasVolunteered
+          volunteers {
+            userId
+            volunteerAmount
+          }
+        }
+      }
     }
     errors {
       field

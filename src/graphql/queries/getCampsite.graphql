@@ -1,28 +1,5 @@
-query GetCampsite($campsiteId: Int!) {
+query GetCampsite($campsiteId: String!) {
   getCampsite(campsiteId: $campsiteId) {
-    id
-    name
-    startingDate
-    endingDate
-    counselor {
-      id
-      username
-    }
-    gearCategories {
-      id
-      category
-      gears {
-        id
-        gearCategoryId
-        name
-        quantity
-        userHasVolunteered
-        gearVolunteers {
-          userId
-          gearId
-          volunteerAmount
-        }
-      }
-    }
+    ...FullCampsiteFields
   }
 }

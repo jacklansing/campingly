@@ -23,7 +23,7 @@ import { fadeInUp } from '../../utils/animations';
 const CampsitePage: React.FC = () => {
   usePrivateRoute();
   const router = useRouter();
-  const campsiteId = +router.query.id;
+  const campsiteId = router.query.id as string;
 
   const [{ data, fetching }] = useGetCampsiteQuery({
     pause: !campsiteId,
@@ -107,8 +107,10 @@ const CampsitePage: React.FC = () => {
         {data.getCampsite.gearCategories.map((gc) => (
           <GearCategory
             key={gc.id}
+            gearCategoryId={gc.id}
+            campsiteId={data.getCampsite.id}
             category={gc.category}
-            gear={gc.gears as Gear[]}
+            gear={gc.gear as Gear[]}
           />
         ))}
       </motion.div>

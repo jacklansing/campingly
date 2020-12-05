@@ -29,19 +29,21 @@ const VolunteerGearForm: React.FC = () => {
         return errors;
       }}
       initialValues={{
-        gearId: +router.query.gearId,
-        volunteerAmount: undefined,
+        gearId: router.query.gearId,
+        volunteerAmount: 0,
       }}
       onSubmit={async (values, actions) => {
         const response = await addGear({
           input: {
+            campsiteId: router.query.campsiteId,
+            gearCategoryId: router.query.gearCategoryId,
             gearId: values.gearId,
             volunteerAmount: values.volunteerAmount,
           },
         });
         if (response.data.volunteerGear.errors) {
           actions.setErrors(toErrorMap(response.data.volunteerGear.errors));
-        } else if (response.data.volunteerGear.gearVolunteer.userId) {
+        } else if (response.data.volunteerGear.campsite) {
           // Success, change route to close modal.
           router.push(`/campsites/[id]`, `/campsites/${router.query.id}`, {
             shallow: true,
@@ -56,7 +58,6 @@ const VolunteerGearForm: React.FC = () => {
             name="volunteerAmount"
             type="number"
           />
-
           <Button
             variant="contained"
             type="submit"

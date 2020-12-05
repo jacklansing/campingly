@@ -14,7 +14,9 @@ const RegisterForm: React.FC = () => {
       initialValues={{ usernameOrEmail: '', password: '' }}
       onSubmit={async (values, actions) => {
         const response = await login({
-          ...values,
+          input: {
+            ...values,
+          },
         });
         if (response.data?.login.errors) {
           actions.setErrors(toErrorMap(response.data?.login.errors));

@@ -1,3 +1,25 @@
-mutation DeleteGear($gearId: Int!, $gearCategoryId: Int!) {
-  deleteGear(gearId: $gearId, gearCategoryId: $gearCategoryId)
+mutation DeleteGear($input: DeleteGearInput!) {
+  deleteGear(input: $input) {
+    campsite {
+      id
+      gearCategories {
+        id
+        category
+        gear {
+          id
+          name
+          quantity
+          userHasVolunteered
+          volunteers {
+            userId
+            volunteerAmount
+          }
+        }
+      }
+    }
+    errors {
+      field
+      message
+    }
+  }
 }

@@ -28,7 +28,8 @@ const iconButtonSize = {
 
 interface GearItemProps {
   id: number;
-  gearCategoryId: number;
+  campsiteId: string;
+  gearCategoryId: string;
   needed: number;
   volunteered: number;
   userHasVolunteered: boolean;
@@ -36,6 +37,7 @@ interface GearItemProps {
 
 const GearItem: React.FC<GearItemProps> = ({
   id,
+  campsiteId,
   gearCategoryId,
   needed,
   volunteered,
@@ -80,7 +82,9 @@ const GearItem: React.FC<GearItemProps> = ({
                 marginRight: 1,
               }}
               onClick={async () => {
-                await undoVolunteerGear({ gearId: id });
+                await undoVolunteerGear({
+                  input: { campsiteId, gearId: id, gearCategoryId },
+                });
               }}
             >
               <UndoIcon sx={{ ...iconButtonSize }} />
@@ -98,7 +102,7 @@ const GearItem: React.FC<GearItemProps> = ({
               }}
               onClick={() => {
                 router.push(
-                  `/campsites/[id]/?volunteerGear=true&gearId=${id}`,
+                  `/campsites/[id]/?volunteerGear=true&gearId=${id}&campsiteId=${campsiteId}&gearCategoryId=${gearCategoryId}`,
                   `/campsites/${router.query.id}`,
                   {
                     shallow: true,
@@ -113,7 +117,9 @@ const GearItem: React.FC<GearItemProps> = ({
             aria-label="delete gear"
             sx={{ ...iconButtonSize }}
             onClick={async () => {
-              await deleteGear({ gearId: id, gearCategoryId });
+              await deleteGear({
+                input: { campsiteId, gearId: id, gearCategoryId },
+              });
             }}
           >
             <CancelIcon sx={{ ...iconButtonSize }} />
@@ -126,11 +132,18 @@ const GearItem: React.FC<GearItemProps> = ({
 };
 
 interface GearCategoryProps {
+  gearCategoryId: string;
+  campsiteId: string;
   category: string;
   gear: Gear[];
 }
 
-const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
+const GearCategory: React.FC<GearCategoryProps> = ({
+  gearCategoryId,
+  category,
+  gear,
+  campsiteId,
+}) => {
   return (
     <Box
       mt={4}
@@ -181,12 +194,13 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
           {gear.length ? (
             gear.map((g) => (
               <GearItem
+                campsiteId={campsiteId}
                 key={g.id}
                 id={g.id}
-                gearCategoryId={g.gearCategoryId}
+                gearCategoryId={gearCategoryId}
                 needed={g.quantity}
                 userHasVolunteered={g.userHasVolunteered}
-                volunteered={g.gearVolunteers.reduce(
+                volunteered={g.volunteers.reduce(
                   (a, b) => a + b.volunteerAmount,
                   0,
                 )}
@@ -219,14 +233,4 @@ const GearCategory: React.FC<GearCategoryProps> = ({ category, gear }) => {
   );
 };
 
-function compareGearProps(
-  prevProps: GearCategoryProps,
-  nextProps: GearCategoryProps,
-) {
-  return (
-    prevProps.category === nextProps.category &&
-    prevProps.gear.length === nextProps.gear.length
-  );
-}
-
-export default memo(GearCategory, compareGearProps);
+export default memo(GearCategory);

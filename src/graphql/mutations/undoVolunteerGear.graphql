@@ -1,3 +1,25 @@
-mutation UndoVolunteerGear($gearId: Int!) {
-  undoVolunteerGear(gearId: $gearId)
+mutation UndoVolunteerGear($input: UndoVolunteerGearInput!) {
+  undoVolunteerGear(input: $input) {
+    campsite {
+      id
+      gearCategories {
+        id
+        category
+        gear {
+          id
+          name
+          quantity
+          userHasVolunteered
+          volunteers {
+            userId
+            volunteerAmount
+          }
+        }
+      }
+    }
+    errors {
+      field
+      message
+    }
+  }
 }
