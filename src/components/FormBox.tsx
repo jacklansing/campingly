@@ -14,9 +14,9 @@ const FormBox: React.FC<Props> = ({
   return (
     <Box
       sx={{
-        border: 2,
+        border: [null, null, 2],
         borderRadius: 1,
-        boxShadow: 4,
+        boxShadow: [null, null, 4],
         width,
         height: 'fit-content',
       }}

@@ -16,30 +16,37 @@ const LoginPage: React.FC = () => {
           display: 'grid',
           width: ['100%', null, null, null, '85%'],
           gridTemplateColumns: [
-            '1fr',
-            '1fr',
-            '1fr',
-            '1fr',
+            '100%',
+            null,
+            '500px',
+            null,
             '1fr 500px',
             '1fr 650px',
           ],
-          justifyItems: ['center', null, null, null, 'normal'],
-          gap: '1rem',
+          gap: '.5rem',
+          justifyContent: 'center',
           transition: 'all .222s ease-in',
         }}
       >
-        <Box mt={[null, null, 1, 3, 5, 6]}>
+        <Box
+          mt={[1, 2, null, 3, 5, 6]}
+          mx={['auto', null, 'inherit']}
+          sx={{ textAlign: ['center', null, null, null, 'left'] }}
+        >
           <Heading as="h1" variant="headings.h1">
             Welcome <strong>back!</strong>
           </Heading>
-          <Text ml={[2, null, null, null, null, 3]} sx={{ fontSize: [5] }}>
+          <Text
+            ml={[2, null, null, null, null, 3]}
+            sx={{ fontSize: [5, 5, 5, 6, null, null] }}
+          >
             Login to get started.
           </Text>
         </Box>
         <Box>
           <FormBox
             header="Log In 🐱‍💻"
-            width={['100%', '100%', '85%', '100%', '100%']}
+            width={['100%', '100%', '100%', '100%', '100%']}
           >
             <LoginForm />
           </FormBox>

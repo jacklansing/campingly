@@ -115,7 +115,7 @@ export default {
       fontFamily: 'heading',
       lineHeight: 'heading',
       fontWeight: 'heading',
-      fontSize: [6, 6, 6, 6, 6, 8],
+      fontSize: [6, 6, 6, 7, 7, 7],
     },
     h2: {
       color: 'text',
