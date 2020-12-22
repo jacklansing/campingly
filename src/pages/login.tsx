@@ -50,21 +50,23 @@ const LoginPage: React.FC = () => {
           >
             <LoginForm />
           </FormBox>
-          <Text sx={{ fontSize: [4], textAlign: 'right' }} mt={4}>
-            Forgot your password?
-          </Text>
-          <Link
-            href="/forgot-password"
-            sx={{
-              display: 'block',
-              color: 'dark',
-              opacity: 0.8,
-              textAlign: 'right',
-            }}
-            mt={2}
-          >
-            Click here to request a new one.
-          </Link>
+          <Box pr={[4, null, 0]}>
+            <Text sx={{ fontSize: [4], textAlign: 'right' }} mt={3}>
+              Forgot your password?
+            </Text>
+            <Link
+              href="/forgot-password"
+              sx={{
+                display: 'block',
+                color: 'dark',
+                opacity: 0.8,
+                textAlign: 'right',
+              }}
+              mt={2}
+            >
+              Click here to request a new one.
+            </Link>
+          </Box>
         </Box>
       </Box>
     </Layout>

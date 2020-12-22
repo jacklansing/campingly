@@ -21,7 +21,7 @@ const FormBox: React.FC<Props> = ({
         height: 'fit-content',
       }}
       p={4}
-      mt={4}
+      mt={[2, null, null, 4]}
     >
       <Heading as="h2" variant="headings.h3">
         {header}
