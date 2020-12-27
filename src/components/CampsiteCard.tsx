@@ -41,10 +41,12 @@ const CampsiteCard: React.FC<Props> = ({ id, name, startDate, endDate }) => {
       tabIndex={0}
       role="button"
       aria-label="Go to campsite details"
-      onClick={() => router.push(`/campsites/[id]`, `/campsites/${id}`)}
+      onClick={() =>
+        router.push(`/campsites/[id]?section=details`, `/campsites/${id}`)
+      }
       onKeyDown={(e) =>
         e.key === 'Enter'
-          ? router.push(`/campsites/[id]`, `/campsites/${id}`)
+          ? router.push(`/campsites/[id]?section=details`, `/campsites/${id}`)
           : null
       }
     >

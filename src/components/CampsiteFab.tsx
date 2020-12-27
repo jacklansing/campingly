@@ -25,7 +25,7 @@ const Expanded: React.FC<ExpandedProps> = ({ show, hasCategories }) => {
         listStyle: 'none',
         padding: 0,
         margin: 0,
-        zIndex: show ? 0 : 1,
+        zIndex: show ? 1 : 0,
         height: 'fit-content',
       }}
     >
@@ -92,6 +92,7 @@ const Fab: React.FC<Props> = ({ hasCategories }) => {
           height: ['60px', '75px'],
           width: ['60px', '75px'],
           position: 'fixed',
+          zIndex: 1,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

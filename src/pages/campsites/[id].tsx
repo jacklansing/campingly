@@ -1,24 +1,25 @@
 /** @jsx jsx */
 import { motion } from 'framer-motion';
 import { withUrqlClient } from 'next-urql';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import React, { useEffect } from 'react';
-import { Heading, jsx, Spinner, Text } from 'theme-ui';
+import { Heading, jsx, Spinner } from 'theme-ui';
 import CampsiteFab from '../../components/CampsiteFab';
 import DateRange from '../../components/DateRange';
-import GearCategory from '../../components/GearCategory';
 import Layout from '../../components/Layout';
 import AddGearModal from '../../components/modals/AddGearModal';
 import CategoryRequiredModal from '../../components/modals/CategoryRequiredModal';
 import NewCategoryModal from '../../components/modals/NewCategoryModal';
 import VolunteerGearModal from '../../components/modals/VolunteerGearModal';
-import { Gear, useGetCampsiteQuery } from '../../generated/graphql';
+import { useGetCampsiteQuery } from '../../generated/graphql';
 import { createUrqlClient } from '../../utils/createUrqlClient';
 import { formatDate } from '../../utils/formatDate';
 import { usePrivateRoute } from '../../utils/usePrivateRoute';
 import { fadeInUp } from '../../utils/animations';
+import CampsiteMenu from '../../components/CampsiteMenu';
+import CampingGear from '../../components/campsite-sections/CampingGear';
+import Members from '../../components/campsite-sections/Members';
 
 const CampsitePage: React.FC = () => {
   usePrivateRoute();
@@ -35,6 +36,11 @@ const CampsitePage: React.FC = () => {
     // is not yours. E.g. upon switching accounts
     if (!fetching && !data) {
       router.push('/campsites');
+    }
+
+    // Default section to show if none was provided
+    if (router.query.section === undefined) {
+      router.query.section = 'details';
     }
   }, [data]);
 
@@ -83,38 +89,19 @@ const CampsitePage: React.FC = () => {
           endDate={formatDate(data.getCampsite.endingDate)}
           mt={3}
         />
-        <Heading as="h3" variant="headings.h3" mt={5}>
-          Camping Gear
-        </Heading>
-        {data.getCampsite.gearCategories.length ? null : (
-          <Text
-            mt={2}
-            mb={5}
-            px={2}
-            sx={{ textAlign: 'center', maxWidth: '420px' }}
-          >
-            Looks like there isn't any camping gear yet!{' '}
-            <NextLink
-              href="/campsites/[id]/?newCategory=true"
-              as={`/campsites/${router.query.id}`}
-              shallow={true}
-            >
-              Click here
-            </NextLink>{' '}
-            to start creating categories, or click on the Backpack icon.
-          </Text>
+        {/* Campsite Menu and router controlled sections */}
+        <CampsiteMenu />
+        {(!router.query.section || router.query.section === 'details') && (
+          <>
+            <CampsiteFab
+              hasCategories={!!data.getCampsite.gearCategories.length}
+            />
+            <CampingGear campsiteData={data} />
+          </>
         )}
-        {data.getCampsite.gearCategories.map((gc) => (
-          <GearCategory
-            key={gc.id}
-            gearCategoryId={gc.id}
-            campsiteId={data.getCampsite.id}
-            category={gc.category}
-            gear={gc.gear as Gear[]}
-          />
-        ))}
+        {router.query.section === 'members' && <Members campsiteData={data} />}
       </motion.div>
-      <CampsiteFab hasCategories={!!data.getCampsite.gearCategories.length} />
+      {/* Router Controlled Modals */}
       <NewCategoryModal open={!!router.query.newCategory} />
       <AddGearModal open={!!router.query.addGear} />
       <CategoryRequiredModal open={!!router.query.categoryRequired} />

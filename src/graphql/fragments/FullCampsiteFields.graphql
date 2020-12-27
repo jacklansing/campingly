@@ -3,6 +3,11 @@ fragment FullCampsiteFields on Campsite {
   name
   startingDate
   endingDate
+  invites {
+    userId
+    status
+    role
+  }
   manager {
     ...UserFields
   }

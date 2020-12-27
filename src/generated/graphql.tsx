@@ -175,92 +175,19 @@ export type Scalars = {
 
 
 
-export enum Role {
-  Login = 'LOGIN',
-  User = 'USER',
-  Counselor = 'COUNSELOR',
-  Manager = 'MANAGER'
-}
-
-export type User = {
-  __typename?: 'User';
-  id?: Maybe<Scalars['ObjectID']>;
-  username: Scalars['String'];
-  displayName?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
-};
-
-export type Campsite = {
-  __typename?: 'Campsite';
-  id?: Maybe<Scalars['ObjectID']>;
-  name: Scalars['String'];
-  startingDate: Scalars['DateTime'];
-  endingDate: Scalars['DateTime'];
-  manager: User;
-  counselors: Array<Maybe<User>>;
-  campers: Array<Maybe<User>>;
-  gearCategories?: Maybe<Array<Maybe<GearCategory>>>;
-};
-
-export type GearCategory = {
-  __typename?: 'GearCategory';
-  id?: Maybe<Scalars['ObjectID']>;
-  category: Scalars['String'];
-  gear?: Maybe<Array<Maybe<Gear>>>;
-};
-
-export type Gear = {
-  __typename?: 'Gear';
-  id?: Maybe<Scalars['ObjectID']>;
-  name: Scalars['String'];
-  quantity: Scalars['Int'];
-  volunteers: Array<Maybe<GearVolunteer>>;
-  userHasVolunteered: Scalars['Boolean'];
-};
-
-export type GearVolunteer = {
-  __typename?: 'GearVolunteer';
-  userId: Scalars['ObjectID'];
-  volunteerAmount: Scalars['Int'];
-};
-
-export type ErrorMessage = {
-  __typename?: 'ErrorMessage';
-  message: Scalars['String'];
-};
-
-export type FieldError = {
-  __typename?: 'FieldError';
-  field: Scalars['String'];
-  message: Scalars['String'];
-};
-
-export type UserResponse = {
-  __typename?: 'UserResponse';
-  user?: Maybe<User>;
-  errors?: Maybe<Array<Maybe<FieldError>>>;
-};
-
-export type LogoutResponse = {
-  __typename?: 'LogoutResponse';
-  success: Scalars['Boolean'];
-  errors?: Maybe<Array<Maybe<ErrorMessage>>>;
-};
-
-export type CampsiteResponse = {
-  __typename?: 'CampsiteResponse';
-  campsite?: Maybe<Campsite>;
-  errors?: Maybe<Array<Maybe<FieldError>>>;
-};
-
 export type Query = {
   __typename?: 'Query';
+  root?: Maybe<Scalars['String']>;
   me?: Maybe<User>;
+  campsitePreview?: Maybe<CampsitePreview>;
   getCampsite?: Maybe<Campsite>;
   allCampsites: Array<Maybe<Campsite>>;
   myCampsites: Array<Maybe<Campsite>>;
+};
+
+
+export type QueryCampsitePreviewArgs = {
+  campsiteId: Scalars['String'];
 };
 
 
@@ -270,6 +197,7 @@ export type QueryGetCampsiteArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  root?: Maybe<Scalars['String']>;
   register?: Maybe<UserResponse>;
   login?: Maybe<UserResponse>;
   logout?: Maybe<LogoutResponse>;
@@ -281,6 +209,8 @@ export type Mutation = {
   deleteGear?: Maybe<CampsiteResponse>;
   volunteerGear?: Maybe<CampsiteResponse>;
   undoVolunteerGear?: Maybe<CampsiteResponse>;
+  inviteCamper?: Maybe<CampsiteResponse>;
+  inviteResponse?: Maybe<CampsiteResponse>;
 };
 
 
@@ -333,6 +263,55 @@ export type MutationUndoVolunteerGearArgs = {
   input: UndoVolunteerGearInput;
 };
 
+
+export type MutationInviteCamperArgs = {
+  input: InviteCamperInput;
+};
+
+
+export type MutationInviteResponseArgs = {
+  input: InviteResponseInput;
+};
+
+export enum CampsiteRole {
+  Camper = 'CAMPER',
+  Counselor = 'COUNSELOR',
+  Manager = 'MANAGER'
+}
+
+export type ErrorMessage = {
+  __typename?: 'ErrorMessage';
+  message: Scalars['String'];
+};
+
+export type FieldError = {
+  __typename?: 'FieldError';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
+export type User = {
+  __typename?: 'User';
+  id?: Maybe<Scalars['ObjectID']>;
+  username: Scalars['String'];
+  displayName?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type UserResponse = {
+  __typename?: 'UserResponse';
+  user?: Maybe<User>;
+  errors?: Maybe<Array<Maybe<FieldError>>>;
+};
+
+export type LogoutResponse = {
+  __typename?: 'LogoutResponse';
+  success: Scalars['Boolean'];
+  errors?: Maybe<Array<Maybe<ErrorMessage>>>;
+};
+
 export type RegistrationInput = {
   username: Scalars['String'];
   email: Scalars['String'];
@@ -348,6 +327,68 @@ export type LoginInput = {
 export type ResetPasswordInput = {
   token: Scalars['String'];
   newPassword: Scalars['String'];
+};
+
+export type Campsite = {
+  __typename?: 'Campsite';
+  id?: Maybe<Scalars['ObjectID']>;
+  name: Scalars['String'];
+  startingDate: Scalars['DateTime'];
+  endingDate: Scalars['DateTime'];
+  manager: User;
+  counselors: Array<Maybe<User>>;
+  campers: Array<Maybe<User>>;
+  gearCategories?: Maybe<Array<Maybe<GearCategory>>>;
+  invites: Array<Maybe<CampsiteInvite>>;
+};
+
+export type GearCategory = {
+  __typename?: 'GearCategory';
+  id?: Maybe<Scalars['ObjectID']>;
+  category: Scalars['String'];
+  gear?: Maybe<Array<Maybe<Gear>>>;
+};
+
+export type Gear = {
+  __typename?: 'Gear';
+  id?: Maybe<Scalars['ObjectID']>;
+  name: Scalars['String'];
+  quantity: Scalars['Int'];
+  volunteers: Array<Maybe<GearVolunteer>>;
+  userHasVolunteered: Scalars['Boolean'];
+};
+
+export type GearVolunteer = {
+  __typename?: 'GearVolunteer';
+  userId: Scalars['ObjectID'];
+  volunteerAmount: Scalars['Int'];
+};
+
+export type CampsiteResponse = {
+  __typename?: 'CampsiteResponse';
+  campsite?: Maybe<Campsite>;
+  errors?: Maybe<Array<Maybe<FieldError>>>;
+};
+
+export type CampsitePreview = {
+  __typename?: 'CampsitePreview';
+  name: Scalars['String'];
+  startingDate: Scalars['DateTime'];
+  endingDate: Scalars['DateTime'];
+  manager: User;
+};
+
+export enum InviteStatus {
+  Pending = 'pending',
+  Accepted = 'accepted',
+  Rejected = 'rejected'
+}
+
+export type CampsiteInvite = {
+  __typename?: 'CampsiteInvite';
+  userId?: Maybe<Scalars['ObjectID']>;
+  status: InviteStatus;
+  role: CampsiteRole;
 };
 
 export type CreateCampsiteInput = {
@@ -387,10 +428,23 @@ export type UndoVolunteerGearInput = {
   gearId: Scalars['ObjectID'];
 };
 
+export type InviteCamperInput = {
+  userEmail: Scalars['String'];
+  role: CampsiteRole;
+};
+
+export type InviteResponseInput = {
+  status: InviteStatus;
+  token: Scalars['String'];
+};
+
 export type FullCampsiteFieldsFragment = (
   { __typename?: 'Campsite' }
   & Pick<Campsite, 'id' | 'name' | 'startingDate' | 'endingDate'>
-  & { manager: (
+  & { invites: Array<Maybe<(
+    { __typename?: 'CampsiteInvite' }
+    & Pick<CampsiteInvite, 'userId' | 'status' | 'role'>
+  )>>, manager: (
     { __typename?: 'User' }
     & UserFieldsFragment
   ), counselors: Array<Maybe<(
@@ -727,6 +781,11 @@ export const FullCampsiteFieldsFragmentDoc = gql`
   name
   startingDate
   endingDate
+  invites {
+    userId
+    status
+    role
+  }
   manager {
     ...UserFields
   }
