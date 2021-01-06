@@ -93,6 +93,13 @@ export default {
       fontWeight: 'body',
       color: 'green',
     },
+    subtitle: {
+      fontSize: 2,
+      fontWeight: 400,
+      lineHeight: 1.75,
+      letterSpacing: 0,
+      opacity: 0.55,
+    },
   },
   typography: {
     body: {

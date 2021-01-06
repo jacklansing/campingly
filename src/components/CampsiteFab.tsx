@@ -5,6 +5,45 @@ import { Button, jsx } from 'theme-ui';
 import BackpackIcon from '../assets/icons/backpack-icon.svg';
 import ExitIcon from '../assets/icons/exit-icon.svg';
 
+interface Props {
+  hasCategories: boolean;
+}
+
+const CampsiteFab: React.FC<Props> = ({ hasCategories }) => {
+  const [expand, setExpand] = useState(false);
+  return (
+    <>
+      <Expanded show={expand} hasCategories={hasCategories} />
+      <Button
+        aria-label="show campsite options"
+        onClick={() => setExpand(!expand)}
+        sx={{
+          height: ['60px', '75px'],
+          width: ['60px', '75px'],
+          position: 'fixed',
+          zIndex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          bottom: '36px',
+          right: 4,
+          borderRadius: '50%',
+          boxShadow: 4,
+          ':hover': {
+            boxShadow: 6,
+          },
+        }}
+      >
+        {expand ? (
+          <ExitIcon sx={{ maxHeight: '40%', maxWidth: '50%' }} />
+        ) : (
+          <BackpackIcon sx={{ maxHeight: '100%' }} />
+        )}
+      </Button>
+    </>
+  );
+};
+
 interface ExpandedProps {
   show: boolean;
   hasCategories: boolean;
@@ -76,43 +115,4 @@ const Expanded: React.FC<ExpandedProps> = ({ show, hasCategories }) => {
   );
 };
 
-interface Props {
-  hasCategories: boolean;
-}
-
-const Fab: React.FC<Props> = ({ hasCategories }) => {
-  const [expand, setExpand] = useState(false);
-  return (
-    <>
-      <Expanded show={expand} hasCategories={hasCategories} />
-      <Button
-        aria-label="show campsite options"
-        onClick={() => setExpand(!expand)}
-        sx={{
-          height: ['60px', '75px'],
-          width: ['60px', '75px'],
-          position: 'fixed',
-          zIndex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          bottom: '36px',
-          right: 4,
-          borderRadius: '50%',
-          boxShadow: 4,
-          ':hover': {
-            boxShadow: 6,
-          },
-        }}
-      >
-        {expand ? (
-          <ExitIcon sx={{ maxHeight: '40%', maxWidth: '50%' }} />
-        ) : (
-          <BackpackIcon sx={{ maxHeight: '100%' }} />
-        )}
-      </Button>
-    </>
-  );
-};
-
-export default Fab;
+export default CampsiteFab;
