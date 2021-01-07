@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { GetCampsiteQuery } from '../../generated/graphql';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerChildren } from '../../utils/animations';
+import CamperDetails from '../CamperDetails';
+import CamperInviteDetails from '../CamperInviteDetails';
 
 interface Props {
   campsiteData: GetCampsiteQuery;
@@ -32,36 +34,28 @@ const Members: React.FC<Props> = ({ campsiteData }) => {
       <div sx={{ width: '100%' }}>
         <TabPanel idx={0} currentTab={tab}>
           <motion.div variants={staggerChildren}>
-            {allCampers.map((campers) => (
-              <motion.div
-                variants={fadeInUp}
-                sx={{
-                  width: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  gap: 3,
-                  my: 3,
-                }}
-              >
-                <Avatar
-                  src="/assets/default-avatar.svg"
-                  sx={{ verticalAlign: 'middle', width: '60px' }}
+            {allCampers.map((camper) => (
+              <motion.div variants={fadeInUp} sx={{ my: 3 }}>
+                <CamperDetails
+                  username={camper.username}
+                  email={camper.email}
                 />
-                <div>
-                  <Text sx={{ my: 0 }}>{campers.username}</Text>
-                  <Text variant="subtitle" sx={{ my: 0 }}>
-                    {campers.email}
-                  </Text>
-                </div>
               </motion.div>
             ))}
           </motion.div>
         </TabPanel>
         <TabPanel idx={1} currentTab={tab}>
-          {campsiteData.getCampsite.invites.map((invites) => (
-            <pre sx={{ fontSize: 1 }}>{JSON.stringify(invites, null, 2)}</pre>
-          ))}
+          <motion.div variants={staggerChildren}>
+            {campsiteData.getCampsite.invites.map((invite) => (
+              <motion.div variants={fadeInUp} sx={{ my: 3 }}>
+                <CamperInviteDetails
+                  email={invite.email}
+                  status={invite.status}
+                  role={invite.role}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
         </TabPanel>
       </div>
     </div>

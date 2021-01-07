@@ -389,6 +389,7 @@ export type CampsiteInvite = {
   userId?: Maybe<Scalars['ObjectID']>;
   status: InviteStatus;
   role: CampsiteRole;
+  email: Scalars['String'];
 };
 
 export type CreateCampsiteInput = {
@@ -443,7 +444,7 @@ export type FullCampsiteFieldsFragment = (
   & Pick<Campsite, 'id' | 'name' | 'startingDate' | 'endingDate'>
   & { invites: Array<Maybe<(
     { __typename?: 'CampsiteInvite' }
-    & Pick<CampsiteInvite, 'userId' | 'status' | 'role'>
+    & Pick<CampsiteInvite, 'userId' | 'status' | 'role' | 'email'>
   )>>, manager: (
     { __typename?: 'User' }
     & UserFieldsFragment
@@ -785,6 +786,7 @@ export const FullCampsiteFieldsFragmentDoc = gql`
     userId
     status
     role
+    email
   }
   manager {
     ...UserFields
