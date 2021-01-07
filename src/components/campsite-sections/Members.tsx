@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Avatar, jsx, Text } from 'theme-ui';
+import { jsx } from 'theme-ui';
 import React, { useState } from 'react';
 import { GetCampsiteQuery } from '../../generated/graphql';
 import { motion } from 'framer-motion';
