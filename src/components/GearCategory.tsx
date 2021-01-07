@@ -151,7 +151,6 @@ const GearCategory: React.FC<GearCategoryProps> = ({
       sx={{
         minHeight: 'fit-content',
         width: ['100%', null, null, null, '60%'],
-        border: [null, null, 3],
         borderRadius: [null, null, 2],
         marginBottom: 4,
       }}

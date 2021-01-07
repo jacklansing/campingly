@@ -81,7 +81,7 @@ const TabButton = ({ label, idx, setTab, currentTab }) => (
       padding: 2,
       fontFamily: 'body',
       mr: 2,
-      fontSize: 2,
+      fontSize: 3,
       outline: 0,
       '::after': {
         content: "''",
