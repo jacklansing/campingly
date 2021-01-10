@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { Avatar, jsx, Text } from 'theme-ui';
+import Badge from './utils/Badge';
 
 interface Props {
   email: string;
@@ -43,7 +44,9 @@ const CamperInviteDetails: React.FC<Props> = ({ email, status, role }) => {
         sx={{ verticalAlign: 'middle', width: '60px' }}
       />
       <div>
-        <Text sx={{ my: 0 }}>{`${email} (${formatRole(role)})`}</Text>
+        <Text sx={{ my: 0 }}>
+          {`${email}`} <Badge>{formatRole(role)}</Badge>
+        </Text>
         <Text variant="subtitle" sx={{ my: 0 }}>
           {`${formatStatus(status)} ${getStatusEmoji(status)}`}
         </Text>

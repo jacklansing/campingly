@@ -4,6 +4,7 @@ fragment FullCampsiteFields on Campsite {
   startingDate
   endingDate
   invites {
+    id
     userId
     status
     role

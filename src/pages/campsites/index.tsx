@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { motion } from 'framer-motion';
 import { withUrqlClient } from 'next-urql';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -9,8 +8,8 @@ import CampsiteCard from '../../components/CampsiteCard';
 import Layout from '../../components/Layout';
 import CreateCampsiteModal from '../../components/modals/CreateCampsiteModal';
 import NewCampsiteFab from '../../components/NewCampsiteFab';
+import StaggerChildren from '../../components/utils/StaggerChildren';
 import { useGetAllCampsitesQuery } from '../../generated/graphql';
-import { staggerChildren } from '../../utils/animations';
 import { createUrqlClient } from '../../utils/createUrqlClient';
 import { usePrivateRoute } from '../../utils/usePrivateRoute';
 
@@ -35,8 +34,7 @@ const Campsites: React.FC = () => {
 
   return (
     <Layout pageTitle="Campsites">
-      <motion.div
-        variants={staggerChildren}
+      <StaggerChildren
         sx={{
           display: 'flex',
           flexFlow: 'row wrap',
@@ -56,7 +54,7 @@ const Campsites: React.FC = () => {
               endDate={campsite.endingDate}
             />
           ))}
-      </motion.div>
+      </StaggerChildren>
       {!fetching && data && data.allCampsites.length === 0 ? (
         <Box mr="auto" px={[2, 3, 4]} py={1} sx={{ maxWidth: '500px' }}>
           <Text

@@ -386,6 +386,7 @@ export enum InviteStatus {
 
 export type CampsiteInvite = {
   __typename?: 'CampsiteInvite';
+  id?: Maybe<Scalars['ObjectID']>;
   userId?: Maybe<Scalars['ObjectID']>;
   status: InviteStatus;
   role: CampsiteRole;
@@ -444,7 +445,7 @@ export type FullCampsiteFieldsFragment = (
   & Pick<Campsite, 'id' | 'name' | 'startingDate' | 'endingDate'>
   & { invites: Array<Maybe<(
     { __typename?: 'CampsiteInvite' }
-    & Pick<CampsiteInvite, 'userId' | 'status' | 'role' | 'email'>
+    & Pick<CampsiteInvite, 'id' | 'userId' | 'status' | 'role' | 'email'>
   )>>, manager: (
     { __typename?: 'User' }
     & UserFieldsFragment
@@ -783,6 +784,7 @@ export const FullCampsiteFieldsFragmentDoc = gql`
   startingDate
   endingDate
   invites {
+    id
     userId
     status
     role

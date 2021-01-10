@@ -1,11 +1,10 @@
 /** @jsx jsx */
-import { motion } from 'framer-motion';
 import router from 'next/router';
 import React, { memo } from 'react';
 import { Heading, Image, jsx } from 'theme-ui';
-import { fadeInUp } from '../utils/animations';
 import { formatDate } from '../utils/formatDate';
 import DateRange from './DateRange';
+import FadeInUp from './utils/FadeInUp';
 
 interface Props {
   id: number;
@@ -16,8 +15,7 @@ interface Props {
 
 const CampsiteCard: React.FC<Props> = ({ id, name, startDate, endDate }) => {
   return (
-    <motion.div
-      variants={fadeInUp}
+    <FadeInUp
       sx={{
         border: 2,
         borderRadius: 1,
@@ -38,6 +36,7 @@ const CampsiteCard: React.FC<Props> = ({ id, name, startDate, endDate }) => {
         marginTop: 4,
         marginLeft: [0, 0, 4],
       }}
+      // @ts-expect-error
       tabIndex={0}
       role="button"
       aria-label="Go to campsite details"
@@ -66,7 +65,7 @@ const CampsiteCard: React.FC<Props> = ({ id, name, startDate, endDate }) => {
         mt={2}
         mx="auto"
       />
-    </motion.div>
+    </FadeInUp>
   );
 };
 export default memo(CampsiteCard);

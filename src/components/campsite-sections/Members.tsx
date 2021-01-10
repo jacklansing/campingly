@@ -2,10 +2,10 @@
 import { jsx } from 'theme-ui';
 import React, { useState } from 'react';
 import { GetCampsiteQuery } from '../../generated/graphql';
-import { motion } from 'framer-motion';
-import { fadeInUp, staggerChildren } from '../../utils/animations';
 import CamperDetails from '../CamperDetails';
 import CamperInviteDetails from '../CamperInviteDetails';
+import FadeInUp from '../utils/FadeInUp';
+import StaggerChildren from '../utils/StaggerChildren';
 
 interface Props {
   campsiteData: GetCampsiteQuery;
@@ -14,12 +14,9 @@ interface Props {
 const Members: React.FC<Props> = ({ campsiteData }) => {
   // Control currently shown tab
   const [tab, setTab] = useState(0);
-
-  const allCampers = [
-    campsiteData.getCampsite.manager,
-    ...campsiteData.getCampsite.counselors,
-    ...campsiteData.getCampsite.campers,
-  ];
+  const { manager } = campsiteData.getCampsite;
+  const { counselors } = campsiteData.getCampsite;
+  const { campers } = campsiteData.getCampsite;
   return (
     <div sx={{ width: ['100%', null, null, null, '60%'] }}>
       <div
@@ -28,34 +25,57 @@ const Members: React.FC<Props> = ({ campsiteData }) => {
         sx={{ mt: 4, width: '100%', borderBottom: 2 }}
       >
         {['Members', 'Invites'].map((label, idx) => (
-          <TabButton label={label} idx={idx} setTab={setTab} currentTab={tab} />
+          <TabButton
+            key={idx}
+            label={label}
+            idx={idx}
+            setTab={setTab}
+            currentTab={tab}
+          />
         ))}
       </div>
       <div sx={{ width: '100%' }}>
         <TabPanel idx={0} currentTab={tab}>
-          <motion.div variants={staggerChildren}>
-            {allCampers.map((camper) => (
-              <motion.div variants={fadeInUp} sx={{ my: 3 }}>
+          <StaggerChildren>
+            <FadeInUp sx={{ my: 3 }}>
+              <CamperDetails
+                username={manager.username}
+                email={manager.email}
+                role="manager"
+              />
+            </FadeInUp>
+            {counselors.map((counselor, idx) => (
+              <FadeInUp key={idx} sx={{ my: 3 }}>
+                <CamperDetails
+                  username={counselor.username}
+                  email={counselor.email}
+                  role="counselor"
+                />
+              </FadeInUp>
+            ))}
+            {campers.map((camper, idx) => (
+              <FadeInUp key={idx} sx={{ my: 3 }}>
                 <CamperDetails
                   username={camper.username}
                   email={camper.email}
+                  role="camper"
                 />
-              </motion.div>
+              </FadeInUp>
             ))}
-          </motion.div>
+          </StaggerChildren>
         </TabPanel>
         <TabPanel idx={1} currentTab={tab}>
-          <motion.div variants={staggerChildren}>
-            {campsiteData.getCampsite.invites.map((invite) => (
-              <motion.div variants={fadeInUp} sx={{ my: 3 }}>
+          <StaggerChildren>
+            {campsiteData.getCampsite.invites.map((invite, idx) => (
+              <FadeInUp key={idx} sx={{ my: 3 }}>
                 <CamperInviteDetails
                   email={invite.email}
                   status={invite.status}
                   role={invite.role}
                 />
-              </motion.div>
+              </FadeInUp>
             ))}
-          </motion.div>
+          </StaggerChildren>
         </TabPanel>
       </div>
     </div>

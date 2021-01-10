@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { motion } from 'framer-motion';
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -16,10 +15,10 @@ import { useGetCampsiteQuery } from '../../generated/graphql';
 import { createUrqlClient } from '../../utils/createUrqlClient';
 import { formatDate } from '../../utils/formatDate';
 import { usePrivateRoute } from '../../utils/usePrivateRoute';
-import { fadeInUp } from '../../utils/animations';
 import CampsiteMenu from '../../components/CampsiteMenu';
 import CampingGear from '../../components/campsite-sections/CampingGear';
 import Members from '../../components/campsite-sections/Members';
+import FadeInUp from '../../components/utils/FadeInUp';
 
 const CampsitePage: React.FC = () => {
   usePrivateRoute();
@@ -60,8 +59,7 @@ const CampsitePage: React.FC = () => {
   return (
     <Layout pageTitle={`${data.getCampsite.name}`}>
       {/* Temporary layout fix with this div while deciding what to do on the whole. */}
-      <motion.div
-        variants={fadeInUp}
+      <FadeInUp
         sx={{
           display: 'flex',
           flexFlow: 'column wrap',
@@ -100,7 +98,7 @@ const CampsitePage: React.FC = () => {
           </>
         )}
         {router.query.section === 'members' && <Members campsiteData={data} />}
-      </motion.div>
+      </FadeInUp>
       {/* Router Controlled Modals */}
       <NewCategoryModal open={!!router.query.newCategory} />
       <AddGearModal open={!!router.query.addGear} />
