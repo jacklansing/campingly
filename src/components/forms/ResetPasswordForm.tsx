@@ -1,12 +1,12 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { useChangePasswordMutation } from '../../generated/graphql';
+import { useResetPasswordMutation } from '../../generated/graphql';
 import { PasswordResetSchema } from '../../utils/validators/UserSchemas';
 import Button from '../utils/Button';
 import { TextInputField } from '../utils/formUtils';
 
 const ResetPasswordForm: React.FC<{ token: string }> = ({ token }) => {
-  const [_, changePassword] = useChangePasswordMutation();
+  const [_, changePassword] = useResetPasswordMutation();
 
   return (
     <Formik
@@ -14,8 +14,10 @@ const ResetPasswordForm: React.FC<{ token: string }> = ({ token }) => {
       initialValues={{ password: '', passwordConfirm: '' }}
       onSubmit={async (values, _) => {
         await changePassword({
-          newPassword: values.password,
-          token,
+          input: {
+            newPassword: values.password,
+            token,
+          },
         });
       }}
     >

@@ -1,0 +1,18 @@
+mutation inviteCamper($input: InviteCamperInput!) {
+  inviteCamper(input: $input) {
+    campsite {
+      id
+      invites {
+        id
+        userId
+        status
+        role
+        email
+      }
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

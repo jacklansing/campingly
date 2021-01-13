@@ -616,6 +616,29 @@ export type ForgotPasswordMutation = (
   & Pick<Mutation, 'forgotPassword'>
 );
 
+export type InviteCamperMutationVariables = Exact<{
+  input: InviteCamperInput;
+}>;
+
+
+export type InviteCamperMutation = (
+  { __typename?: 'Mutation' }
+  & { inviteCamper?: Maybe<(
+    { __typename?: 'CampsiteResponse' }
+    & { campsite?: Maybe<(
+      { __typename?: 'Campsite' }
+      & Pick<Campsite, 'id'>
+      & { invites: Array<Maybe<(
+        { __typename?: 'CampsiteInvite' }
+        & Pick<CampsiteInvite, 'id' | 'userId' | 'status' | 'role' | 'email'>
+      )>> }
+    )>, errors?: Maybe<Array<Maybe<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>>> }
+  )> }
+);
+
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
 }>;
@@ -960,6 +983,30 @@ export const ForgotPasswordDocument = gql`
 
 export function useForgotPasswordMutation() {
   return Urql.useMutation<ForgotPasswordMutation, ForgotPasswordMutationVariables>(ForgotPasswordDocument);
+};
+export const InviteCamperDocument = gql`
+    mutation inviteCamper($input: InviteCamperInput!) {
+  inviteCamper(input: $input) {
+    campsite {
+      id
+      invites {
+        id
+        userId
+        status
+        role
+        email
+      }
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+
+export function useInviteCamperMutation() {
+  return Urql.useMutation<InviteCamperMutation, InviteCamperMutationVariables>(InviteCamperDocument);
 };
 export const LoginDocument = gql`
     mutation Login($input: LoginInput!) {
