@@ -985,7 +985,7 @@ export function useForgotPasswordMutation() {
   return Urql.useMutation<ForgotPasswordMutation, ForgotPasswordMutationVariables>(ForgotPasswordDocument);
 };
 export const InviteCamperDocument = gql`
-    mutation inviteCamper($input: InviteCamperInput!) {
+    mutation InviteCamper($input: InviteCamperInput!) {
   inviteCamper(input: $input) {
     campsite {
       id

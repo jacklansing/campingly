@@ -1,11 +1,12 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { Box, jsx } from 'theme-ui';
 import React, { useState } from 'react';
 import { GetCampsiteQuery } from '../../generated/graphql';
 import CamperDetails from '../CamperDetails';
 import CamperInviteDetails from '../CamperInviteDetails';
 import FadeInUp from '../utils/FadeInUp';
 import StaggerChildren from '../utils/StaggerChildren';
+import InviteCamperForm from '../forms/InviteCamperForm';
 
 interface Props {
   campsiteData: GetCampsiteQuery;
@@ -24,6 +25,18 @@ const Members: React.FC<Props> = ({ campsiteData }) => {
         aria-orientation="horizontal"
         sx={{ mt: 4, width: '100%', borderBottom: 2 }}
       >
+        <Box mb={3}>
+          <InviteCamperForm />
+          <p
+            sx={{
+              width: '100%',
+              fontSize: 2,
+              textAlign: ['center', null, null, 'left'],
+            }}
+          >
+            Enter an email to invite people to your campsite!
+          </p>
+        </Box>
         {['Members', 'Invites'].map((label, idx) => (
           <TabButton
             key={idx}

@@ -208,6 +208,26 @@ export default {
         boxShadow: 3,
       },
     },
+    ico: {
+      display: 'flex',
+      backgroundColor: 'rgb(255, 255, 255, 1)',
+      boxShadow: 0,
+      border: 2,
+      height: '3rem',
+      width: '50px',
+      transition: 'all .222s cubic-bezier(0.4, 0, 1, 1)',
+      svg: {
+        height: '2rem',
+      },
+      '&:hover': {
+        boxShadow: 3,
+        transform: 'translateY(-1px)',
+      },
+      '&:focus': {
+        boxShadow: 3,
+        outline: 0,
+      },
+    },
   },
   // Root for body defaults, others for MDX
   styles: {

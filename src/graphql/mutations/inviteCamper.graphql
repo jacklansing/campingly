@@ -1,4 +1,4 @@
-mutation inviteCamper($input: InviteCamperInput!) {
+mutation InviteCamper($input: InviteCamperInput!) {
   inviteCamper(input: $input) {
     campsite {
       id
