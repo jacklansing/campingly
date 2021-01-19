@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { Form, Formik } from 'formik';
-import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { CampsiteRole, useInviteCamperMutation } from '../../generated/graphql';
 import Button from '../utils/Button';
 import { TextInputField } from '../utils/formUtils';
@@ -12,7 +12,7 @@ interface Props {}
 
 const InviteCamperForm: React.FC<Props> = ({}) => {
   const [_, inviteCamper] = useInviteCamperMutation();
-  const [success, setSuccess] = useState(false);
+
   return (
     <Formik
       initialValues={{ email: '' }}
@@ -26,10 +26,26 @@ const InviteCamperForm: React.FC<Props> = ({}) => {
         });
         if (response.data.inviteCamper.errors) {
           actions.setErrors(toErrorMap(response.data.inviteCamper.errors));
-          setSuccess(false);
+          toast('🛑 Something went wrong. Try sending the invite again.', {
+            position: 'bottom-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            type: 'error',
+          });
         } else if (response.data.inviteCamper.campsite) {
           values.email = '';
-          setSuccess(true);
+          toast('🙌 Nice! Invite sent!', {
+            position: toast.POSITION.BOTTOM_CENTER,
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            type: 'success',
+          });
         }
       }}
     >
@@ -63,6 +79,7 @@ const InviteCamperForm: React.FC<Props> = ({}) => {
           >
             <AddUserIcon />
           </Button>
+          <ToastContainer />
         </Form>
       )}
     </Formik>

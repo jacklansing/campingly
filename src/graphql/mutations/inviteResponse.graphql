@@ -1,0 +1,11 @@
+mutation InviteResponse($input: InviteResponseInput!) {
+  inviteResponse(input: $input) {
+    campsite {
+      ...FullCampsiteFields
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

@@ -187,7 +187,7 @@ export type Query = {
 
 
 export type QueryCampsitePreviewArgs = {
-  campsiteId: Scalars['String'];
+  inviteToken: Scalars['String'];
 };
 
 
@@ -639,6 +639,25 @@ export type InviteCamperMutation = (
   )> }
 );
 
+export type InviteResponseMutationVariables = Exact<{
+  input: InviteResponseInput;
+}>;
+
+
+export type InviteResponseMutation = (
+  { __typename?: 'Mutation' }
+  & { inviteResponse?: Maybe<(
+    { __typename?: 'CampsiteResponse' }
+    & { campsite?: Maybe<(
+      { __typename?: 'Campsite' }
+      & FullCampsiteFieldsFragment
+    )>, errors?: Maybe<Array<Maybe<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>>> }
+  )> }
+);
+
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
 }>;
@@ -752,6 +771,23 @@ export type VolunteerGearMutation = (
       { __typename?: 'FieldError' }
       & Pick<FieldError, 'field' | 'message'>
     )>>> }
+  )> }
+);
+
+export type CampsitePreviewQueryVariables = Exact<{
+  inviteToken: Scalars['String'];
+}>;
+
+
+export type CampsitePreviewQuery = (
+  { __typename?: 'Query' }
+  & { campsitePreview?: Maybe<(
+    { __typename?: 'CampsitePreview' }
+    & Pick<CampsitePreview, 'name' | 'startingDate' | 'endingDate'>
+    & { manager: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username' | 'displayName' | 'email'>
+    ) }
   )> }
 );
 
@@ -1008,6 +1044,23 @@ export const InviteCamperDocument = gql`
 export function useInviteCamperMutation() {
   return Urql.useMutation<InviteCamperMutation, InviteCamperMutationVariables>(InviteCamperDocument);
 };
+export const InviteResponseDocument = gql`
+    mutation InviteResponse($input: InviteResponseInput!) {
+  inviteResponse(input: $input) {
+    campsite {
+      ...FullCampsiteFields
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    ${FullCampsiteFieldsFragmentDoc}`;
+
+export function useInviteResponseMutation() {
+  return Urql.useMutation<InviteResponseMutation, InviteResponseMutationVariables>(InviteResponseDocument);
+};
 export const LoginDocument = gql`
     mutation Login($input: LoginInput!) {
   login(input: $input) {
@@ -1116,6 +1169,25 @@ export const VolunteerGearDocument = gql`
 
 export function useVolunteerGearMutation() {
   return Urql.useMutation<VolunteerGearMutation, VolunteerGearMutationVariables>(VolunteerGearDocument);
+};
+export const CampsitePreviewDocument = gql`
+    query CampsitePreview($inviteToken: String!) {
+  campsitePreview(inviteToken: $inviteToken) {
+    name
+    startingDate
+    endingDate
+    manager {
+      id
+      username
+      displayName
+      email
+    }
+  }
+}
+    `;
+
+export function useCampsitePreviewQuery(options: Omit<Urql.UseQueryArgs<CampsitePreviewQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<CampsitePreviewQuery>({ query: CampsitePreviewDocument, ...options });
 };
 export const GetAllCampsitesDocument = gql`
     query GetAllCampsites {

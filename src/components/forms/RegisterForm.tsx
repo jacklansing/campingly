@@ -1,4 +1,5 @@
 import { Form, Formik } from 'formik';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useRegisterMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../utils/toErrorMap';
@@ -8,6 +9,7 @@ import { TextInputField } from '../utils/formUtils';
 
 const RegisterForm: React.FC = () => {
   const [_, register] = useRegisterMutation();
+  const router = useRouter();
   return (
     <Formik
       validationSchema={RegisterSchema}
@@ -18,6 +20,11 @@ const RegisterForm: React.FC = () => {
           actions.setErrors(toErrorMap(response.data.register.errors));
         } else if (response.data.register.user) {
           // Success, push to next page.
+          if (typeof router.query.next === 'string') {
+            router.push(router.query.next);
+          } else {
+            router.push('/campsites/');
+          }
         }
       }}
     >

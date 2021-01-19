@@ -1,0 +1,13 @@
+query CampsitePreview($inviteToken: String!) {
+  campsitePreview(inviteToken: $inviteToken) {
+    name
+    startingDate
+    endingDate
+    manager {
+      id
+      username
+      displayName
+      email
+    }
+  }
+}
